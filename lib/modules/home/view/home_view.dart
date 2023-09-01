@@ -345,54 +345,63 @@ class HomeScreen extends GetView<HomeController> {
         ],
       ),
       bottomNavigationBar: Container(
+        width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
-        width: 338.w,
-        height: 72.w,
-        margin: EdgeInsets.symmetric(horizontal: 18.w, vertical: 42.h),
-        padding: EdgeInsets.symmetric(horizontal: 63.w, vertical: 11.h),
+        // width: 338.w,
+        height: 92.h,
+        margin: EdgeInsets.symmetric(horizontal: 18.w),
+        padding: EdgeInsets.symmetric(horizontal: 63.w, vertical: 15.h)
+            .copyWith(bottom: 22.h),
         decoration: BoxDecoration(
             color: AppColors.grey1, borderRadius: BorderRadius.circular(36.r)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
-              onTap: (() async {}),
-              child: Column(children: [
-                SvgPicture.asset("asset/image/icon/ic_bottom_home_32.svg"),
-                SizedBox(
-                  height: 4.h,
-                ),
-                Text("홈", style: AppTextStyles.title3Bold)
-              ]),
+            BottomNaviItem(
+              iconText: "home",
+              text: "홈",
+              isSelected: true,
             ),
-            GestureDetector(
-              onTap: (() async {}),
-              child: Column(children: [
-                SvgPicture.asset("asset/image/icon/ic_bottom_camera_32.svg"),
-                SizedBox(
-                  height: 4.h,
-                ),
-                Text("카메라", style: AppTextStyles.title3Bold)
-              ]),
+            BottomNaviItem(
+              iconText: "camera",
+              text: "카메라",
+              isSelected: false,
             ),
-            GestureDetector(
-              onTap: (() async {
-                await Get.offAllNamed(Routes.map);
-              }),
-              child: Column(children: [
-                SvgPicture.asset("asset/image/icon/ic_bottom_mission_32.svg"),
-                SizedBox(
-                  height: 4.h,
-                ),
-                Text("미션",
-                    style: AppTextStyles.title3Bold
-                        .copyWith(color: AppColors.grey3))
-              ]),
+            BottomNaviItem(
+              iconText: "mission",
+              text: "미션",
+              isSelected: false,
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class BottomNaviItem extends StatelessWidget {
+  final String text;
+  final String iconText;
+  final bool isSelected;
+  final Future<void> Function()? onNavigate;
+  const BottomNaviItem(
+      {super.key,
+      required this.text,
+      required this.iconText,
+      required this.isSelected,
+      this.onNavigate});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onNavigate,
+      child: Column(children: [
+        SvgPicture.asset("asset/image/icon/ic_bottom_${iconText}_32.svg"),
+        Text(text,
+            style: AppTextStyles.title3Bold.copyWith(
+                color: isSelected ? AppColors.black : AppColors.grey3))
+      ]),
     );
   }
 }

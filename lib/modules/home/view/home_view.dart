@@ -239,7 +239,7 @@ class HomeScreen extends GetView<HomeController> {
                     padding:
                         EdgeInsets.symmetric(vertical: 23.h, horizontal: 20.w),
                     decoration: BoxDecoration(
-                      color: AppColors.grey10,
+                      color: AppColors.grey9,
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Column(

@@ -22,7 +22,7 @@ class SearchResult extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 22.h),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.r), color: AppColors.grey10),
+            borderRadius: BorderRadius.circular(8.r), color: AppColors.grey9),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

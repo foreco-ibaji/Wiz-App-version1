@@ -344,69 +344,55 @@ class HomeScreen extends GetView<HomeController> {
           )
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Stack(children: [
-        Container(
-          alignment: Alignment.center,
-          width: 338.w,
-          height: 72.w,
-          margin: EdgeInsets.symmetric(horizontal: 18.w, vertical: 42.h),
-          padding: EdgeInsets.symmetric(horizontal: 63.w, vertical: 11.h),
-          decoration: BoxDecoration(
-              color: AppColors.grey1,
-              borderRadius: BorderRadius.circular(36.r)),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: (() async {}),
-                child: Column(children: [
-                  SvgPicture.asset("asset/image/icon/ic_home_24.svg"),
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                  Text("홈", style: AppTextStyles.title3Medium)
-                ]),
-              ),
-              GestureDetector(
-                onTap: (() async {
-                  await Get.offAllNamed(Routes.map);
-                }),
-                child: Column(children: [
-                  SvgPicture.asset("asset/image/icon/ic_map_26.svg"),
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                  Text("배출함 지도",
-                      style: AppTextStyles.title3Medium
-                          .copyWith(color: AppColors.grey3))
-                ]),
-              )
-            ],
-          ),
-        ),
-        Positioned(
-          left: 152.w,
-          child: GestureDetector(
-            onTap: (() async {
-              await Get.toNamed(Routes.camera);
-            }),
-            child: Container(
-              padding: EdgeInsets.all(18.h),
-              width: 75.w,
-              height: 75.w,
-              decoration: BoxDecoration(
-                  color: AppColors.primary7,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.grey1, width: 4.w)),
-              child: SvgPicture.asset(
-                "asset/image/icon/ic_camera_34.svg",
-              ),
+      bottomNavigationBar: Container(
+        alignment: Alignment.center,
+        width: 338.w,
+        height: 72.w,
+        margin: EdgeInsets.symmetric(horizontal: 18.w, vertical: 42.h),
+        padding: EdgeInsets.symmetric(horizontal: 63.w, vertical: 11.h),
+        decoration: BoxDecoration(
+            color: AppColors.grey1, borderRadius: BorderRadius.circular(36.r)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: (() async {}),
+              child: Column(children: [
+                SvgPicture.asset("asset/image/icon/ic_bottom_home_32.svg"),
+                SizedBox(
+                  height: 4.h,
+                ),
+                Text("홈", style: AppTextStyles.title3Bold)
+              ]),
             ),
-          ),
+            GestureDetector(
+              onTap: (() async {}),
+              child: Column(children: [
+                SvgPicture.asset("asset/image/icon/ic_bottom_camera_32.svg"),
+                SizedBox(
+                  height: 4.h,
+                ),
+                Text("카메라", style: AppTextStyles.title3Bold)
+              ]),
+            ),
+            GestureDetector(
+              onTap: (() async {
+                await Get.offAllNamed(Routes.map);
+              }),
+              child: Column(children: [
+                SvgPicture.asset("asset/image/icon/ic_bottom_mission_32.svg"),
+                SizedBox(
+                  height: 4.h,
+                ),
+                Text("미션",
+                    style: AppTextStyles.title3Bold
+                        .copyWith(color: AppColors.grey3))
+              ]),
+            ),
+          ],
         ),
-      ]),
+      ),
     );
   }
 }

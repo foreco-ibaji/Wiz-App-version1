@@ -17,7 +17,7 @@ class DetailObjectContainer extends StatelessWidget {
       {super.key,
       required this.image,
       required this.title,
-      required this.description});
+      this.description = "배출 방법 보기"});
 
   @override
   Widget build(BuildContext context) {

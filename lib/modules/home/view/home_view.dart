@@ -347,7 +347,7 @@ class HomeScreen extends GetView<HomeController> {
       bottomNavigationBar: Container(
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
-        // width: 338.w,
+        //TODO: 고정값없이 컨텐츠 크기만큼 차지하도록
         height: 92.h,
         margin: EdgeInsets.symmetric(horizontal: 18.w),
         padding: EdgeInsets.symmetric(horizontal: 63.w, vertical: 15.h)

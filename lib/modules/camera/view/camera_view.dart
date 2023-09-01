@@ -65,7 +65,7 @@ class CameraScreen extends GetView<CameraScreenController> {
                                             "이미지",
                                             style: AppTextStyles.title3Bold
                                                 .copyWith(
-                                                    color: AppColors.grey10),
+                                                    color: AppColors.grey9),
                                           ),
                                         ),
                                       )
@@ -114,7 +114,7 @@ class CameraScreen extends GetView<CameraScreenController> {
                                             "바코드",
                                             style: AppTextStyles.title3Bold
                                                 .copyWith(
-                                                    color: AppColors.grey10),
+                                                    color: AppColors.grey9),
                                           ),
                                         ),
                                       )

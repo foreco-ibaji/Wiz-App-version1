@@ -90,7 +90,7 @@ class GlobalButton extends StatelessWidget {
     //Get.toNamed(parameter)
     return GlobalButton(
         text: "재활용 과정 보기",
-        textStyle: AppTextStyles.title3Bold.copyWith(color: AppColors.grey10),
+        textStyle: AppTextStyles.title3Bold.copyWith(color: AppColors.grey9),
         horizontalPadding: 16,
         verticalPadding: 8,
         backgroundColor: AppColors.primary7,

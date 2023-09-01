@@ -5,7 +5,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:http/http.dart' as http;
-import '../../modules/detail_method/controller/detail_pet_method_controller.dart';
 import 'util/secret_key.dart';
 
 class PhotoRepository {
@@ -33,7 +32,6 @@ class PhotoRepository {
         Get.toNamed('/home/detail',
             arguments: {'trash': result['bboxes'].first[0]});
       } catch (e) {
-        Get.to(() => DetailMethodPetController());
         // RangeError 예외 처리
       }
 

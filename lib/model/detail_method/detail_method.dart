@@ -10,13 +10,15 @@ part 'detail_method.g.dart';
 
 @freezed
 class DetailMethod with _$DetailMethod {
-  const factory DetailMethod(
-      {required int id,
-      required String detailType,
-      required String name,
-      required String disposalMethod,
-      required DisposalInfo disposalInfoDto,
-      required List<String> remark}) = _DetailMethod;
+  const factory DetailMethod({
+    required int id,
+    required String detailType,
+    required String name,
+    required String disposalMethod,
+    required DisposalInfo disposalInfoDto,
+    required List<String> remark,
+    required String iconUrl,
+  }) = _DetailMethod;
   factory DetailMethod.fromJson(Map<String, dynamic> json) =>
       _$DetailMethodFromJson(json);
 }

@@ -85,7 +85,7 @@ class DetailVerticalContainer extends StatelessWidget {
           SizedBox(height: 20.h),
           GlobalButton.moveDetailScreeninDetail(
             onTap: () async {
-              DetailMethodController.to.trash = title;
+              // DetailMethodController.to.trash = title;
             },
           )
         ]));

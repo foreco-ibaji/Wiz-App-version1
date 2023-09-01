@@ -26,6 +26,7 @@ mixin _$DetailMethod {
   String get disposalMethod => throw _privateConstructorUsedError;
   DisposalInfo get disposalInfoDto => throw _privateConstructorUsedError;
   List<String> get remark => throw _privateConstructorUsedError;
+  String get iconUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $DetailMethodCopyWith<$Res> {
       String name,
       String disposalMethod,
       DisposalInfo disposalInfoDto,
-      List<String> remark});
+      List<String> remark,
+      String iconUrl});
 
   $DisposalInfoCopyWith<$Res> get disposalInfoDto;
 }
@@ -69,6 +71,7 @@ class _$DetailMethodCopyWithImpl<$Res, $Val extends DetailMethod>
     Object? disposalMethod = null,
     Object? disposalInfoDto = null,
     Object? remark = null,
+    Object? iconUrl = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -95,6 +98,10 @@ class _$DetailMethodCopyWithImpl<$Res, $Val extends DetailMethod>
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      iconUrl: null == iconUrl
+          ? _value.iconUrl
+          : iconUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -121,7 +128,8 @@ abstract class _$$_DetailMethodCopyWith<$Res>
       String name,
       String disposalMethod,
       DisposalInfo disposalInfoDto,
-      List<String> remark});
+      List<String> remark,
+      String iconUrl});
 
   @override
   $DisposalInfoCopyWith<$Res> get disposalInfoDto;
@@ -144,6 +152,7 @@ class __$$_DetailMethodCopyWithImpl<$Res>
     Object? disposalMethod = null,
     Object? disposalInfoDto = null,
     Object? remark = null,
+    Object? iconUrl = null,
   }) {
     return _then(_$_DetailMethod(
       id: null == id
@@ -170,6 +179,10 @@ class __$$_DetailMethodCopyWithImpl<$Res>
           ? _value._remark
           : remark // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      iconUrl: null == iconUrl
+          ? _value.iconUrl
+          : iconUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -183,7 +196,8 @@ class _$_DetailMethod implements _DetailMethod {
       required this.name,
       required this.disposalMethod,
       required this.disposalInfoDto,
-      required final List<String> remark})
+      required final List<String> remark,
+      required this.iconUrl})
       : _remark = remark;
 
   factory _$_DetailMethod.fromJson(Map<String, dynamic> json) =>
@@ -208,8 +222,11 @@ class _$_DetailMethod implements _DetailMethod {
   }
 
   @override
+  final String iconUrl;
+
+  @override
   String toString() {
-    return 'DetailMethod(id: $id, detailType: $detailType, name: $name, disposalMethod: $disposalMethod, disposalInfoDto: $disposalInfoDto, remark: $remark)';
+    return 'DetailMethod(id: $id, detailType: $detailType, name: $name, disposalMethod: $disposalMethod, disposalInfoDto: $disposalInfoDto, remark: $remark, iconUrl: $iconUrl)';
   }
 
   @override
@@ -225,7 +242,8 @@ class _$_DetailMethod implements _DetailMethod {
                 other.disposalMethod == disposalMethod) &&
             (identical(other.disposalInfoDto, disposalInfoDto) ||
                 other.disposalInfoDto == disposalInfoDto) &&
-            const DeepCollectionEquality().equals(other._remark, _remark));
+            const DeepCollectionEquality().equals(other._remark, _remark) &&
+            (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl));
   }
 
   @JsonKey(ignore: true)
@@ -237,7 +255,8 @@ class _$_DetailMethod implements _DetailMethod {
       name,
       disposalMethod,
       disposalInfoDto,
-      const DeepCollectionEquality().hash(_remark));
+      const DeepCollectionEquality().hash(_remark),
+      iconUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -260,7 +279,8 @@ abstract class _DetailMethod implements DetailMethod {
       required final String name,
       required final String disposalMethod,
       required final DisposalInfo disposalInfoDto,
-      required final List<String> remark}) = _$_DetailMethod;
+      required final List<String> remark,
+      required final String iconUrl}) = _$_DetailMethod;
 
   factory _DetailMethod.fromJson(Map<String, dynamic> json) =
       _$_DetailMethod.fromJson;
@@ -277,6 +297,8 @@ abstract class _DetailMethod implements DetailMethod {
   DisposalInfo get disposalInfoDto;
   @override
   List<String> get remark;
+  @override
+  String get iconUrl;
   @override
   @JsonKey(ignore: true)
   _$$_DetailMethodCopyWith<_$_DetailMethod> get copyWith =>

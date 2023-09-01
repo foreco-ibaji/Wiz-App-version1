@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:ibaji/modules/category_method/view/category_method_view.dart';
+import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
 import 'package:ibaji/modules/search/view/search_view.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
@@ -16,7 +17,6 @@ import 'package:logger/logger.dart';
 import '../../../provider/api/trash_api.dart';
 import '../../../provider/routes/pages.dart';
 import '../../../provider/routes/routes.dart';
-import '../../detail_method/view/detail_methd_pet_view.dart';
 import '../controller/home_controller.dart';
 import '../widget/home_widget.dart';
 
@@ -140,7 +140,7 @@ class HomeScreen extends GetView<HomeController> {
                                   //   'trash': controller.frequentTrashText.keys
                                   //       .elementAt(index)
                                   // });
-                                  Get.to(() => DetailMethodPetScreen());
+                                  // Get.to(() => DetailMethodPetScreen());
                                 }),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -367,6 +367,9 @@ class HomeScreen extends GetView<HomeController> {
               iconText: "camera",
               text: "카메라",
               isSelected: false,
+              onNavigate: () async {
+                await Get.to(() => DetailMethodScreen());
+              },
             ),
             BottomNaviItem(
               iconText: "mission",

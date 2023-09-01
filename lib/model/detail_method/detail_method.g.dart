@@ -16,6 +16,7 @@ _$_DetailMethod _$$_DetailMethodFromJson(Map<String, dynamic> json) =>
           json['disposalInfoDto'] as Map<String, dynamic>),
       remark:
           (json['remark'] as List<dynamic>).map((e) => e as String).toList(),
+      iconUrl: json['iconUrl'] as String,
     );
 
 Map<String, dynamic> _$$_DetailMethodToJson(_$_DetailMethod instance) =>
@@ -26,4 +27,5 @@ Map<String, dynamic> _$$_DetailMethodToJson(_$_DetailMethod instance) =>
       'disposalMethod': instance.disposalMethod,
       'disposalInfoDto': instance.disposalInfoDto,
       'remark': instance.remark,
+      'iconUrl': instance.iconUrl,
     };

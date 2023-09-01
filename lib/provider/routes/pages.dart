@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/detail_method/binding/detail_method_binding.dart';
-import 'package:ibaji/modules/recycle_motivation/binding/recycle_motivation_binding.dart';
-import 'package:ibaji/modules/recycle_motivation/view/recycle_motivation_view.dart';
 import 'package:ibaji/modules/category_method/binding/category_method_binding.dart';
 import '../../modules/category_method/view/category_method_view.dart';
 import '../../modules/detail_method/view/detail_method_view.dart';
@@ -53,17 +51,7 @@ class Pages {
           binding: DetailMethodBinding(),
           curve: Curves.easeIn,
           popGesture: false,
-          children: [
-            GetPage(
-              title: "동기부여 화면",
-              name: Routes.recycle_motivation,
-              page: () => const RecycleMotivationScreen(),
-              transition: Transition.native,
-              binding: RecycleMotivationBinding(),
-              curve: Curves.easeIn,
-              popGesture: false,
-            ),
-          ],
+          children: [],
         ),
       ],
     ),

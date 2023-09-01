@@ -3,7 +3,6 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ibaji/modules/recycle_motivation/view/recycle_motivation_view.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 import 'package:logger/logger.dart';
@@ -96,8 +95,6 @@ class GlobalButton extends StatelessWidget {
         backgroundColor: AppColors.primary7,
         onTap: () async {
           Logger().d(Get.previousRoute);
-          await Get.to(() => RecycleMotivationScreen(),
-              arguments: {'id': id, 'name': name});
         });
   }
 }

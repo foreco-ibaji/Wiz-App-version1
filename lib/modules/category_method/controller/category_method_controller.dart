@@ -21,8 +21,8 @@ class CategoryMethodController extends GetxController {
   void onInit() async {
     super.onInit();
     Logger().d("카테고리 화면 등장;배출 캘린더에서 접근");
-    categoryMethod.value =
-        await TrashRepository.getCategoryMethod(category.categoryName);
+    // categoryMethod.value =
+    //     await TrashRepository.getCategoryMethod(category.categoryName);
     Logger().d(categoryMethod.value);
   }
 }

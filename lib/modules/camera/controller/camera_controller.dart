@@ -11,7 +11,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../detail_method/view/detail_methd_pet_view.dart';
 import '../../detail_method/view/detail_method_view.dart';
 
 class CameraScreenController extends GetxController {

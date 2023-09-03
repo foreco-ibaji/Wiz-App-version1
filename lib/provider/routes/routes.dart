@@ -10,9 +10,6 @@ abstract class Routes {
   static const home = _Paths.home;
 
   /// 재활용방법
-  static const category = _Paths.category;
-
-  /// 재활용방법
   static const detail = _Paths.detail;
 
   /// 동기부여화면
@@ -33,9 +30,6 @@ abstract class _Paths {
 
   /// 홈 화면
   static const home = "/home";
-
-  /// 재활용방법
-  static const category = "/category";
 
   /// 재활용방법
   static const detail = "/detail";

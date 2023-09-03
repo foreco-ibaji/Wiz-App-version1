@@ -22,7 +22,7 @@ Trash _$TrashFromJson(Map<String, dynamic> json) {
 mixin _$Trash {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String? get iconUrl => throw _privateConstructorUsedError;
+  String get iconUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +34,7 @@ abstract class $TrashCopyWith<$Res> {
   factory $TrashCopyWith(Trash value, $Res Function(Trash) then) =
       _$TrashCopyWithImpl<$Res, Trash>;
   @useResult
-  $Res call({int id, String name, String? iconUrl});
+  $Res call({int id, String name, String iconUrl});
 }
 
 /// @nodoc
@@ -52,7 +52,7 @@ class _$TrashCopyWithImpl<$Res, $Val extends Trash>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? iconUrl = freezed,
+    Object? iconUrl = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -63,10 +63,10 @@ class _$TrashCopyWithImpl<$Res, $Val extends Trash>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      iconUrl: freezed == iconUrl
+      iconUrl: null == iconUrl
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ) as $Val);
   }
 }
@@ -77,7 +77,7 @@ abstract class _$$_TrashCopyWith<$Res> implements $TrashCopyWith<$Res> {
       __$$_TrashCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String? iconUrl});
+  $Res call({int id, String name, String iconUrl});
 }
 
 /// @nodoc
@@ -91,7 +91,7 @@ class __$$_TrashCopyWithImpl<$Res> extends _$TrashCopyWithImpl<$Res, _$_Trash>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? iconUrl = freezed,
+    Object? iconUrl = null,
   }) {
     return _then(_$_Trash(
       id: null == id
@@ -102,10 +102,10 @@ class __$$_TrashCopyWithImpl<$Res> extends _$TrashCopyWithImpl<$Res, _$_Trash>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      iconUrl: freezed == iconUrl
+      iconUrl: null == iconUrl
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -113,7 +113,7 @@ class __$$_TrashCopyWithImpl<$Res> extends _$TrashCopyWithImpl<$Res, _$_Trash>
 /// @nodoc
 @JsonSerializable()
 class _$_Trash implements _Trash {
-  const _$_Trash({required this.id, required this.name, this.iconUrl});
+  const _$_Trash({required this.id, required this.name, required this.iconUrl});
 
   factory _$_Trash.fromJson(Map<String, dynamic> json) =>
       _$$_TrashFromJson(json);
@@ -123,7 +123,7 @@ class _$_Trash implements _Trash {
   @override
   final String name;
   @override
-  final String? iconUrl;
+  final String iconUrl;
 
   @override
   String toString() {
@@ -162,7 +162,7 @@ abstract class _Trash implements Trash {
   const factory _Trash(
       {required final int id,
       required final String name,
-      final String? iconUrl}) = _$_Trash;
+      required final String iconUrl}) = _$_Trash;
 
   factory _Trash.fromJson(Map<String, dynamic> json) = _$_Trash.fromJson;
 
@@ -171,7 +171,7 @@ abstract class _Trash implements Trash {
   @override
   String get name;
   @override
-  String? get iconUrl;
+  String get iconUrl;
   @override
   @JsonKey(ignore: true)
   _$$_TrashCopyWith<_$_Trash> get copyWith =>

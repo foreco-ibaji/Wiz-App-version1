@@ -7,6 +7,8 @@ import 'package:ibaji/model/motivation/motivation.dart';
 import 'package:ibaji/provider/api/util/secret_key.dart';
 import 'package:logger/logger.dart';
 
+import '../../model/trash/trash.dart';
+
 class TrashRepository {
   ///배출요일 조회
   ///* home_view
@@ -39,17 +41,14 @@ class TrashRepository {
   ///세부 품목 조회
   ///* recycle_detail_view
   static Future<DetailMethod> getDetailMethod({
-    int tab = 0,
-    required String name,
+    required int id,
   }) async {
     try {
       // 다른 필요한 데이터가 있다면 추가
-      Response response = await Dio().get(dotenv.env['apiUrl']! + "/trash",
-          queryParameters: {
-            'region': Secrets.region,
-            'name': name,
-            'tab': tab
-          });
+      Response response = await Dio()
+          .get(dotenv.env['apiUrl']! + "/trash/detail", queryParameters: {
+        'id': id,
+      });
 
       Logger().d(response.data['data']);
 
@@ -60,38 +59,28 @@ class TrashRepository {
     }
   }
 
-  ///카테고리 품목 조회
+  ///세부 품목 조회 하단 관련 쓰레기 리스트
   ///* recycle_detail_view
-  static Future<CategoryMethod> getCategoryMethod(
-    String category,
-  ) async {
+  static Future<List<Trash>> getRelationTrash({
+    required int id,
+  }) async {
     try {
       // 다른 필요한 데이터가 있다면 추가
-      Response response = await Dio().get(dotenv.env['apiUrl']! + "/category",
-          queryParameters: {'region': Secrets.region, 'category': category});
+      Response response = await Dio()
+          .get(dotenv.env['apiUrl']! + "/trash/relation", queryParameters: {
+        'id': id,
+      });
 
-      Logger().d(response.statusMessage);
+      Logger().d(response.data['data']);
 
-      return CategoryMethod.fromJson(response.data['data']);
-    } catch (e) {
-      Logger().d(e.toString());
-      throw e.toString();
-    }
-  }
-
-  ///동기부여 페이지 조회
-  ///* recycle_detail_view
-  static Future<Motivation> getMotivation(
-    int id,
-  ) async {
-    try {
-      // 다른 필요한 데이터가 있다면 추가
-      Response response = await Dio().get(dotenv.env['apiUrl']! + "/motive",
-          queryParameters: {'trashId': id});
-
-      Logger().d(response.statusMessage);
-
-      return Motivation.fromJson(response.data['data']);
+      return List.generate(
+        response.data['data']['recommendTrashes'].length,
+        (index) {
+          return Trash.fromJson(
+            response.data['data']['recommendTrashes'][index],
+          );
+        },
+      );
     } catch (e) {
       Logger().d(e.toString());
       throw e.toString();

@@ -4,7 +4,7 @@ import 'package:ibaji/util/app_colors.dart';
 
 class AppTextStyles {
   AppTextStyles._();
-  static const _defaultTextColor = AppColors.white;
+  static const _defaultTextColor = AppColors.grey9;
   static const _defaultFontFamily = 'Pretendard';
   static const _heading1Height = 45.0 / 30.0;
   static const _heading2Height = 36.0 / 24.0;

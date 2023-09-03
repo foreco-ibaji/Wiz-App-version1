@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:ibaji/modules/category_method/view/category_method_view.dart';
+import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
 import 'package:ibaji/modules/search/view/search_view.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
@@ -16,7 +16,6 @@ import 'package:logger/logger.dart';
 import '../../../provider/api/trash_api.dart';
 import '../../../provider/routes/pages.dart';
 import '../../../provider/routes/routes.dart';
-import '../../detail_method/view/detail_methd_pet_view.dart';
 import '../controller/home_controller.dart';
 import '../widget/home_widget.dart';
 
@@ -67,7 +66,6 @@ class HomeScreen extends GetView<HomeController> {
                           ],
                         ),
                       ),
-                      GlobalButton.editLocation()
                     ],
                   ),
                   SizedBox(
@@ -140,7 +138,7 @@ class HomeScreen extends GetView<HomeController> {
                                   //   'trash': controller.frequentTrashText.keys
                                   //       .elementAt(index)
                                   // });
-                                  Get.to(() => DetailMethodPetScreen());
+                                  // Get.to(() => DetailMethodPetScreen());
                                 }),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -316,15 +314,9 @@ class HomeScreen extends GetView<HomeController> {
                                               ),
                                             ],
                                           ),
-                                          GlobalButton.moveDetailScreen(
+                                          GlobalButton.moveDetailScreenDetail(
                                             onTap: () async {
                                               Logger().d(Get.previousRoute);
-                                              await Get.to(
-                                                  CategoryMethodScreen(),
-                                                  arguments: {
-                                                    'category': controller
-                                                        .trashDay[index]
-                                                  });
                                             },
                                           )
                                         ],
@@ -344,68 +336,66 @@ class HomeScreen extends GetView<HomeController> {
           )
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Stack(children: [
-        Container(
-          alignment: Alignment.center,
-          width: 338.w,
-          height: 72.w,
-          margin: EdgeInsets.symmetric(horizontal: 18.w, vertical: 42.h),
-          padding: EdgeInsets.symmetric(horizontal: 63.w, vertical: 11.h),
-          decoration: BoxDecoration(
-              color: AppColors.grey1,
-              borderRadius: BorderRadius.circular(36.r)),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: (() async {}),
-                child: Column(children: [
-                  SvgPicture.asset("asset/image/icon/ic_home_24.svg"),
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                  Text("홈", style: AppTextStyles.title3Medium)
-                ]),
-              ),
-              GestureDetector(
-                onTap: (() async {
-                  await Get.offAllNamed(Routes.map);
-                }),
-                child: Column(children: [
-                  SvgPicture.asset("asset/image/icon/ic_map_26.svg"),
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                  Text("배출함 지도",
-                      style: AppTextStyles.title3Medium
-                          .copyWith(color: AppColors.grey3))
-                ]),
-              )
-            ],
-          ),
-        ),
-        Positioned(
-          left: 152.w,
-          child: GestureDetector(
-            onTap: (() async {
-              await Get.toNamed(Routes.camera);
-            }),
-            child: Container(
-              padding: EdgeInsets.all(18.h),
-              width: 75.w,
-              height: 75.w,
-              decoration: BoxDecoration(
-                  color: AppColors.primary7,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.grey1, width: 4.w)),
-              child: SvgPicture.asset(
-                "asset/image/icon/ic_camera_34.svg",
-              ),
+      bottomNavigationBar: Container(
+        width: MediaQuery.of(context).size.width,
+        alignment: Alignment.center,
+        //TODO: 고정값없이 컨텐츠 크기만큼 차지하도록
+        height: 92.h,
+        margin: EdgeInsets.symmetric(horizontal: 18.w),
+        padding: EdgeInsets.symmetric(horizontal: 63.w, vertical: 15.h)
+            .copyWith(bottom: 22.h),
+        decoration: BoxDecoration(
+            color: AppColors.grey1, borderRadius: BorderRadius.circular(36.r)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            BottomNaviItem(
+              iconText: "home",
+              text: "홈",
+              isSelected: true,
             ),
-          ),
+            BottomNaviItem(
+              iconText: "camera",
+              text: "카메라",
+              isSelected: false,
+              onNavigate: () async {
+                await Get.to(() => DetailMethodScreen(), arguments: {"id": 1});
+              },
+            ),
+            BottomNaviItem(
+              iconText: "mission",
+              text: "미션",
+              isSelected: false,
+            ),
+          ],
         ),
+      ),
+    );
+  }
+}
+
+class BottomNaviItem extends StatelessWidget {
+  final String text;
+  final String iconText;
+  final bool isSelected;
+  final Future<void> Function()? onNavigate;
+  const BottomNaviItem(
+      {super.key,
+      required this.text,
+      required this.iconText,
+      required this.isSelected,
+      this.onNavigate});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onNavigate,
+      child: Column(children: [
+        SvgPicture.asset("asset/image/icon/ic_bottom_${iconText}_32.svg"),
+        Text(text,
+            style: AppTextStyles.title3Bold.copyWith(
+                color: isSelected ? AppColors.black : AppColors.grey3))
       ]),
     );
   }

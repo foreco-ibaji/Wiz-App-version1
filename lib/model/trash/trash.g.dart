@@ -9,7 +9,7 @@ part of 'trash.dart';
 _$_Trash _$$_TrashFromJson(Map<String, dynamic> json) => _$_Trash(
       id: json['id'] as int,
       name: json['name'] as String,
-      iconUrl: json['iconUrl'] as String?,
+      iconUrl: json['iconUrl'] as String,
     );
 
 Map<String, dynamic> _$$_TrashToJson(_$_Trash instance) => <String, dynamic>{

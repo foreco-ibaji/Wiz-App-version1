@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
+import 'package:ibaji/modules/map/view/map_view.dart';
 import 'package:ibaji/modules/search/view/search_view.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
@@ -38,16 +39,58 @@ class HomeScreen extends GetView<HomeController> {
               () => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
-                    child: Image.asset(
-                      "asset/image/logo/ic_home_logo.png",
-                      width: 49.w,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset(
+                        "asset/image/logo/logo.png",
+                        width: 53.w,
+                      ),
+                      GestureDetector(
+                        onTap: (() {
+                          Get.to(() => MapScreen());
+                        }),
+                        child: SvgPicture.asset(
+                          "asset/image/icon/ic_map_26.svg",
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 18.h,
+                  ),
+                  //1. 배출요일 캘린더
+                  GestureDetector(
+                    onTap: () {
+                      //TODO: 추후에 클릭시 캘린더 페이지 이동
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.w, vertical: 12.h),
+                      decoration: BoxDecoration(
+                          color: AppColors.grey1,
+                          borderRadius: BorderRadius.circular(1000.r)),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            "asset/image/icon/ic_home_calendar_28.svg",
+                          ),
+                          SizedBox(
+                            width: 8.w,
+                          ),
+                          //TODO: 임시 하드코딩; calendar repo 연결
+                          Text(
+                            "오늘은 뭐뭐 버리는 날 ",
+                            style: AppTextStyles.body1SemiBold,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(
-                    height: 42.h,
+                    height: 86.h,
                   ),
-                  //1. 위치 수정
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

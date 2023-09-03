@@ -15,7 +15,6 @@ import 'package:ibaji/util/global_button_widget.dart';
 import '../../../provider/api/trash_api.dart';
 import '../../../provider/routes/pages.dart';
 import '../../../provider/routes/routes.dart';
-import '../../category_method/widget/category_method_widget.dart';
 import '../controller/detail_method_controller.dart';
 
 class DetailMethodScreen extends GetView<DetailMethodController> {
@@ -24,6 +23,7 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
   @override
   Widget build(BuildContext context) {
     Get.put(DetailMethodController());
+    var detailMethod = controller.detailMethod.value;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary6,
@@ -51,7 +51,7 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
             //1. header
             Container(
               padding: EdgeInsets.only(bottom: 40.h),
-              color: AppColors.primary3,
+              color: AppColors.primary6,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,21 +59,23 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                   SizedBox(
                     height: 10.h,
                   ),
-                  Image.asset(
-                    "asset/image/icon/iv_egg_trash_160.png",
+                  Image.network(
+                    controller.detailMethod.value.iconUrl,
                     width: 160.w,
                   ),
                   Text(
-                    controller.detailMethod.value.name,
-                    style: AppTextStyles.heading1Bold,
+                    detailMethod.name,
+                    style: AppTextStyles.heading1Bold
+                        .copyWith(color: AppColors.grey1),
                   ),
                   SizedBox(
                     height: 12.h,
                   ),
                   Text(
                     "동대문구 전농1동 기준 배출 방법",
-                    style: AppTextStyles.title3Medium,
-                  )
+                    style: AppTextStyles.title3Medium
+                        .copyWith(color: AppColors.grey1),
+                  ),
                 ],
               ),
             ),
@@ -95,7 +97,7 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                       ),
                       Text(
                         '쓰레기 배출 방법',
-                        style: AppTextStyles.heading2Bold,
+                        style: AppTextStyles.heading3Bold,
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -114,23 +116,14 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                       children: [
                         Text(
                           "이렇게 버려주세요",
-                          style: AppTextStyles.title3Medium,
+                          style: AppTextStyles.title3SemiBold
+                              .copyWith(color: AppColors.grey4),
                         ),
                         SizedBox(
                           height: 10.h,
                         ),
-                        ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: controller
-                                .detailMethod.value.disposalMethod.length,
-                            itemBuilder: ((context, index) {
-                              return DisposalMethod(
-                                  index: index + 1,
-                                  content: controller.detailMethod?.value
-                                          .disposalMethod![index] ??
-                                      "");
-                            })),
+                        Text(controller.detailMethod.value.disposalMethod,
+                            style: AppTextStyles.title1Bold),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 24.h),
                           child: Divider(
@@ -138,24 +131,33 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                             thickness: 1.h,
                           ),
                         ),
-                        Text(
-                          "유의해주세요",
-                          style: AppTextStyles.title3Medium,
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount:
-                                controller.detailMethod.value.remark.length,
-                            itemBuilder: ((context, index) {
-                              return DisposalMethod(
-                                  index: index + 1,
-                                  content: controller
-                                      .detailMethod.value.remark[index]);
-                            })),
+                        controller.detailMethod.value.remark.isNotEmpty
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "유의해주세요",
+                                    style: AppTextStyles.title3SemiBold
+                                        .copyWith(color: AppColors.grey4),
+                                  ),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: controller
+                                          .detailMethod.value.remark.length,
+                                      itemBuilder: ((context, index) {
+                                        return DisposalMethod(
+                                            index: index + 1,
+                                            content: controller.detailMethod
+                                                .value.remark[index]);
+                                      })),
+                                ],
+                              )
+                            : SizedBox.shrink(),
                         SizedBox(
                           height: 20.h,
                         ),
@@ -175,7 +177,7 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                         width: 10.w,
                       ),
                       Text(
-                        '배출 요일',
+                        '쓰레기 배출 요일',
                         style: AppTextStyles.heading2Bold,
                         textAlign: TextAlign.center,
                       ),
@@ -208,13 +210,18 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                               controller.detailMethod.value.disposalInfoDto.days
                                       .isNotEmpty
                                   ? ListView.separated(
+                                      scrollDirection: Axis.horizontal,
                                       itemBuilder: ((context, index) {
-                                        return RecycleTextChip.day(
-                                            day: controller.detailMethod.value
-                                                .disposalInfoDto.days[index]);
+                                        return Wrap(children: [
+                                          DispoalDayChip(
+                                              day: controller.detailMethod.value
+                                                  .disposalInfoDto.days[index]),
+                                        ]);
                                       }),
                                       separatorBuilder: ((context, index) {
-                                        return SizedBox.shrink();
+                                        return SizedBox(
+                                          width: 9.w,
+                                        );
                                       }),
                                       itemCount: controller.detailMethod.value
                                           .disposalInfoDto.days.length)
@@ -276,14 +283,13 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                       ? SizedBox(
                           height: 200.h,
                           child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: controller.relationTrash.length,
                               itemBuilder: ((context, index) {
-                                return DetailObjectContainer(
-                                  image:
-                                      controller.relationTrash[index].iconUrl,
-                                  title: controller.relationTrash[index].name,
+                                return DetailVerticalContainer(
+                                  trash: controller.relationTrash[index],
                                 );
                               })),
                         )

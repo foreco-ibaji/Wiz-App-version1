@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:ibaji/modules/category_method/view/category_method_view.dart';
 import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
 import 'package:ibaji/modules/search/view/search_view.dart';
 import 'package:ibaji/util/app_colors.dart';
@@ -316,15 +315,9 @@ class HomeScreen extends GetView<HomeController> {
                                               ),
                                             ],
                                           ),
-                                          GlobalButton.moveDetailScreen(
+                                          GlobalButton.moveDetailScreenDetail(
                                             onTap: () async {
                                               Logger().d(Get.previousRoute);
-                                              await Get.to(
-                                                  CategoryMethodScreen(),
-                                                  arguments: {
-                                                    'category': controller
-                                                        .trashDay[index]
-                                                  });
                                             },
                                           )
                                         ],
@@ -368,7 +361,7 @@ class HomeScreen extends GetView<HomeController> {
               text: "카메라",
               isSelected: false,
               onNavigate: () async {
-                await Get.to(() => DetailMethodScreen());
+                await Get.to(() => DetailMethodScreen(), arguments: {"id": 1});
               },
             ),
             BottomNaviItem(

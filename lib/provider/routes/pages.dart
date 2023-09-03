@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/detail_method/binding/detail_method_binding.dart';
-import 'package:ibaji/modules/category_method/binding/category_method_binding.dart';
-import '../../modules/category_method/view/category_method_view.dart';
 import '../../modules/detail_method/view/detail_method_view.dart';
 import '../../modules/splash/binding/splash_binding.dart';
 import '../../modules/splash/view/splash_view.dart';
@@ -34,15 +32,6 @@ class Pages {
       curve: Curves.easeIn,
       popGesture: false,
       children: [
-        GetPage(
-          title: "카테고리 화면",
-          name: Routes.category,
-          page: () => const CategoryMethodScreen(),
-          transition: Transition.native,
-          binding: CategoryMethodBinding(),
-          curve: Curves.easeIn,
-          popGesture: false,
-        ),
         GetPage(
           title: "세부 품목 화면",
           name: Routes.detail,

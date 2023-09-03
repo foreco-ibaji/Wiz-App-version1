@@ -6,9 +6,8 @@ import '../../../model/trash/trash.dart';
 
 class DetailMethodController extends GetxController {
   static DetailMethodController get to => Get.find();
-  // String trash = Get.arguments['trash'];
+  int id = Get.arguments['id'] ?? 1;
   // tmp id 변수
-  int id = 1;
   Rx<DetailMethod> detailMethod = const DetailMethod(
           id: 1,
           detailType: "BIG",

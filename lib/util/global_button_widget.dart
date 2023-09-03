@@ -56,30 +56,14 @@ class GlobalButton extends StatelessWidget {
   }
 
   ///배출 방법 상세페이지 이동 버튼 component
-  factory GlobalButton.moveDetailScreen({onTap}) {
-    //TODO: onTap함수 작성
-    //Get.toNamed(parameter)
+  factory GlobalButton.moveDetailScreenDetail({onTap}) {
     return GlobalButton(
         text: "배출 방법 보기",
         textStyle:
-            AppTextStyles.body2SemiBold.copyWith(color: AppColors.primary7),
-        horizontalPadding: 10,
-        verticalPadding: 6,
-        backgroundColor: Color(0x1A77FFF7),
-        onTap: onTap);
-  }
-
-  ///배출 방법 상세페이지 이동 버튼 component
-  factory GlobalButton.moveDetailScreeninDetail({onTap}) {
-    //TODO: onTap함수 작성
-    //Get.toNamed(parameter)
-    return GlobalButton(
-        text: "배출 방법 보기",
-        textStyle:
-            AppTextStyles.body2SemiBold.copyWith(color: AppColors.primary7),
+            AppTextStyles.title3SemiBold.copyWith(color: AppColors.white),
         horizontalPadding: 30,
         verticalPadding: 6,
-        backgroundColor: Color(0x1A77FFF7),
+        backgroundColor: AppColors.primary6,
         onTap: onTap);
   }
 

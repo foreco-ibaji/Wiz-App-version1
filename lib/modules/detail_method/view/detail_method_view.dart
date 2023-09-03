@@ -207,25 +207,13 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                               SizedBox(
                                 height: 20.h,
                               ),
-                              controller.detailMethod.value.disposalInfoDto.days
-                                      .isNotEmpty
-                                  ? ListView.separated(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: ((context, index) {
-                                        return Wrap(children: [
-                                          DispoalDayChip(
-                                              day: controller.detailMethod.value
-                                                  .disposalInfoDto.days[index]),
-                                        ]);
-                                      }),
-                                      separatorBuilder: ((context, index) {
-                                        return SizedBox(
-                                          width: 9.w,
-                                        );
-                                      }),
-                                      itemCount: controller.detailMethod.value
-                                          .disposalInfoDto.days.length)
-                                  : SizedBox.shrink()
+                              Wrap(
+                                children: controller
+                                    .detailMethod.value.disposalInfoDto.days
+                                    .map<Widget>(
+                                        (day) => DispoalDayChip(day: day))
+                                    .toList(),
+                              )
                             ],
                           ),
                           VerticalDivider(

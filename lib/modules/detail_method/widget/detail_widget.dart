@@ -18,6 +18,7 @@ import 'package:get/get.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 import 'package:ibaji/util/global_button_widget.dart';
+import 'package:logger/logger.dart';
 
 import '../../../model/category/category.dart';
 import '../../../model/trash/trash.dart';
@@ -97,7 +98,10 @@ class DetailVerticalContainer extends StatelessWidget {
           SizedBox(height: 20.h),
           GlobalButton.moveDetailScreenDetail(
             onTap: () async {
-              Get.to(() => DetailMethodScreen(), arguments: {'id': trash.id});
+              Logger().d("click?");
+              //TODO route 설정
+              await Get.to(() => DetailMethodScreen(),
+                  arguments: {'id': trash.id});
               // DetailMethodController.to.trash = title;
             },
           )
@@ -198,7 +202,8 @@ class DispoalDayChip extends StatelessWidget {
       "일": Color(0xff96C954),
     };
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5.w),
+      margin: EdgeInsets.symmetric(horizontal: 4.w),
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
       width: 34.h,
       height: 34.h,
       //TODO: data 임시 하드코딩

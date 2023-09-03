@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:ibaji/provider/api/home_api.dart';
 import 'package:ibaji/provider/service/camera_service.dart';
 import 'package:logger/logger.dart';
 import '../../../model/category/category.dart';
 import '../../../provider/api/trash_api.dart';
 
 class HomeController extends GetxController {
-  RxList<Category> trashDay = <Category>[].obs;
+  RxList<String> trashDay = <String>[].obs;
   Rx<TextEditingController> searchTextController = TextEditingController().obs;
   Map<String, String> frequentTrashText = {
     '비닐봉지': 'plastic_bag_160',
@@ -35,8 +36,9 @@ class HomeController extends GetxController {
     await CameraService.to.initCamera();
 
     currentDayIdx.value = DateTime.now().weekday - 1;
+    //TODO: 월요일 -> 월로 통일
     var tmpList =
-        await TrashRepository.getCalendar(dayList[currentDayIdx.value] + '요일');
+        await HomeRepository.getCalendar(dayList[currentDayIdx.value] + '요일');
     trashDay.assignAll(tmpList);
   }
 }

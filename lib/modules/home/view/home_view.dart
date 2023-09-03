@@ -81,7 +81,7 @@ class HomeScreen extends GetView<HomeController> {
                           ),
                           //TODO: 임시 하드코딩; calendar repo 연결
                           Text(
-                            "오늘은 뭐뭐 버리는 날 ",
+                            "오늘은 ${controller.trashDay.join(", ")} 버리는 날 ",
                             style: AppTextStyles.body1SemiBold,
                           )
                         ],
@@ -222,57 +222,6 @@ class HomeScreen extends GetView<HomeController> {
                   SizedBox(
                     height: 30.h,
                   ),
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(32.r),
-                        color: AppColors.grey1),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: (() async {
-                            if (controller.currentDayIdx.value != 0) {
-                              controller.currentDayIdx.value -= 1;
-                              var tmpList = await TrashRepository.getCalendar(
-                                  controller.dayList[
-                                          controller.currentDayIdx.value] +
-                                      '요일');
-                              controller.trashDay.assignAll(tmpList);
-                            }
-                          }),
-                          child: SvgPicture.asset(
-                            "asset/image/icon/ic_arrow_left_14.svg",
-                            color: controller.currentDayIdx.value == 0
-                                ? Color(0X33F4F5F5)
-                                : AppColors.grey9,
-                          ),
-                        ),
-                        Text(
-                          "${controller.dayList[controller.currentDayIdx.value]}요일",
-                          style: AppTextStyles.title2SemiBold,
-                        ),
-                        GestureDetector(
-                          onTap: (() async {
-                            if (controller.currentDayIdx.value != 6) {
-                              controller.currentDayIdx.value += 1;
-                              var tmpList = await TrashRepository.getCalendar(
-                                  controller.dayList[
-                                          controller.currentDayIdx.value] +
-                                      '요일');
-                              controller.trashDay.assignAll(tmpList);
-                            }
-                          }),
-                          child: SvgPicture.asset(
-                              "asset/image/icon/ic_arrow_right_14.svg",
-                              color: controller.currentDayIdx.value == 6
-                                  ? Color(0X33F4F5F5)
-                                  : AppColors.grey9),
-                        )
-                      ],
-                    ),
-                  ),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -325,51 +274,6 @@ class HomeScreen extends GetView<HomeController> {
                         SizedBox(
                           height: 18.h,
                         ),
-                        Column(
-                          children: List.generate(
-                              controller.trashDay.length,
-                              (index) => Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              ImageWithNetworkCircle(
-                                                imagePath: controller
-                                                        .trashDay[index]
-                                                        .iconUrl ??
-                                                    "",
-                                                backgroundColor:
-                                                    Color(0x1AFFFFFF),
-                                              ),
-                                              SizedBox(
-                                                width: 16.w,
-                                              ),
-                                              Text(
-                                                controller.trashDay[index]
-                                                    .categoryName,
-                                                style: AppTextStyles
-                                                    .title2SemiBold
-                                                    .copyWith(
-                                                        color: AppColors.grey9),
-                                              ),
-                                            ],
-                                          ),
-                                          GlobalButton.moveDetailScreenDetail(
-                                            onTap: () async {
-                                              Logger().d(Get.previousRoute);
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 14.h,
-                                      )
-                                    ],
-                                  )),
-                        )
                       ],
                     ),
                   )

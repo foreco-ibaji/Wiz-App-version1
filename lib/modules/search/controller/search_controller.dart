@@ -1,33 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:ibaji/provider/api/home_api.dart';
+
+import '../../../model/trash/trash.dart';
 
 class SearchController extends GetxController {
   Rx<TextEditingController> searchTextController = TextEditingController().obs;
   RxBool isSearch = false.obs;
   List<String> itemList = ['음식물이 묻은 쓰레기'];
-  RxList<String> searchResults = <String>[].obs;
+  RxList<Trash> searchResults = <Trash>[].obs;
 
-  void search(String query) {
-    for (String item in itemList) {
-      if (dfsSearch(item.toLowerCase(), query.toLowerCase())) {
-        searchResults.add(item);
-      }
-    }
+  Future<void> getSearchResult(String keyword) async {
+    var tmpList = await HomeRepository.getSearch(keyword);
+    searchResults.assignAll(tmpList);
   }
 
-  bool dfsSearch(String item, String query) {
-    if (item.startsWith(query)) {
-      return true;
-    }
-
-    for (int i = 0; i < item.length; i++) {
-      if (item[i] == query[0]) {
-        if (dfsSearch(item.substring(i + 1), query.substring(1))) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
+  @override
+  void onInit() async {}
 }

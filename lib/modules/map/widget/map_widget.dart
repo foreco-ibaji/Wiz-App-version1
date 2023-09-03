@@ -2,91 +2,117 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 
 class MapBottomContainer extends StatelessWidget {
+  final String type;
+  final String iconUrl;
   final String address;
-  const MapBottomContainer({super.key, required this.address});
+  final int distance;
+  final int duration;
+
+  const MapBottomContainer(
+      {super.key,
+      required this.type,
+      required this.iconUrl,
+      required this.address,
+      required this.distance,
+      required this.duration});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 319.h,
-      color: AppColors.black,
+      margin: EdgeInsets.symmetric(vertical: 32.h, horizontal: 24.w),
+      padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 20.w)
+          .copyWith(bottom: 32.h),
+      decoration: BoxDecoration(
+          color: AppColors.primary7, borderRadius: BorderRadius.circular(16.r)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            '현위치에서 496m',
-          ),
-          SizedBox(
-            height: 16.h,
-          ),
-          Text(
-            address,
-            style: AppTextStyles.heading3SemiBold
-                .copyWith(color: AppColors.primary7),
-          ),
-          Text(
-            '폐건전지함은 답십리 초등학교에 설치되어있어요.',
-            style: AppTextStyles.title2Regular.copyWith(color: AppColors.grey8),
-          ),
-          SizedBox(
-            height: 24.h,
-          ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.w),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 110.h,
-                    decoration: BoxDecoration(
-                        color: AppColors.grey1,
-                        borderRadius: BorderRadius.circular(8.r)),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          "asset/image/icon/ic_walk_60.png",
-                          width: 60.w,
-                        ),
-                        Text(
-                          '걸어서 20분',
-                          style: AppTextStyles.title2SemiBold
-                              .copyWith(color: AppColors.grey8),
-                        ),
-                      ],
+            width: 38.w,
+            height: 5.h,
+            decoration: BoxDecoration(
+                color: AppColors.grey1,
+                borderRadius: BorderRadius.circular(2.5.r)),
+          ),
+          SizedBox(
+            height: 35.h,
+          ),
+          Row(
+            children: [
+              SvgPicture.asset("asset/image/icon/iv_${iconUrl}_48.svg"),
+              SizedBox(
+                width: 12.w,
+              ),
+              Column(
+                children: [
+                  Text(
+                    "${type}수거함",
+                    style: AppTextStyles.body1SemiBold.copyWith(
+                      color: AppColors.primary3,
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                Expanded(
-                  child: Container(
-                    height: 110.h,
-                    decoration: BoxDecoration(
-                        color: AppColors.grey1,
-                        borderRadius: BorderRadius.circular(8.r)),
-                    child: Column(
-                      children: [
-                        Image.asset("asset/image/icon/ic_car_40.png",
-                            width: 60.w),
-                        Text(
-                          '차타고 5분',
-                          style: AppTextStyles.title2SemiBold
-                              .copyWith(color: AppColors.grey8),
-                        ),
-                      ],
+                  Text(
+                    address,
+                    style: AppTextStyles.title3SemiBold.copyWith(
+                      color: AppColors.grey1,
                     ),
-                  ),
-                ),
-              ],
-            ),
+                  )
+                ],
+              )
+            ],
+          ),
+          SizedBox(
+            height: 18.h,
+          ),
+          Row(
+            children: [
+              InformChip.location(disatnce: distance),
+              InformChip.walk(duration: duration)
+            ],
           )
         ],
       ),
     );
+  }
+}
+
+class InformChip extends StatelessWidget {
+  final String iconUrl;
+  final String text;
+  const InformChip({super.key, required this.iconUrl, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 8.h),
+      decoration: BoxDecoration(
+        color: AppColors.primary9,
+        borderRadius: BorderRadius.circular(1000.r),
+      ),
+      child: Row(
+        children: [
+          SvgPicture.asset("asset/image/object/map/ic_${iconUrl}_16.svg"),
+          SizedBox(
+            width: 5.5.w,
+          ),
+          Text(text,
+              style: AppTextStyles.body1Medium.copyWith(
+                color: AppColors.grey1,
+              )),
+        ],
+      ),
+    );
+  }
+
+  factory InformChip.location({required int disatnce}) {
+    return InformChip(iconUrl: "location_pin", text: "현재 위치에서 ${disatnce}m");
+  }
+  factory InformChip.walk({required int duration}) {
+    return InformChip(iconUrl: "walk", text: "걸어서 ${duration}분");
   }
 }

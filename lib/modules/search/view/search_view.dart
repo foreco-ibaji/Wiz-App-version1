@@ -57,8 +57,8 @@ class SearchScreen extends GetView<SearchController> {
                     padding: EdgeInsets.only(right: 16.w),
                     child:
                         SvgPicture.asset("asset/image/icon/ic_search_24.svg")),
-                onSubmitted: ((value) {
-                  controller.search(value);
+                onSubmitted: ((value) async {
+                  await controller.getSearchResult(value);
                   controller.isSearch.value = true;
                 }),
               ),

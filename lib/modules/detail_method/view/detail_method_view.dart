@@ -60,7 +60,7 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                     height: 10.h,
                   ),
                   Image.asset(
-                    "asset/image/icon/iv_달걀_trash_160.png",
+                    "asset/image/icon/iv_egg_trash_160.png",
                     width: 160.w,
                   ),
                   Text(
@@ -123,7 +123,7 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: controller
-                                .detailMethod?.value.disposalMethod?.length,
+                                .detailMethod.value.disposalMethod.length,
                             itemBuilder: ((context, index) {
                               return DisposalMethod(
                                   index: index + 1,
@@ -149,12 +149,12 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount:
-                                controller.detailMethod.value.remark?.length,
+                                controller.detailMethod.value.remark.length,
                             itemBuilder: ((context, index) {
                               return DisposalMethod(
                                   index: index + 1,
                                   content: controller
-                                      .detailMethod.value.remark![index]);
+                                      .detailMethod.value.remark[index]);
                             })),
                         SizedBox(
                           height: 20.h,
@@ -205,10 +205,20 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                               SizedBox(
                                 height: 20.h,
                               ),
-                              ...controller
-                                  .detailMethod.value.disposalInfoDto.days
-                                  .map((day) => RecycleTextChip.day(day: day))
-                                  .toList()
+                              controller.detailMethod.value.disposalInfoDto.days
+                                      .isNotEmpty
+                                  ? ListView.separated(
+                                      itemBuilder: ((context, index) {
+                                        return RecycleTextChip.day(
+                                            day: controller.detailMethod.value
+                                                .disposalInfoDto.days[index]);
+                                      }),
+                                      separatorBuilder: ((context, index) {
+                                        return SizedBox.shrink();
+                                      }),
+                                      itemCount: controller.detailMethod.value
+                                          .disposalInfoDto.days.length)
+                                  : SizedBox.shrink()
                             ],
                           ),
                           VerticalDivider(
@@ -225,13 +235,17 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                               SizedBox(
                                 height: 20.h,
                               ),
-                              RecycleTextChip.time(
-                                  startTime: controller
-                                      .detailMethod.value.disposalInfoDto.time
-                                      .split('~')[0],
-                                  endTime: controller
-                                      .detailMethod.value.disposalInfoDto.time
-                                      .split('~')[1])
+                              controller.detailMethod.value.disposalInfoDto
+                                          .time ==
+                                      ""
+                                  ? SizedBox.shrink()
+                                  : RecycleTextChip.time(
+                                      startTime: controller.detailMethod.value
+                                          .disposalInfoDto.time
+                                          .split('~')[0],
+                                      endTime: controller.detailMethod.value
+                                          .disposalInfoDto.time
+                                          .split('~')[1])
                             ],
                           ),
                         ],
@@ -258,19 +272,22 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                   SizedBox(
                     height: 19.h,
                   ),
-                  SizedBox(
-                    height: 200.h,
-                    child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: controller.relationTrash.length,
-                        itemBuilder: ((context, index) {
-                          return DetailObjectContainer(
-                            image: controller.relationTrash[index].iconUrl,
-                            title: controller.relationTrash[index].name,
-                          );
-                        })),
-                  ),
+                  controller.relationTrash.isNotEmpty
+                      ? SizedBox(
+                          height: 200.h,
+                          child: ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: controller.relationTrash.length,
+                              itemBuilder: ((context, index) {
+                                return DetailObjectContainer(
+                                  image:
+                                      controller.relationTrash[index].iconUrl,
+                                  title: controller.relationTrash[index].name,
+                                );
+                              })),
+                        )
+                      : SizedBox.shrink(),
                   SizedBox(
                     height: 100.h,
                   ),

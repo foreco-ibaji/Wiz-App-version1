@@ -45,8 +45,8 @@ class TrashRepository {
   }) async {
     try {
       // 다른 필요한 데이터가 있다면 추가
-      Response response =
-          await Dio().get(dotenv.env['apiUrl']! + "/trash", queryParameters: {
+      Response response = await Dio()
+          .get(dotenv.env['apiUrl']! + "/trash/detail", queryParameters: {
         'id': id,
       });
 

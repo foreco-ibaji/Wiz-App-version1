@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           locale: DevicePreview.locale(context),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            scaffoldBackgroundColor: AppColors.black,
+            scaffoldBackgroundColor: AppColors.white,
             fontFamily: 'Pretendard',
           ),
           supportedLocales: const [

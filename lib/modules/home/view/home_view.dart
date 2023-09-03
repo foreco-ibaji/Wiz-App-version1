@@ -79,7 +79,7 @@ class HomeScreen extends GetView<HomeController> {
                           SizedBox(
                             width: 8.w,
                           ),
-                          //TODO: 임시 하드코딩; calendar repo 연결
+                          //TODO: 데이터가 없을때 예외처리
                           Text(
                             "오늘은 ${controller.trashDay.join(", ")} 버리는 날 ",
                             style: AppTextStyles.body1SemiBold,

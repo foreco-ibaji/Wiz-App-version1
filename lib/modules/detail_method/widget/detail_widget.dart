@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/detail_method/controller/detail_method_controller.dart';
 import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
+import 'package:ibaji/modules/map/view/map_view.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 import 'package:ibaji/util/global_button_widget.dart';
@@ -214,6 +216,51 @@ class DispoalDayChip extends StatelessWidget {
         textAlign: TextAlign.center,
         day,
         style: AppTextStyles.title3SemiBold.copyWith(color: AppColors.grey1),
+      ),
+    );
+  }
+}
+
+class MapNavigationBottomSheet extends StatelessWidget {
+  const MapNavigationBottomSheet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 140.h,
+      // width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 27.h, horizontal: 23.w),
+      decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                offset: Offset(0, 4.h),
+                blurRadius: 6.r,
+                spreadRadius: 3.r),
+          ],
+          borderRadius: BorderRadius.horizontal(
+              left: Radius.circular(20.r), right: Radius.circular(20.r)),
+          color: AppColors.white),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "우리집 근처에\n 수거함이 어디 있을까?",
+                style: AppTextStyles.title2Bold,
+              ),
+              GlobalButton.moveMapScreen(onTap: () async {
+                await Get.to(() => MapScreen());
+              })
+            ],
+          ),
+          SizedBox(
+            height: 32.h,
+          ),
+          SvgPicture.asset("asset/image/icon/ic_bottom_modal_135.svg")
+        ],
       ),
     );
   }

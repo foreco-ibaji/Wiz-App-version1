@@ -47,15 +47,12 @@ class GlobalButton extends StatelessWidget {
     );
   }
 
-  ///위치 수정 버튼 component
-  factory GlobalButton.editLocation({onTap}) {
-    //TODO: onTap함수 작성
-    //1. 위치 함수 호출
-    //2. home screen data get api 호출
+  ///지도 navigate button component
+  factory GlobalButton.moveMapScreen({onTap}) {
     return GlobalButton(
-        text: "위치 수정",
-        textStyle: AppTextStyles.body2Bold.copyWith(color: AppColors.primary6),
-        horizontalPadding: 14,
+        text: "근처 수거함 위치 보기",
+        textStyle: AppTextStyles.title3Bold.copyWith(color: AppColors.primary8),
+        horizontalPadding: 16,
         verticalPadding: 8,
         backgroundColor: AppColors.grey1,
         onTap: onTap);

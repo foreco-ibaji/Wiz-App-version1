@@ -91,37 +91,36 @@ class HomeScreen extends GetView<HomeController> {
                   SizedBox(
                     height: 86.h,
                   ),
+                  //*2. 위치 정보 section
+                  Text('동대문구 전농1동 주민님,\n어떤 쓰레기를 찾으시나요?',
+                      style: AppTextStyles.heading2Bold),
+                  SizedBox(
+                    height: 12.h,
+                  ),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                                text: '동대문구 전농1동',
-                                style: AppTextStyles.heading2Bold
-                                    .copyWith(color: AppColors.primary7)),
-                            TextSpan(
-                              text: ' 주민님,\n오늘도 이바지하세요!',
-                              style: AppTextStyles.heading2Bold,
-                            ),
-                          ],
-                        ),
+                      SvgPicture.asset(
+                        "asset/image/icon/ic_location_24.svg",
                       ),
+                      SizedBox(
+                        width: 4.w,
+                      ),
+                      //TODO: 임시 하드코딩
+                      Text('서울 동대문구 전농1동 727-1',
+                          style: AppTextStyles.title3Medium),
                     ],
                   ),
                   SizedBox(
                     height: 36.h,
                   ),
-                  //2. 검색 section
+                  //*3. 검색 section
                   GestureDetector(
                     onTap: () {
                       Get.to(() => SearchScreen());
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                          vertical: 13.h, horizontal: 16.w),
+                          vertical: 23.h, horizontal: 23.w),
                       decoration: BoxDecoration(
                         color: AppColors.grey1,
                         borderRadius: BorderRadius.circular(8.r),
@@ -130,9 +129,9 @@ class HomeScreen extends GetView<HomeController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "찾으시는 쓰레기가 있으신가요?",
-                            style: AppTextStyles.title3Medium
-                                .copyWith(color: AppColors.grey7),
+                            "궁금한 쓰레기 검색!",
+                            style: AppTextStyles.title2Medium
+                                .copyWith(color: AppColors.grey3),
                           ),
                           SvgPicture.asset("asset/image/icon/ic_search_24.svg"),
                         ],
@@ -142,141 +141,6 @@ class HomeScreen extends GetView<HomeController> {
                   SizedBox(
                     height: 60.h,
                   ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                            text: '전농1동 주민',
-                            style: AppTextStyles.heading3SemiBold
-                                .copyWith(color: AppColors.primary7)),
-                        TextSpan(
-                          text: '들이 자주 찾는 쓰레기',
-                          style: AppTextStyles.heading3SemiBold,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(
-                    '헷갈리는 쓰레기 배출 정보를 내가 사는 동네에 맞게 알아봐요!',
-                    style: AppTextStyles.title3Medium.copyWith(
-                      color: AppColors.grey5,
-                      letterSpacing: -0.05,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  GridView.count(
-                      childAspectRatio: 66 / 95,
-                      physics: NeverScrollableScrollPhysics(),
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 24.w,
-                      mainAxisSpacing: 36.h,
-                      shrinkWrap: true,
-                      children: List.generate(
-                          controller.frequentTrashText.length,
-                          (index) => GestureDetector(
-                                onTap: (() {
-                                  // Get.toNamed('/home/detail', arguments: {
-                                  //   'trash': controller.frequentTrashText.keys
-                                  //       .elementAt(index)
-                                  // });
-                                  // Get.to(() => DetailMethodPetScreen());
-                                }),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ImageWithCircle(
-                                      size: 66,
-                                      imagePath: controller
-                                          .frequentTrashText.values
-                                          .elementAt(index),
-                                      backgroundColor: AppColors.grey1,
-                                    ),
-                                    SizedBox(
-                                      height: 6.h,
-                                    ),
-                                    Text(
-                                      controller.frequentTrashText.keys
-                                          .elementAt(index),
-                                      style: AppTextStyles.title3Regular
-                                          .copyWith(color: AppColors.grey7),
-                                    )
-                                  ],
-                                ),
-                              ))),
-                  SizedBox(
-                    height: 70.h,
-                  ),
-
-                  ///분리 배출 캘린더
-                  Text(
-                    "전농1동 분리배출 캘린더",
-                    style: AppTextStyles.heading3SemiBold,
-                  ),
-                  Text(
-                    "요일별로 우리 동네 배출 쓰레기 정보를 알려드려요",
-                    style: AppTextStyles.title3Medium
-                        .copyWith(color: AppColors.grey5),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 23.h, horizontal: 20.w),
-                    decoration: BoxDecoration(
-                      color: AppColors.grey9,
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        controller.trashDay.isEmpty
-                            ? RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                        text: '버릴 수 있는',
-                                        style: AppTextStyles.title1SemiBold),
-                                    TextSpan(
-                                      text: '쓰레기 품목이 없어요',
-                                      style: AppTextStyles.title1SemiBold
-                                          .copyWith(color: AppColors.primary7),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: '모든 쓰레기 품목',
-                                      style: AppTextStyles.title1SemiBold
-                                          .copyWith(color: AppColors.primary7),
-                                    ),
-                                    TextSpan(
-                                        text: '을 버릴 수 있어요',
-                                        style: AppTextStyles.title1SemiBold),
-                                  ],
-                                ),
-                              ),
-                        SizedBox(
-                          height: 18.h,
-                        ),
-                        Divider(
-                          color: AppColors.grey1,
-                          thickness: 1.h,
-                        ),
-                        SizedBox(
-                          height: 18.h,
-                        ),
-                      ],
-                    ),
-                  )
                 ],
               ),
             ),

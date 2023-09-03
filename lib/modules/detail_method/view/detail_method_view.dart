@@ -26,7 +26,7 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
     Get.put(DetailMethodController());
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary3,
+        backgroundColor: AppColors.primary6,
         elevation: 0.0,
         automaticallyImplyLeading: true,
         leading: IconButton(

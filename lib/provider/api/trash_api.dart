@@ -77,7 +77,7 @@ class TrashRepository {
         response.data['data']['recommendTrashes'].length,
         (index) {
           return Trash.fromJson(
-            response.data['data']['recommendTrashes'],
+            response.data['data']['recommendTrashes'][index],
           );
         },
       );

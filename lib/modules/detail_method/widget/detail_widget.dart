@@ -78,7 +78,7 @@ class DetailVerticalContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 165.w,
+        width: 170.w,
         height: 200.h,
         margin: EdgeInsets.symmetric(horizontal: 6.w),
         decoration: BoxDecoration(

@@ -361,7 +361,7 @@ class HomeScreen extends GetView<HomeController> {
               text: "카메라",
               isSelected: false,
               onNavigate: () async {
-                await Get.to(() => DetailMethodScreen(), arguments: {"id": 1});
+                await Get.to(() => DetailMethodScreen(), arguments: {"id": 2});
               },
             ),
             BottomNaviItem(

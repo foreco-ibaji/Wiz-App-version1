@@ -9,6 +9,8 @@ import 'package:ibaji/provider/api/util/secret_key.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../service/map_service.dart';
+
 class MapRepository {
   static Future<List<String>> getAddressFromLatLng(
     LatLng currentPos,
@@ -44,6 +46,7 @@ class MapRepository {
       Logger().d(e.toString());
       //임시 하드코딩; 애뮬레이터의 경우 미국주소를 받아오기때문에
       //네이버 api가 반환할수없음
+      MapService.currentLatLng.value = Secrets.initalPosition;
       return ["서울특별시", "동대문구", "전농1동", "ddp"];
     }
   }
@@ -69,5 +72,37 @@ class MapRepository {
       });
     }
     return currentPosition;
+  }
+
+  //도보계산
+  static Future<int?> getWalkTime(
+    LatLng endLocation,
+  ) async {
+    final origin = MapService.currentLatLng.value.longitude.toString() +
+        ',' +
+        MapService.currentLatLng.value.latitude.toString();
+    final destination = endLocation.longitude.toString() +
+        ',' +
+        endLocation.latitude.toString();
+    final apiUrl =
+        "https://router.project-osrm.org/route/v1/walking/$origin;$destination";
+    print(apiUrl);
+    try {
+      Response response = await Dio().get(apiUrl);
+      // 경로 정보 가져오기
+      final routes = response.data['routes'];
+      Logger().d(response.data);
+
+      if (routes.isNotEmpty) {
+        final route = routes[0];
+        Logger().d(routes.length);
+        final duration = route['duration'];
+
+        return duration;
+      }
+    } catch (e) {
+      Logger().d(e.toString());
+      throw e.toString();
+    }
   }
 }

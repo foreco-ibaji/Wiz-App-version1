@@ -14,34 +14,12 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../detail_method/view/detail_method_view.dart';
 
 class CameraScreenController extends GetxController {
-  Rx<bool> isCamera = true.obs;
   Rx<bool> isFlash = false.obs;
   RxString imagePath = ''.obs;
-  RxString scanBarcode = ''.obs;
-
-  Future<void> scanBarcodeNormal() async {
-    String barcodeScanRes;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', '돌아가기', true, ScanMode.BARCODE);
-      if (barcodeScanRes != "") {
-        Get.to(DetailMethodScreen(), arguments: {'trash': '종이팩'});
-      }
-      print(barcodeScanRes);
-    } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-
-    scanBarcode.value = barcodeScanRes;
-  }
 
   ///* 이미지 선택
   Future<void> imagePick() async {
+    Logger().d("이미지 선택");
     imagePath.value = await imageRegister();
     await PhotoRepository.getPhotoReuslt(imagePath.value);
   }

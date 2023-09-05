@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
@@ -63,8 +64,9 @@ class CameraScreen extends GetView<CameraScreenController> {
                               ),
                         ),
                         //TODO: move center
+
                         cameraOverlay(
-                            padding: 50,
+                            padding: 65.h,
                             aspectRatio: 1,
                             color: AppColors.black.withOpacity(0.5)),
                         Positioned(
@@ -133,7 +135,6 @@ class CameraScreen extends GetView<CameraScreenController> {
                                   await CameraService.to.cameraController?.value
                                       .setFlashMode(FlashMode.torch);
                                   controller.isFlash.value = true;
-                                  Logger().d(controller.isFlash.value);
                                 },
                                 child: Image.asset(
                                   "asset/image/icon/ic_flash_unable_30.png",
@@ -144,7 +145,6 @@ class CameraScreen extends GetView<CameraScreenController> {
                                   await CameraService.to.cameraController?.value
                                       .setFlashMode(FlashMode.off);
                                   controller.isFlash.value = false;
-                                  Logger().d(controller.isFlash.value);
                                 },
                                 child: Image.asset(
                                   "asset/image/icon/ic_flash_able_30.png",
@@ -165,16 +165,14 @@ Widget cameraOverlay(
     required Color color}) {
   return LayoutBuilder(builder: (context, constraints) {
     double parentAspectRatio = constraints.maxWidth / constraints.maxHeight;
-    double horizontalPadding;
-    double verticalPadding;
+    double horizontalPadding = 50.w;
+    double verticalPadding = 160.h;
 
     if (parentAspectRatio < aspectRatio) {
-      horizontalPadding = padding;
       verticalPadding = (constraints.maxHeight -
               ((constraints.maxWidth - 2 * padding) / aspectRatio)) /
           2;
     } else {
-      verticalPadding = padding;
       horizontalPadding = (constraints.maxWidth -
               ((constraints.maxHeight - 2 * padding) * aspectRatio)) /
           2;
@@ -200,12 +198,58 @@ Widget cameraOverlay(
                   left: horizontalPadding, right: horizontalPadding),
               height: verticalPadding,
               color: color)),
+      ShaderMask(
+        blendMode: BlendMode.srcOut,
+        shaderCallback: ((bounds) {
+          return LinearGradient(colors: [color], stops: [0.0])
+              .createShader(bounds);
+        }),
+        //   child: ,
+        // ),
+        // Container(
+        child: Container(
+          margin: EdgeInsets.symmetric(
+              horizontal: horizontalPadding, vertical: verticalPadding),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.r),
+            color: Colors.red,
+          ),
+          width: double.infinity,
+          height: double.infinity,
+        ),
+      ),
       Container(
         margin: EdgeInsets.symmetric(
             horizontal: horizontalPadding, vertical: verticalPadding),
         decoration: BoxDecoration(
-            border: Border.all(color: AppColors.primary7, width: 2)),
-      )
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        width: double.infinity,
+        height: double.infinity,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: SvgPicture.asset("asset/image/icon/ic_camera_topLeft.svg"),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child:
+                  SvgPicture.asset("asset/image/icon/ic_camera_topRight.svg"),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: SvgPicture.asset(
+                  "asset/image/icon/ic_camera_bottomRight.svg"),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child:
+                  SvgPicture.asset("asset/image/icon/ic_camera_bottomLeft.svg"),
+            ),
+          ],
+        ),
+      ),
     ]);
   });
 }

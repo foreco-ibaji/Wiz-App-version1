@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:ibaji/modules/camera/view/camera_view.dart';
 import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
 import 'package:ibaji/modules/map/view/map_view.dart';
 import 'package:ibaji/modules/search/view/search_view.dart';
@@ -195,7 +196,10 @@ class HomeScreen extends GetView<HomeController> {
               text: "카메라",
               isSelected: false,
               onNavigate: () async {
-                await Get.to(() => DetailMethodScreen(), arguments: {"id": 1});
+                // await Get.to(() => DetailMethodScreen(), arguments: {"id": 1});
+                await Get.to(
+                  () => CameraScreen(),
+                );
               },
             ),
             BottomNaviItem(

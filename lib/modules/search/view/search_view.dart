@@ -19,7 +19,8 @@ class SearchScreen extends GetView<SearchController> {
     Get.put(SearchController());
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.black,
+        toolbarHeight: 80.h,
+        backgroundColor: AppColors.white,
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(
@@ -27,9 +28,10 @@ class SearchScreen extends GetView<SearchController> {
           onPressed: () {
             Get.back();
           },
+          color: AppColors.grey9,
         ),
         title: Text(
-          "탐색",
+          "검색",
           style: AppTextStyles.title1SemiBold.copyWith(color: AppColors.grey9),
         ),
       ),
@@ -38,9 +40,9 @@ class SearchScreen extends GetView<SearchController> {
         child: Obx(
           () => ListView(
             children: [
-              SizedBox(
-                height: 24.h,
-              ),
+              // SizedBox(
+              //   height: 30.h,
+              // ),
               CupertinoTextField(
                 padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 16.w),
                 controller: controller.searchTextController.value,
@@ -65,7 +67,17 @@ class SearchScreen extends GetView<SearchController> {
               SizedBox(
                 height: 40.h,
               ),
-              controller.isSearch.value ? SearchResult() : SizedBox.shrink()
+              ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: ((context, index) {
+                    return SearchResult(trash: controller.searchResults[index]);
+                  }),
+                  separatorBuilder: ((context, index) {
+                    return SizedBox(
+                      height: 15.h,
+                    );
+                  }),
+                  itemCount: controller.searchResults.length)
             ],
           ),
         ),

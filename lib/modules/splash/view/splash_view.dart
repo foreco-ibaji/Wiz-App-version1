@@ -15,7 +15,7 @@ class SplashScreen extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primary4,
+      backgroundColor: AppColors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 70.w),
         child: Column(
@@ -23,15 +23,42 @@ class SplashScreen extends GetView<SplashController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                "asset/image/logo/ic_home_logo.png",
+                "asset/image/logo/logo.png",
                 width: 146.w,
               ),
               SizedBox(
                 height: 24.h,
               ),
-              Text(
-                "이미지와 바코드로 지구를 구하다",
-                style: AppTextStyles.title1Medium,
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                        text: '위치기반',
+                        style: AppTextStyles.title1Bold
+                            .copyWith(color: AppColors.primary7)),
+                    TextSpan(
+                      text: '과',
+                      style: AppTextStyles.title1Medium,
+                    ),
+                    TextSpan(
+                        text: '이미지',
+                        style: AppTextStyles.title1Bold
+                            .copyWith(color: AppColors.primary7)),
+                    TextSpan(
+                      text: '로\n쓰레기 ',
+                      style: AppTextStyles.title1Medium,
+                    ),
+                    TextSpan(
+                        text: '분리배출',
+                        style: AppTextStyles.title1Bold
+                            .copyWith(color: AppColors.primary7)),
+                    TextSpan(
+                      text: '을 함께 알아보자',
+                      style: AppTextStyles.title1Medium,
+                    ),
+                  ],
+                ),
               ),
             ]),
       ),

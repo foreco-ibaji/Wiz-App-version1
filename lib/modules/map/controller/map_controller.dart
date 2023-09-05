@@ -5,19 +5,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ibaji/provider/api/light_api.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../../provider/api/cloth_api.dart';
+import '../../../provider/api/public_api.dart';
 import '../../../provider/service/map_service.dart';
 
 class MapController extends GetxController {
-  Map<String, String> placeType = {
-    '폐건전지': 'bolt',
-    '폐형광등': 'light',
-    '의류수거': 'cloth',
-  };
+  List<String> placeType = ['전체', '의류수거함', '폐건전지/형광등'];
 
   Rx<LatLng> initialPosition = LatLng(37.7749, -122.4194).obs;
 

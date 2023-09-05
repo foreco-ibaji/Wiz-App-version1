@@ -10,8 +10,7 @@ import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 import 'package:logger/logger.dart';
 
-import '../../../provider/api/cloth_api.dart';
-import '../../../provider/api/light_api.dart';
+import '../../../provider/api/public_api.dart';
 import '../../../provider/routes/routes.dart';
 import '../../../provider/service/map_service.dart';
 import '../controller/map_controller.dart';
@@ -51,6 +50,8 @@ class MapScreen extends GetView<MapController> {
                     children: [
                       SvgPicture.asset(
                         "asset/image/icon/ic_left_14.svg",
+                        width: 14.w,
+                        color: AppColors.black,
                       ),
                       Text(
                         "수거함 지도",

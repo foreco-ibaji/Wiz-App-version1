@@ -5,11 +5,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ibaji/provider/api/light_api.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../../provider/api/cloth_api.dart';
+import '../../../provider/api/public_api.dart';
 import '../../../provider/service/map_service.dart';
 
 class MapController extends GetxController {

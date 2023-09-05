@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:ibaji/provider/api/cloth_api.dart';
+import 'package:ibaji/provider/api/public_api.dart';
 
 import '../../../provider/api/util/map_api.dart';
 import '../../../provider/routes/routes.dart';

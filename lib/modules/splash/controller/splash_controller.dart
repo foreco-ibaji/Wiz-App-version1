@@ -15,7 +15,7 @@ class SplashController extends GetxController {
     MapService.currentAddress.assignAll(
         await MapRepository.getAddressFromLatLng(
             MapService.currentLatLng.value));
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 1), () {
       Get.offAllNamed(Routes.home); // 홈 화면으로 이동
     });
   }

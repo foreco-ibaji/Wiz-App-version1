@@ -18,7 +18,7 @@ class HomeController extends GetxController {
   void onInit() async {
     super.onInit();
     await Get.putAsync(() async => CameraService());
-    // await CameraService.to.initCamera();
+    await CameraService.to.initCamera();
     //TODO: 월요일 -> 월로 통일
     var tmpList = await HomeRepository.getCalendar(
         dayList[currentDayIdx.value - 1] + '요일');

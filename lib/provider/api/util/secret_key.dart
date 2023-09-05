@@ -8,6 +8,7 @@ class Secrets {
       'https://www.ddm.go.kr/www/contents.do?key=82';
   static const LatLng initalPosition =
       LatLng(37.57366672797186, 127.02412311681951);
-  static const String NAVER_GEODCODING =
-      "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc";
+  static const String NAVER = 'https://naveropenapi.apigw.ntruss.com/';
+  static const String NAVER_CAR = NAVER + "map-direction/v1/driving";
+  static const String NAVER_GEODCODING = NAVER + "map-reversegeocode/v2/gc";
 }

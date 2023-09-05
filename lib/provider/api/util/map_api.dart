@@ -12,6 +12,8 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../service/map_service.dart';
 
 class MapRepository {
+  ///*Naver Reverse Geocoding API 사용
+  ///위경도로부터 실 도로명주소 반환
   static Future<List<String>> getAddressFromLatLng(
     LatLng currentPos,
   ) async {
@@ -74,7 +76,8 @@ class MapRepository {
     return currentPosition;
   }
 
-  //도보계산
+  ///*도보계산
+  ///*ORSM API 사용
   static Future<int?> getWalkTime(
     LatLng endLocation,
   ) async {
@@ -96,13 +99,41 @@ class MapRepository {
       if (routes.isNotEmpty) {
         final route = routes[0];
         Logger().d(routes.length);
-        final duration = route['duration'];
-
-        return duration;
+        var duration = route['duration'];
+        duration /= 6000;
+        return duration.toInt();
       }
     } catch (e) {
       Logger().d(e.toString());
       throw e.toString();
+    }
+  }
+
+  ///*Naver direction5  API 사용
+  ///차량 거리 계산
+  static Future<int> getDriveTime(LatLng endLocation) async {
+    try {
+      final dio = Dio();
+      dio.options.headers = {
+        'X-NCP-APIGW-API-KEY-ID': dotenv.env['NAVER_CLIENT_ID'],
+        'X-NCP-APIGW-API-KEY': dotenv.env['NAVER_SECRET_KEY'],
+      };
+      Response response = await dio.get(Secrets.NAVER_CAR, queryParameters: {
+        'start':
+            "${MapService.currentLatLng.value.longitude.toString()},${MapService.currentLatLng.value.latitude.toString()}",
+        'goal':
+            "${endLocation.longitude.toString()},${endLocation.latitude.toString()}",
+      });
+      // JSON 문자열을 Map으로 파싱
+      Logger().d(response.data);
+      var duration =
+          response.data['route']['traoptimal'][0]['summary']['duration'];
+      duration /= 6000;
+      Logger().d(duration.toInt());
+      return duration;
+    } catch (e) {
+      Logger().d(e.toString());
+      return 0;
     }
   }
 }

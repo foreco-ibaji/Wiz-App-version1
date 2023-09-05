@@ -21,7 +21,8 @@ class MapService extends GetxService {
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
-    MapRepository.getWalkTime(LatLng(37.568350744909324, 127.00873566042249));
+    MapRepository.getDriveTime(LatLng(37.56663020894663, 127.02284179742207));
+    // MapRepository.getWalkTime(LatLng(37.568350744909324, 127.00873566042249));
     customIcon = await BitmapDescriptor.fromAssetImage(
       ImageConfiguration(devicePixelRatio: 1.0),
       'asset/image/object/map/ic_basic_picker_32.svg',

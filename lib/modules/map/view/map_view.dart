@@ -71,6 +71,7 @@ class MapScreen extends GetView<MapController> {
                   ),
                   //2. 현재 위치
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
                         "asset/image/icon/ic_location_24.svg",

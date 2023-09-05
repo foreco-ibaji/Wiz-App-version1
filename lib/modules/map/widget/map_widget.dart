@@ -129,15 +129,17 @@ class MapTypeChip extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           color: isSelected ? AppColors.primary6 : AppColors.grey1,
-          border: !isSelected ? Border.all(color: AppColors.grey7) : null,
+          border: !isSelected ? Border.all(color: AppColors.grey2) : null,
           borderRadius: BorderRadius.circular(1000.r),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                offset: Offset(0, 4.h),
-                blurRadius: 6.r,
-                spreadRadius: 3.r),
-          ]),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.15),
+                      offset: Offset(0, 2.h),
+                      blurRadius: 4.r,
+                      spreadRadius: 0.r),
+                ]
+              : null),
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
       child: Text(
         textAlign: TextAlign.center,

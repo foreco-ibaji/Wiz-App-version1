@@ -43,14 +43,14 @@ class MapScreen extends GetView<MapController> {
                   statusBarHeight,
               child: GoogleMap(
                 zoomControlsEnabled: false,
-                markers: PolyService.to.markers,
+                markers: MapService.to.markers,
                 onMapCreated: ((GoogleMapController mapController) async {
-                  PolyService.to.googleMapController = mapController;
+                  MapService.to.googleMapController = mapController;
                   await controller.getCurrentLocation();
                   // await ClothApi.getClothPlace();
                   // var tmpList = await ClothApi.getClothPlace() ?? [];
                 }),
-                polylines: Set<Polyline>.of(PolyService.to.polylines.values),
+                polylines: Set<Polyline>.of(MapService.to.polylines.values),
                 initialCameraPosition: CameraPosition(
                   target: controller.initialPosition.value, // 초기 지도 위치 설정
                   zoom: 13.0,
@@ -74,8 +74,7 @@ class MapScreen extends GetView<MapController> {
                             onTap: (() {
                               controller.isSelected.value = index;
 
-                              Set<Marker> visibleMarkers = PolyService
-                                  .to.markers
+                              Set<Marker> visibleMarkers = MapService.to.markers
                                   .where((marker) =>
                                       marker.markerId.value.startsWith('bolt'))
                                   .toSet();

@@ -26,24 +26,24 @@ class SearchResult extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "음식물이 묻은 비닐",
-              style: AppTextStyles.title2Medium.copyWith(
-                color: AppColors.primary7,
-              ),
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Text(
-              "종량제 봉투에 담아 버려주세요",
-              style: AppTextStyles.title2Medium.copyWith(
-                color: AppColors.grey3,
-              ),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
+            // Text(
+            //   "음식물이 묻은 비닐",
+            //   style: AppTextStyles.title2Medium.copyWith(
+            //     color: AppColors.primary7,
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 5.h,
+            // ),
+            // Text(
+            //   "종량제 봉투에 담아 버려주세요",
+            //   style: AppTextStyles.title2Medium.copyWith(
+            //     color: AppColors.grey3,
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 20.h,
+            // ),
             GestureDetector(
               onTap: () {},
               child: Container(

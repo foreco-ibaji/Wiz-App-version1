@@ -10,7 +10,6 @@ import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../provider/api/cloth_api.dart';
-import '../../../provider/api/util/geolcator.dart';
 import '../../../provider/service/map_service.dart';
 
 class MapController extends GetxController {
@@ -24,20 +23,7 @@ class MapController extends GetxController {
 
   ///0 -> 전체
   RxInt isSelected = 0.obs;
-  // Future<void> getCurrentLocation() async {
-  //   PermissionStatus permissionStatus =
-  //       await Permission.locationWhenInUse.request();
-  //   if (permissionStatus.isGranted) {
-  //     await Geolocator.getCurrentPosition(
-  //             desiredAccuracy: LocationAccuracy.high)
-  //         .then((Position position) async {})
-  //         .catchError((e) {
-  //       Fluttertoast.showToast(msg: e);
-  //     });
-  //   } else {
-  //     Fluttertoast.showToast(msg: '위치 권한을 허용해주세요');
-  //   }
-  // }
+
   Future<void> getCurrentLocation() async {
     PermissionStatus permissionStatus =
         await Permission.locationWhenInUse.request();
@@ -45,7 +31,7 @@ class MapController extends GetxController {
       await Geolocator.getCurrentPosition(
               desiredAccuracy: LocationAccuracy.high)
           .then((Position position) async {
-        PolyService.to.googleMapController?.animateCamera(
+        MapService.to.googleMapController?.animateCamera(
           CameraUpdate.newCameraPosition(
             CameraPosition(
               target: LatLng(position.latitude, position.longitude),

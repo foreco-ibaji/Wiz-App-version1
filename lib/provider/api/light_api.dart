@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ibaji/provider/api/util/geolcator.dart';
+import 'package:ibaji/provider/api/util/map_api.dart';
 import 'package:ibaji/provider/api/util/image_util.dart';
 import 'package:ibaji/provider/api/util/secret_key.dart';
 import 'package:logger/logger.dart';
@@ -41,7 +41,7 @@ class LightApi {
       var id = 0;
       // data.forEach(await getLocationFromAddress(data['주 소']));
       data.forEach((i) async {
-        var location = await getLocationFromAddress(i['설치주소']);
+        var location = await MapRepository.getLocationFromAddress(i['설치주소']);
         Marker marker;
         if (id.isOdd) {
           marker = Marker(
@@ -50,9 +50,9 @@ class LightApi {
                 LatLng(location?.latitude ?? 30, location?.longitude ?? 127),
             icon: customIcon,
             onTap: (() {
-              Get.bottomSheet(MapBottomContainer(
-                address: i['설치주소'],
-              ));
+              // Get.bottomSheet(MapBottomContainer(
+              //   address: i['설치주소'],
+              // ));
             }),
           );
         } else {
@@ -62,16 +62,16 @@ class LightApi {
                 LatLng(location?.latitude ?? 30, location?.longitude ?? 127),
             icon: customIcon2,
             onTap: (() {
-              Get.bottomSheet(MapBottomContainer(
-                address: i['설치주소'],
-              ));
+              // Get.bottomSheet(MapBottomContainer(
+              //   address: i['설치주소'],
+              // ));
             }),
           );
         }
 
         // Logger().d(marker.position);
 
-        PolyService.to.markers.add(marker);
+        MapService.to.markers.add(marker);
         id++;
       });
       Logger().d("marker 추가 완료");

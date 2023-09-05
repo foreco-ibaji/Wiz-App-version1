@@ -49,7 +49,7 @@ class MapScreen extends GetView<MapController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SvgPicture.asset(
-                        "asset/image/icon/ic_left_14.svg",
+                        "asset/image/icon/ic_arrow_left_14.svg",
                         width: 14.w,
                         color: AppColors.black,
                       ),

@@ -78,7 +78,7 @@ class MapRepository {
 
   ///*도보계산
   ///*ORSM API 사용
-  static Future<int?> getWalkTime(
+  static Future<int> getWalkTime(
     LatLng endLocation,
   ) async {
     final origin = MapService.currentLatLng.value.longitude.toString() +
@@ -95,17 +95,18 @@ class MapRepository {
       // 경로 정보 가져오기
       final routes = response.data['routes'];
       Logger().d(response.data);
-
+      var duration = 0;
       if (routes.isNotEmpty) {
         final route = routes[0];
         Logger().d(routes.length);
-        var duration = route['duration'];
-        duration /= 6000;
-        return duration.toInt();
+        duration = route['duration'];
+        duration = (duration / 6000).toInt();
       }
+      return duration;
     } catch (e) {
       Logger().d(e.toString());
       throw e.toString();
+      return 0;
     }
   }
 

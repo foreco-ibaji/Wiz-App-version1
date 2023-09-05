@@ -26,6 +26,7 @@ class MapBottomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 205.h,
       margin: EdgeInsets.symmetric(vertical: 32.h, horizontal: 24.w),
       padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 20.w)
           .copyWith(bottom: 32.h),
@@ -46,7 +47,7 @@ class MapBottomContainer extends StatelessWidget {
           ),
           Row(
             children: [
-              SvgPicture.asset("asset/image/icon/iv_${iconUrl}_48.svg"),
+              SvgPicture.asset("asset/image/object/map/iv_${iconUrl}_48.svg"),
               SizedBox(
                 width: 12.w,
               ),
@@ -74,6 +75,9 @@ class MapBottomContainer extends StatelessWidget {
           Row(
             children: [
               InformChip.location(disatnce: distance),
+              SizedBox(
+                width: 9.w,
+              ),
               InformChip.walk(duration: duration)
             ],
           )

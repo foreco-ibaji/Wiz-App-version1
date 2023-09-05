@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ibaji/provider/api/util/secret_key.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -23,21 +24,29 @@ class MapController extends GetxController {
     PermissionStatus permissionStatus =
         await Permission.locationWhenInUse.request();
     if (permissionStatus.isGranted) {
-      await Geolocator.getCurrentPosition(
-              desiredAccuracy: LocationAccuracy.high)
-          .then((Position position) async {
-        MapService.to.googleMapController?.animateCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(
-              target: LatLng(position.latitude, position.longitude),
-              zoom: 20.0,
-            ),
-          ),
-        );
-      }).catchError((e) {
-        Fluttertoast.showToast(msg: e);
-      });
-    } else {
+      MapService.to.googleMapController
+          ?.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(Secrets.initalPosition.latitude,
+              Secrets.initalPosition.longitude),
+          zoom: 15.0,
+        ),
+      ));
+      // await Geolocator.getCurrentPosition(
+      //         desiredAccuracy: LocationAccuracy.high)
+      //     .then((Position position) async {
+      //   MapService.to.googleMapController?.animateCamera(
+      //     CameraUpdate.newCameraPosition(
+      //       CameraPosition(
+      //         target: LatLng(position.latitude, position.longitude),
+      //         zoom: 15.0,
+      //       ),
+      //     ),
+    }
+    // }).catchError((e) {
+    //   Fluttertoast.showToast(msg: e);
+    // });
+    else {
       Fluttertoast.showToast(msg: '위치 권한을 허용해주세요');
     }
   }

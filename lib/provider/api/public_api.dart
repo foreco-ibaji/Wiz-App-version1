@@ -39,22 +39,30 @@ class PublicApi {
 
       var data = response.data['data'];
       Logger().d(data);
-
+      var customIcon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 1.0),
+        'asset/image/object/map/ic_basci_picker_32.png',
+      );
       var id = 0;
       data.forEach((i) async {
         // var location = await MapRepository.getLocationFromAddress(i['주소']);
+
         Marker marker = Marker(
             markerId: MarkerId('cloth' + id.toString()),
             position: LatLng(
                 double.parse(i['위도']) ?? 30, double.parse(i['경도']) ?? 127),
             icon: MapService.customIcon,
-            onTap: () {
+            onTap: () async {
+              var driveDur =
+                  await MapRepository.getDriveTime(LatLng(i['위도'], i['경도']));
+              var walkDur =
+                  await MapRepository.getWalkTime(LatLng(i['위도'], i['경도']));
               Get.bottomSheet(MapBottomContainer(
                 type: "의류",
                 iconUrl: 'cloth',
-                address: i['주 소'],
-                distance: 0,
-                duration: 0,
+                address: i['주소'],
+                distance: driveDur,
+                duration: walkDur,
               ));
             });
 
@@ -82,29 +90,37 @@ class PublicApi {
       Logger().d('2 data get');
 
       var data = response.data['data'];
-
+      var customIcon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 1.0),
+        'asset/image/object/map/ic_basci_picker_32.png',
+      );
       var id = 0;
-      data.forEach((i) async {
+      for (var i in data) {
         var location = await MapRepository.getLocationFromAddress(i['설치주소']);
         Marker marker = Marker(
             markerId: MarkerId('light' + id.toString()),
             position:
                 LatLng(location?.latitude ?? 30, location?.latitude ?? 127),
             icon: MapService.customIcon,
-            onTap: () {
-              //TODO: distance, duration add
+            onTap: () async {
+              var driveDur = await MapRepository.getDriveTime(LatLng(
+                  location?.latitude ?? 37.56663020894663,
+                  location?.longitude ?? 127.02284179742207));
+              var walkDur = await MapRepository.getWalkTime(LatLng(
+                  location?.latitude ?? 37.568350744909324,
+                  location?.longitude ?? 127.00873566042249));
               Get.bottomSheet(MapBottomContainer(
                 type: "폐건전지/형광등",
                 iconUrl: 'bolt',
                 address: i['설치주소'],
-                distance: 0,
-                duration: 0,
+                distance: driveDur,
+                duration: walkDur,
               ));
             });
 
         MapService.to.markers.add(marker);
         id++;
-      });
+      }
       Logger().d("marker 추가 완료");
     } catch (e) {
       Logger().d(e);

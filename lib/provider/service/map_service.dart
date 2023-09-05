@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../api/public_api.dart';
@@ -21,12 +23,12 @@ class MapService extends GetxService {
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
-    MapRepository.getDriveTime(LatLng(37.56663020894663, 127.02284179742207));
-    // MapRepository.getWalkTime(LatLng(37.568350744909324, 127.00873566042249));
+
     customIcon = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(devicePixelRatio: 1.0),
-      'asset/image/object/map/ic_basic_picker_32.svg',
+      ImageConfiguration(size: Size(32.h, 32.h)),
+      'asset/image/object/map/ic_basci_picker_32.png',
     );
+    Logger().d(customIcon.runtimeType);
     await PublicApi.getClothApi();
     await PublicApi.getLightApi();
   }

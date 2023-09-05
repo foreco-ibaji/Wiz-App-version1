@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 
@@ -114,5 +116,36 @@ class InformChip extends StatelessWidget {
   }
   factory InformChip.walk({required int duration}) {
     return InformChip(iconUrl: "walk", text: "걸어서 ${duration}분");
+  }
+}
+
+class MapTypeChip extends StatelessWidget {
+  final bool isSelected;
+  final String text;
+  const MapTypeChip({super.key, required this.isSelected, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: isSelected ? AppColors.primary6 : AppColors.grey1,
+          border: !isSelected ? Border.all(color: AppColors.grey7) : null,
+          borderRadius: BorderRadius.circular(1000.r),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                offset: Offset(0, 4.h),
+                blurRadius: 6.r,
+                spreadRadius: 3.r),
+          ]),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
+      child: Text(
+        textAlign: TextAlign.center,
+        text,
+        style: isSelected
+            ? AppTextStyles.title3Bold.copyWith(color: AppColors.grey1)
+            : AppTextStyles.title3SemiBold.copyWith(color: AppColors.grey7),
+      ),
+    );
   }
 }

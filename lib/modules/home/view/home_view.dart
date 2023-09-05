@@ -119,7 +119,6 @@ class HomeScreen extends GetView<HomeController> {
                       SizedBox(
                         width: 4.w,
                       ),
-                      //TODO: 임시 하드코딩
                       Text(MapService.currentAddress.join(' '),
                           style: AppTextStyles.title3Medium),
                     ],

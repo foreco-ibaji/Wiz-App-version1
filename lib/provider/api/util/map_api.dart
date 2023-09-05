@@ -19,11 +19,14 @@ class MapRepository {
       };
       Response response =
           await dio.get(Secrets.NAVER_GEODCODING, queryParameters: {
-        'coords': "${currentPos.latitude},${currentPos.longitude}",
+        // 'request': 'coordToaddr',
+        'coords':
+            "${currentPos.longitude.toString()},${currentPos.latitude.toString()}",
         'output': "json",
+        'sources': 'epsg:3857',
         "orders": "addr,admcode,roadaddr"
       });
-      Logger().d(response.data);
+      Logger().d(response.data['results']);
       var tmpResponse = response.data;
       // if (tmpResponse.isNotEmpty) {
       //   final address = tmpResponse[0]['formatted_address'] as String;

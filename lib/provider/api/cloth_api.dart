@@ -46,7 +46,7 @@ class ClothApi {
                 LatLng(location?.latitude ?? 30, location?.longitude ?? 127),
             icon: customIcon,
             onTap: () {
-              Get.bottomSheet(MapBottomContainer(address: i['주 소']));
+              // Get.bottomSheet(MapBottomContainer(type:"의류",iconUrl:'cloth' address: i['주 소']));
             });
 
         MapService.to.markers.add(marker);

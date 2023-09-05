@@ -50,9 +50,9 @@ class LightApi {
                 LatLng(location?.latitude ?? 30, location?.longitude ?? 127),
             icon: customIcon,
             onTap: (() {
-              Get.bottomSheet(MapBottomContainer(
-                address: i['설치주소'],
-              ));
+              // Get.bottomSheet(MapBottomContainer(
+              //   address: i['설치주소'],
+              // ));
             }),
           );
         } else {
@@ -62,9 +62,9 @@ class LightApi {
                 LatLng(location?.latitude ?? 30, location?.longitude ?? 127),
             icon: customIcon2,
             onTap: (() {
-              Get.bottomSheet(MapBottomContainer(
-                address: i['설치주소'],
-              ));
+              // Get.bottomSheet(MapBottomContainer(
+              //   address: i['설치주소'],
+              // ));
             }),
           );
         }

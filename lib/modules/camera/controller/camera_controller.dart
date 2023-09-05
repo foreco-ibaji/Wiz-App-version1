@@ -17,6 +17,7 @@ class CameraScreenController extends GetxController {
   Rx<bool> isFlash = false.obs;
   RxString imagePath = ''.obs;
 
+  //"{\"bboxes\":[[\"비닐\",148,48,752,568]]}"
   ///* 이미지 선택
   Future<void> imagePick() async {
     Logger().d("이미지 선택");

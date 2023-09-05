@@ -19,6 +19,7 @@ import '../../../provider/api/trash_api.dart';
 import '../../../provider/routes/pages.dart';
 import '../../../provider/routes/routes.dart';
 import '../../../provider/service/map_service.dart';
+import '../../camera/view/camera_result_view.dart';
 import '../controller/home_controller.dart';
 import '../widget/home_widget.dart';
 
@@ -198,8 +199,8 @@ class HomeScreen extends GetView<HomeController> {
               onNavigate: () async {
                 // await Get.to(() => DetailMethodScreen(), arguments: {"id": 1});
                 await Get.to(
-                  () => CameraScreen(),
-                );
+                    // () => CameraScreen(),
+                    () => CameraResultScreen());
               },
             ),
             BottomNaviItem(

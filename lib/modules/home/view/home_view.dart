@@ -17,6 +17,7 @@ import 'package:logger/logger.dart';
 import '../../../provider/api/trash_api.dart';
 import '../../../provider/routes/pages.dart';
 import '../../../provider/routes/routes.dart';
+import '../../../provider/service/map_service.dart';
 import '../controller/home_controller.dart';
 import '../widget/home_widget.dart';
 
@@ -92,8 +93,21 @@ class HomeScreen extends GetView<HomeController> {
                     height: 86.h,
                   ),
                   //*2. 위치 정보 section
-                  Text('동대문구 전농1동 주민님,\n어떤 쓰레기를 찾으시나요?',
-                      style: AppTextStyles.heading2Bold),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                            text:
+                                '${MapService.currentAddress[1]} ${MapService.currentAddress[2]} 주민',
+                            style: AppTextStyles.heading2Bold
+                                .copyWith(color: AppColors.primary7)),
+                        TextSpan(
+                          text: '님,\n어떤 쓰레기를 찾으시나요?',
+                          style: AppTextStyles.heading2Bold,
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 12.h,
                   ),
@@ -106,7 +120,7 @@ class HomeScreen extends GetView<HomeController> {
                         width: 4.w,
                       ),
                       //TODO: 임시 하드코딩
-                      Text('서울 동대문구 전농1동 727-1',
+                      Text(MapService.currentAddress.join(' '),
                           style: AppTextStyles.title3Medium),
                     ],
                   ),

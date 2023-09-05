@@ -17,8 +17,6 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    var tmpLocation = await MapRepository.getCurrentLocation();
-    MapRepository.getAddressFromLatLng(tmpLocation);
     await Get.putAsync(() async => CameraService());
     // await CameraService.to.initCamera();
     //TODO: 월요일 -> 월로 통일

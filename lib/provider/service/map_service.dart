@@ -5,26 +5,16 @@ import 'package:ibaji/provider/api/light_api.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../api/cloth_api.dart';
+import '../api/util/map_api.dart';
 import '../api/util/secret_key.dart';
 
 class MapService extends GetxService {
   static MapService get to => Get.find();
+  static Rx<LatLng> currentLatLng = Secrets.initalPosition.obs;
+  static RxList<String> currentAddress = <String>[].obs;
   RxMap<PolylineId, Polyline> polylines = <PolylineId, Polyline>{}.obs;
   GoogleMapController? googleMapController;
   RxSet<Marker> markers = <Marker>{}.obs;
-  Future<LatLng> getCurrentLocation() async {
-    LatLng currentPosition = Secrets.initalPosition;
-    PermissionStatus permissionStatus =
-        await Permission.locationWhenInUse.request();
-    if (permissionStatus.isGranted) {
-      await Geolocator.getCurrentPosition(
-              desiredAccuracy: LocationAccuracy.high)
-          .then((Position pos) async {
-        currentPosition = LatLng(pos.latitude, pos.longitude);
-      });
-    }
-    return currentPosition;
-  }
 
   @override
   void onInit() async {

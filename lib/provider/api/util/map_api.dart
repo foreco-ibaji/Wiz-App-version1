@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geocoding/geocoding.dart';
@@ -8,7 +10,7 @@ import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class MapRepository {
-  static Future<void> getAddressFromLatLng(
+  static Future<List<String>> getAddressFromLatLng(
     LatLng currentPos,
   ) async {
     try {
@@ -24,19 +26,25 @@ class MapRepository {
             "${currentPos.longitude.toString()},${currentPos.latitude.toString()}",
         'output': "json",
         'sources': 'epsg:3857',
-        "orders": "addr,admcode,roadaddr"
+        "orders": "admcode,roadaddr"
       });
-      Logger().d(response.data['results']);
-      var tmpResponse = response.data;
-      // if (tmpResponse.isNotEmpty) {
-      //   final address = tmpResponse[0]['formatted_address'] as String;
-      //   return address;
-      // } else {
-      //   return null; // 주소를 찾을 수 없음
-      // }
+      // JSON 문자열을 Map으로 파싱
+      var tmpResponse = response.data['results'][0]['region'];
+      List<String> address = [];
+      for (int i = 1; i < 4; i++) {
+        address.add(tmpResponse['area${i}']['name']);
+      }
+      var tmpResponse2 = response.data['results'][1]['land'];
+      Logger().d(tmpResponse2);
+      //TODO 결과값이 정확하지않아 정확도를 높이는 작업이 필요
+      //TODO:초기 로딩시에 받아온값을 로컬에 저장해서 일정주기마다 초기화 시켜주는식으로 API 호출량 절약
+      address.add(tmpResponse2['name'] + " " + tmpResponse2['number1']);
+      return address;
     } catch (e) {
       Logger().d(e.toString());
-      throw e.toString();
+      //임시 하드코딩; 애뮬레이터의 경우 미국주소를 받아오기때문에
+      //네이버 api가 반환할수없음
+      return ["서울특별시", "동대문구", "전농1동", "ddp"];
     }
   }
 

@@ -124,13 +124,11 @@ class MapRepository {
         'goal':
             "${endLocation.longitude.toString()},${endLocation.latitude.toString()}",
       });
-      // JSON 문자열을 Map으로 파싱
-      Logger().d(response.data);
       var duration =
           response.data['route']['traoptimal'][0]['summary']['duration'];
       duration /= 6000;
       Logger().d(duration.toInt());
-      return duration;
+      return duration.toInt();
     } catch (e) {
       Logger().d(e.toString());
       return 0;

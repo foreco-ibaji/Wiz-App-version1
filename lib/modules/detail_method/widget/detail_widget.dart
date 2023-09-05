@@ -88,7 +88,8 @@ class DetailVerticalContainer extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 20.h),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Image.network(
-            trash.iconUrl,
+            trash.iconUrl ??
+                "https://postfiles.pstatic.net/MjAyMzAzMDlfMTU1/MDAxNjc4MzQ0OTk4MTMx.bsYYQx3KsbEmFEKxhmXXvH1Vk-dyLjn2-ECxIaKyJdMg.j_V4Zxtoi8ZDVfmORtO7pzshskoycWx3TFwf9zCeeAkg.JPEG.mha0715/IMG%EF%BC%BF20230309%EF%BC%BF122138%EF%BC%BF513.jpg?type=w966",
             height: 68.h,
           ),
           SizedBox(height: 6.h),
@@ -209,9 +210,8 @@ class DispoalDayChip extends StatelessWidget {
       width: 34.h,
       height: 34.h,
       //TODO: data 임시 하드코딩
-      decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: dayWithColor[day.replaceAll("요일", "")]),
+      decoration:
+          BoxDecoration(shape: BoxShape.circle, color: dayWithColor[day]),
       child: Text(
         textAlign: TextAlign.center,
         day,

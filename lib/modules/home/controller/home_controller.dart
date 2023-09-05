@@ -20,8 +20,8 @@ class HomeController extends GetxController {
     await Get.putAsync(() async => CameraService());
     await CameraService.to.initCamera();
     //TODO: 월요일 -> 월로 통일
-    var tmpList = await HomeRepository.getCalendar(
-        dayList[currentDayIdx.value - 1] + '요일');
+    var tmpList =
+        await HomeRepository.getCalendar(dayList[currentDayIdx.value - 1]);
     trashDay.assignAll(tmpList);
   }
 }

@@ -8,7 +8,7 @@ class Trash with _$Trash {
   const factory Trash({
     required int id,
     required String name,
-    required String iconUrl,
+    required String? iconUrl,
   }) = _Trash;
   factory Trash.fromJson(Map<String, dynamic> json) => _$TrashFromJson(json);
 }

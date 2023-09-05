@@ -13,7 +13,7 @@ class HomeRepository {
   ) async {
     try {
       Response response = await Dio()
-          .get(dotenv.env['apiUrl']! + "/category", queryParameters: {
+          .get(dotenv.env['apiUrl']! + "/disposal", queryParameters: {
         'day': day,
       });
       Logger().d(response.data);

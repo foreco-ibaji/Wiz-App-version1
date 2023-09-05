@@ -84,7 +84,9 @@ class HomeScreen extends GetView<HomeController> {
                           ),
                           //TODO: 데이터가 없을때 예외처리
                           Text(
-                            "오늘은 ${controller.trashDay.join(", ")} 버리는 날 ",
+                            controller.trashDay.isEmpty
+                                ? "오늘은 버릴 수 있는 쓰레기가 없어요"
+                                : "오늘은 ${controller.trashDay.join(", ")} 버리는 날 ",
                             style: AppTextStyles.body1SemiBold,
                           )
                         ],

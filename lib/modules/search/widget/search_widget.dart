@@ -39,7 +39,8 @@ class SearchResult extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: Image.network(
-                  trash.iconUrl,
+                  trash.iconUrl ??
+                      "https://postfiles.pstatic.net/MjAyMzAzMDlfMTU1/MDAxNjc4MzQ0OTk4MTMx.bsYYQx3KsbEmFEKxhmXXvH1Vk-dyLjn2-ECxIaKyJdMg.j_V4Zxtoi8ZDVfmORtO7pzshskoycWx3TFwf9zCeeAkg.JPEG.mha0715/IMG%EF%BC%BF20230309%EF%BC%BF122138%EF%BC%BF513.jpg?type=w966",
                 ),
               ),
               SizedBox(

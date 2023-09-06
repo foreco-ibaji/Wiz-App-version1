@@ -11,7 +11,7 @@ import 'package:ibaji/util/app_text_styles.dart';
 import 'package:logger/logger.dart';
 
 import '../../../provider/api/public_api.dart';
-import '../../../provider/routes/routes.dart';
+import '../../../util/routes/routes.dart';
 import '../../../provider/service/map_service.dart';
 import '../controller/map_controller.dart';
 import '../widget/map_widget.dart';
@@ -120,22 +120,52 @@ class MapScreen extends GetView<MapController> {
               ),
             ),
             Expanded(
-              child: GoogleMap(
-                zoomControlsEnabled: false,
-                markers: MapService.to.markers,
-                onMapCreated: ((GoogleMapController mapController) async {
-                  MapService.to.googleMapController = mapController;
-                  await controller.getCurrentLocation();
-                  // await ClothApi.getClothPlace();
-                  // var tmpList = await ClothApi.getClothPlace() ?? [];
-                }),
-                polylines: Set<Polyline>.of(MapService.to.polylines.values),
-                initialCameraPosition: CameraPosition(
-                  target: controller.initialPosition.value, // 초기 지도 위치 설정
-                  zoom: 13.0,
+              child: NaverMap(
+                options: NaverMapViewOptions(
+                  initialCameraPosition: NCameraPosition(
+                    target: NLatLng(
+                        MapService.currentLatLng.value.latitude,
+                        MapService
+                            .currentLatLng.value.longitude), // 초기 지도 위치 설정
+                    zoom: 15.0,
+                  ),
                 ),
+                onMapReady: ((mapController) async {
+                  MapService.naverMapController = mapController;
+                  await mapController
+                      .addOverlayAll(MapService.to.markers)
+                      .then((marker) async {
+                    Logger().d(MapService.to.markers.length);
+                    try {
+                      await mapController.updateCamera(
+                          NCameraUpdate.scrollAndZoomTo(
+                              target: MapService.to.markers.first.position,
+                              zoom: 15.0));
+                      return true;
+                    } catch (e) {
+                      Logger().d(e);
+                    }
+                  });
+                }),
               ),
-            ),
+            )
+            // Expanded(
+            //   child: GoogleMap(
+            //     zoomControlsEnabled: false,
+            //     markers: MapService.to.markers,
+            //     onMapCreated: ((GoogleMapController mapController) async {
+            //       MapService.to.googleMapController = mapController;
+            //       await controller.getCurrentLocation();
+            //       // await ClothApi.getClothPlace();
+            //       // var tmpList = await ClothApi.getClothPlace() ?? [];
+            //     }),
+            //     polylines: Set<Polyline>.of(MapService.to.polylines.values),
+            //     initialCameraPosition: CameraPosition(
+            //       target: controller.initialPosition.value, // 초기 지도 위치 설정
+            //       zoom: 13.0,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

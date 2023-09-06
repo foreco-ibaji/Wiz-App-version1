@@ -24,14 +24,14 @@ class MapController extends GetxController {
     PermissionStatus permissionStatus =
         await Permission.locationWhenInUse.request();
     if (permissionStatus.isGranted) {
-      MapService.to.googleMapController
-          ?.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: LatLng(Secrets.initalPosition.latitude,
-              Secrets.initalPosition.longitude),
-          zoom: 15.0,
-        ),
-      ));
+      // MapService.naverMapController.
+      //     ?.animateCamera(CameraUpdate.newCameraPosition(
+      //   CameraPosition(
+      //     target: LatLng(Secrets.initalPosition.latitude,
+      //         Secrets.initalPosition.longitude),
+      //     zoom: 18.0,
+      //   ),
+      // ));
       // await Geolocator.getCurrentPosition(
       //         desiredAccuracy: LocationAccuracy.high)
       //     .then((Position position) async {

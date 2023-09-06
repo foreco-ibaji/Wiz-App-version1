@@ -39,7 +39,6 @@ class MapRepository {
         address.add(tmpResponse['area${i}']['name']);
       }
       var tmpResponse2 = response.data['results'][1]['land'];
-      Logger().d(tmpResponse2);
       //TODO 결과값이 정확하지않아 정확도를 높이는 작업이 필요
       //TODO:초기 로딩시에 받아온값을 로컬에 저장해서 일정주기마다 초기화 시켜주는식으로 API 호출량 절약
       address.add(tmpResponse2['name'] + " " + tmpResponse2['number1']);
@@ -77,8 +76,8 @@ class MapRepository {
   }
 
   ///*도보계산
-  ///*ORSM API 사용
-  static Future<int> getWalkTime(
+  ///*OSRM API 사용
+  static Future<Map<String, int>> getWalkTime(
     LatLng endLocation,
   ) async {
     final origin = MapService.currentLatLng.value.longitude.toString() +
@@ -96,43 +95,40 @@ class MapRepository {
       final routes = response.data['routes'];
       Logger().d(response.data);
       var duration = 0;
+      var distance = 0;
       if (routes.isNotEmpty) {
         final route = routes[0];
-        Logger().d(routes.length);
-        duration = route['duration'];
-        duration = (duration / 6000).toInt();
+        duration = route['duration'].toInt();
+        distance = route['distance'].toInt();
       }
-      return duration;
+      return {"duration": duration, "distance": distance};
     } catch (e) {
       Logger().d(e.toString());
-      throw e.toString();
-      return 0;
+      return {"duration": 0, "distance": 0};
     }
   }
 
-  ///*Naver direction5  API 사용
-  ///차량 거리 계산
-  static Future<int> getDriveTime(LatLng endLocation) async {
-    try {
-      final dio = Dio();
-      dio.options.headers = {
-        'X-NCP-APIGW-API-KEY-ID': dotenv.env['NAVER_CLIENT_ID'],
-        'X-NCP-APIGW-API-KEY': dotenv.env['NAVER_SECRET_KEY'],
-      };
-      Response response = await dio.get(Secrets.NAVER_CAR, queryParameters: {
-        'start':
-            "${MapService.currentLatLng.value.longitude.toString()},${MapService.currentLatLng.value.latitude.toString()}",
-        'goal':
-            "${endLocation.longitude.toString()},${endLocation.latitude.toString()}",
-      });
-      var duration =
-          response.data['route']['traoptimal'][0]['summary']['duration'];
-      duration /= 6000;
-      Logger().d(duration.toInt());
-      return duration.toInt();
-    } catch (e) {
-      Logger().d(e.toString());
-      return 0;
-    }
-  }
+  // ///*Naver direction5  API 사용
+  // ///차량 거리 계산
+  // static Future<int> getDriveTime(LatLng endLocation) async {
+  //   try {
+  //     final dio = Dio();
+  //     dio.options.headers = {
+  //       'X-NCP-APIGW-API-KEY-ID': dotenv.env['NAVER_CLIENT_ID'],
+  //       'X-NCP-APIGW-API-KEY': dotenv.env['NAVER_SECRET_KEY'],
+  //     };
+  //     Response response = await dio.get(Secrets.NAVER_CAR, queryParameters: {
+  //       'start':
+  //           "${MapService.currentLatLng.value.longitude.toString()},${MapService.currentLatLng.value.latitude.toString()}",
+  //       'goal':
+  //           "${endLocation.longitude.toString()},${endLocation.latitude.toString()}",
+  //     });
+  //     var duration =
+  //         response.data['route']['traoptimal'][0]['summary']['distance'];
+  //     return duration.toInt();
+  //   } catch (e) {
+  //     Logger().d(e.toString());
+  //     return 0;
+  //   }
+  // }
 }

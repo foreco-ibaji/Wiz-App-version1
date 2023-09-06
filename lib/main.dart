@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +10,7 @@ import 'package:ibaji/util/app_colors.dart';
 import 'package:logger/logger.dart';
 
 import 'modules/splash/binding/splash_binding.dart';
-import 'provider/routes/pages.dart';
+import 'util/routes/pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,11 +18,11 @@ void main() async {
   runApp(
     const MyApp(),
   );
-  // await NaverMapSdk.instance.initialize(
-  //     clientId: '3axm0lhvpx',
-  //     onAuthFailed: (error) {
-  //       Logger().d('Auth failed: $error');
-  //     });
+  await NaverMapSdk.instance.initialize(
+      clientId: dotenv.env['NAVER_CLIENT_ID'].toString(),
+      onAuthFailed: (error) {
+        Logger().d('Auth failed: $error');
+      });
 }
 
 class MyApp extends StatelessWidget {
@@ -39,7 +38,6 @@ class MyApp extends StatelessWidget {
       builder: ((context, child) {
         return GetMaterialApp(
           getPages: Pages.routes,
-          locale: DevicePreview.locale(context),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             scaffoldBackgroundColor: AppColors.white,

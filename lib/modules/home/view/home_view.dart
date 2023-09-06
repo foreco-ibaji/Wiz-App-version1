@@ -16,8 +16,8 @@ import 'package:ibaji/util/global_button_widget.dart';
 import 'package:logger/logger.dart';
 
 import '../../../provider/api/trash_api.dart';
-import '../../../provider/routes/pages.dart';
-import '../../../provider/routes/routes.dart';
+import '../../../util/routes/pages.dart';
+import '../../../util/routes/routes.dart';
 import '../../../provider/service/map_service.dart';
 import '../../camera/view/camera_result_view.dart';
 import '../controller/home_controller.dart';

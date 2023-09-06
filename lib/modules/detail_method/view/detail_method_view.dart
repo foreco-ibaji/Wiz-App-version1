@@ -13,8 +13,8 @@ import 'package:ibaji/util/app_text_styles.dart';
 import 'package:ibaji/util/global_button_widget.dart';
 
 import '../../../provider/api/trash_api.dart';
-import '../../../provider/routes/pages.dart';
-import '../../../provider/routes/routes.dart';
+import '../../../util/routes/pages.dart';
+import '../../../util/routes/routes.dart';
 import '../controller/detail_method_controller.dart';
 
 class DetailMethodScreen extends GetView<DetailMethodController> {

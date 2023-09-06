@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ibaji/provider/api/util/map_api.dart';
@@ -34,41 +35,45 @@ class PublicApi {
         //   'serviceKey': dotenv.env['OPEN_API_KEY_DEC']
         // }
       );
-      Logger().d(response.realUri);
-      Logger().d('2 data get');
+      // Logger().d(response.realUri);
+      // Logger().d('2 data get');
 
       var data = response.data['data'];
-      Logger().d(data);
+      // Logger().d(data);
       var customIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(devicePixelRatio: 1.0),
         'asset/image/object/map/ic_basci_picker_32.png',
       );
       var id = 0;
-      data.forEach((i) async {
+      for (var i in data) {
         // var location = await MapRepository.getLocationFromAddress(i['주소']);
-
-        Marker marker = Marker(
-            markerId: MarkerId('cloth' + id.toString()),
-            position: LatLng(
+        Logger()
+            .d('의류 ${i}번째는 ${double.parse(i['위도'])} ${double.parse(i['경도'])}');
+        NMarker marker = NMarker(
+            id: 'cloth' + id.toString(),
+            position: NLatLng(
                 double.parse(i['위도']) ?? 30, double.parse(i['경도']) ?? 127),
             icon: MapService.customIcon,
-            onTap: () async {
-              var driveDur =
-                  await MapRepository.getDriveTime(LatLng(i['위도'], i['경도']));
-              var walkDur =
-                  await MapRepository.getWalkTime(LatLng(i['위도'], i['경도']));
-              Get.bottomSheet(MapBottomContainer(
-                type: "의류",
-                iconUrl: 'cloth',
-                address: i['주소'],
-                distance: driveDur,
-                duration: walkDur,
-              ));
-            });
+            iconTintColor: Colors.black,
+            size: Size(30.w, 30.w));
+        marker.setOnTapListener((overlay) async {
+          var walkDur = await MapRepository.getWalkTime(
+              LatLng(double.parse(i['위도']), double.parse(i['경도'])));
+          Get.bottomSheet(MapBottomContainer(
+            type: "의류",
+            iconUrl: 'cloth',
+            address: i['주소'],
+            distance: walkDur['distance'] ?? 0,
+            duration: walkDur['duration'] ?? 0,
+          ));
+        });
 
         MapService.to.markers.add(marker);
+        if (!MapService.to.markers.add(marker)) {
+          Logger().d('왜..?');
+        }
         id++;
-      });
+      }
       Logger().d("marker 추가 완료");
     } catch (e) {
       Logger().d(e);
@@ -81,12 +86,14 @@ class PublicApi {
       dio.options.headers = {
         'Authorization': dotenv.env['OPEN_API_KEY'],
       };
-      var response = await Dio().get(Secrets.openBaseUrl + lightParam,
-          queryParameters: {
-            'page': 1,
-            'perPage': 100,
-            'serviceKey': dotenv.env['OPEN_API_KEY_DEC']
-          });
+      var response = await Dio().get(
+        Secrets.openBaseUrl + lightParam,
+        // queryParameters: {
+        //   'page': 1,
+        //   'perPage': 100,
+        //   'serviceKey': dotenv.env['OPEN_API_KEY_DEC']
+        // }
+      );
       Logger().d('2 data get');
 
       var data = response.data['data'];
@@ -96,34 +103,38 @@ class PublicApi {
       );
       var id = 0;
       for (var i in data) {
+        Logger().d(i);
         var location = await MapRepository.getLocationFromAddress(i['설치주소']);
-        Marker marker = Marker(
-            markerId: MarkerId('light' + id.toString()),
-            position:
-                LatLng(location?.latitude ?? 30, location?.latitude ?? 127),
-            icon: MapService.customIcon,
-            onTap: () async {
-              var driveDur = await MapRepository.getDriveTime(LatLng(
-                  location?.latitude ?? 37.56663020894663,
-                  location?.longitude ?? 127.02284179742207));
-              var walkDur = await MapRepository.getWalkTime(LatLng(
-                  location?.latitude ?? 37.568350744909324,
-                  location?.longitude ?? 127.00873566042249));
-              Get.bottomSheet(MapBottomContainer(
-                type: "폐건전지/형광등",
-                iconUrl: 'bolt',
-                address: i['설치주소'],
-                distance: driveDur,
-                duration: walkDur,
-              ));
-            });
+        Logger()
+            .d('의류 ${i}번째는 ${double.parse(i['위도'])} ${double.parse(i['경도'])}');
 
-        MapService.to.markers.add(marker);
+        NMarker marker = NMarker(
+            id: 'light$id',
+            position:
+                NLatLng(location?.latitude ?? 30, location?.longitude ?? 127),
+            icon: MapService.customIcon,
+            size: Size(30.w, 30.w));
+        marker.setOnTapListener((overlay) async {
+          var walkDur = await MapRepository.getWalkTime(LatLng(
+              location?.latitude ?? 37.568350744909324,
+              location?.longitude ?? 127.00873566042249));
+          Get.bottomSheet(MapBottomContainer(
+            type: "폐건전지/형광등",
+            iconUrl: 'bolt',
+            address: i['설치주소'],
+            distance: walkDur['distance'] ?? 0,
+            duration: walkDur['duration'] ?? 0,
+          ));
+        });
+
+        if (!MapService.to.markers.add(marker)) {
+          Logger().d('왜..?');
+        }
         id++;
       }
       Logger().d("marker 추가 완료");
     } catch (e) {
-      Logger().d(e);
+      throw e.toString();
     }
   }
 }

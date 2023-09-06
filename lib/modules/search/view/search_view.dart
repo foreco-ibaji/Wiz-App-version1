@@ -11,12 +11,12 @@ import '../../../util/app_colors.dart';
 import '../../../util/app_text_styles.dart';
 import '../controller/search_controller.dart';
 
-class SearchScreen extends GetView<SearchController> {
+class SearchScreen extends GetView<SearchViewController> {
   const SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SearchController());
+    Get.put(SearchViewController());
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80.h,

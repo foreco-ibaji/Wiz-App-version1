@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -14,20 +15,18 @@ class MapService extends GetxService {
   static MapService get to => Get.find();
   static Rx<LatLng> currentLatLng = Secrets.initalPosition.obs;
   static RxList<String> currentAddress = <String>[].obs;
-  static late BitmapDescriptor customIcon;
+  static NOverlayImage customIcon = NOverlayImage.fromAssetImage(
+      'asset/image/object/map/ic_basci_picker_32.png');
   RxMap<PolylineId, Polyline> polylines = <PolylineId, Polyline>{}.obs;
-  GoogleMapController? googleMapController;
-  RxSet<Marker> markers = <Marker>{}.obs;
+  // GoogleMapController? googleMapController;
+  static NaverMapController? naverMapController;
+  RxSet<NMarker> markers = <NMarker>{}.obs;
 
   @override
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
 
-    customIcon = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(size: Size(32.h, 32.h)),
-      'asset/image/object/map/ic_basci_picker_32.png',
-    );
     Logger().d(customIcon.runtimeType);
     await PublicApi.getClothApi();
     await PublicApi.getLightApi();

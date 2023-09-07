@@ -13,7 +13,7 @@ class HomeController extends GetxController {
   Rx<TextEditingController> searchTextController = TextEditingController().obs;
   RxInt currentDayIdx = DateTime.now().weekday.obs;
   List<String> dayList = ['월', '화', '수', '목', '금', '토', '일'];
-
+  RxInt tabIndex = 0.obs;
   @override
   void onInit() async {
     super.onInit();

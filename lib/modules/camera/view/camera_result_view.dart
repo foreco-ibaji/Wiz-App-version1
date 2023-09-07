@@ -14,6 +14,8 @@ import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 import 'dart:ui' as ui;
 
+import 'package:logger/logger.dart';
+
 class CameraResultScreen extends GetView<CameraResultController> {
   const CameraResultScreen({super.key});
 
@@ -74,19 +76,18 @@ class CameraResultScreen extends GetView<CameraResultController> {
                       shrinkWrap: true,
                       itemBuilder: ((context, index) {
                         return ResultContainer(
-                            image: Container(),
                             // image: Image(image: ImageProvider()),
-                            // image: CustomPaint(
-                            //   size: Size(200, 200), // 원하는 이미지 크기로 조절
-                            // //   painter: ImageCropperPainter(
-                            // //     startX:
-                            // //         controller.tmpResult[index][1].toDouble(),
-                            // //     startY:
-                            // //         controller.tmpResult[index][2].toDouble(),
-                            // //     endX: controller.tmpResult[index][3].toDouble(),
-                            // //     endY: controller.tmpResult[index][4].toDouble(),
-                            // //   ), // 커스텀 페인터 사용
-                            // // ),
+                            image: CustomPaint(
+                              size: Size(40, 40), // 원하는 이미지 크기로 조절
+                              painter: ImageCropperPainter(
+                                startX:
+                                    controller.tmpResult[index][1].toDouble(),
+                                startY:
+                                    controller.tmpResult[index][2].toDouble(),
+                                endX: controller.tmpResult[index][3].toDouble(),
+                                endY: controller.tmpResult[index][4].toDouble(),
+                              ), // 커스텀 페인터 사용
+                            ),
                             title: controller.tmpResult[index][0],
                             description:
                                 "이부분은 ${controller.tmpResult[index][0]}로 버려주세요");
@@ -118,14 +119,8 @@ class CameraResultScreen extends GetView<CameraResultController> {
       padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
       child: Row(
         children: [
-          // CircleAvatar(
-          //   //TODO:crop해서 제공
-          //   backgroundImage: AssetImage(image),
-          //   radius: 40.w,
-          // ),
           //임시 하드코딩
           CircleAvatar(
-            //TODO:crop해서 제공
             radius: 40.w,
             child: image,
           ),
@@ -153,47 +148,52 @@ class CameraResultScreen extends GetView<CameraResultController> {
   }
 }
 
-// class ImageCropperPainter extends CustomPainter {
-//   final double startX;
-//   final double startY;
-//   final double endX;
-//   final double endY;
+class ImageCropperPainter extends CustomPainter {
+  final double startX;
+  final double startY;
+  final double endX;
+  final double endY;
 
-//   ImageCropperPainter(
-//       {super.repaint,
-//       required this.startX,
-//       required this.startY,
-//       required this.endX,
-//       required this.endY});
-//   //TODO: 이미지
-//   @override
-//   void paint(Canvas canvas, Size size) async {
-//     // final ByteData data =
-//     //     await rootBundle.load('asset/image/object/iv_egg_trash_160.png');
-//     final Uint8List? bytes =
-//         await CameraScreenController.to.resultImage?.readAsBytes();
-//     final ui.Codec codec = await ui.instantiateImageCodec(bytes!);
-//     final ui.FrameInfo frameInfo = await codec.getNextFrame();
-//     final ui.Image uiImage = frameInfo.image;
-//     final paint = Paint()..isAntiAlias = true;
+  ImageCropperPainter(
+      {super.repaint,
+      required this.startX,
+      required this.startY,
+      required this.endX,
+      required this.endY});
+  //TODO: 이미지
+  @override
+  void paint(Canvas canvas, Size size) async {
+    // final ByteData data =
+    //     await rootBundle.load('asset/image/object/iv_egg_trash_160.png');
+    try {
+      final Uint8List? bytes =
+          await CameraResultController.to.photo?.readAsBytes();
+      final ui.Codec codec = await ui.instantiateImageCodec(bytes!);
+      final ui.FrameInfo frameInfo = await codec.getNextFrame();
+      final ui.Image uiImage = frameInfo.image;
+      final paint = Paint()..isAntiAlias = true;
 
-//     // 이미지를 특정 좌표 범위에 그리기
-//     final rect = Rect.fromPoints(Offset(startX, startY), Offset(endX, endY));
-//     final srcRect = Rect.fromPoints(
-//       Offset(0, 0),
-//       Offset(uiImage.width?.toDouble() ?? 0, uiImage.height?.toDouble() ?? 0),
-//     );
-//     // 'image' 변수를 'ui.Image'로 형변환합니다.
-//     canvas.drawImageRect(
-//       uiImage,
-//       srcRect,
-//       rect,
-//       paint,
-//     );
-//   }
+      // 이미지를 특정 좌표 범위에 그리기
+      final rect = Rect.fromPoints(Offset(startX, startY), Offset(endX, endY));
+      final srcRect = Rect.fromPoints(
+        Offset(0, 0),
+        Offset(uiImage.width.toDouble() ?? 0, uiImage.height.toDouble() ?? 0),
+      );
+      Logger().d(uiImage.width.toDouble());
+      // 'image' 변수를 'ui.Image'로 형변환합니다.
+      canvas.drawImageRect(
+        uiImage,
+        srcRect,
+        rect,
+        paint,
+      );
+    } catch (e) {
+      Logger().d(e.toString());
+    }
+  }
 
-//   @override
-//   bool shouldRepaint(CustomPainter oldDelegate) {
-//     return false;
-//   }
-// }
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
+  }
+}

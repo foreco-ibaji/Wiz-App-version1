@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 
 class CameraResultController extends GetxController {
@@ -8,7 +9,7 @@ class CameraResultController extends GetxController {
         ["비닐", 30, 48, 130, 140],
         ["플라스틱", 20, 48, 100, 140]
       ]);
-  String photo = (Get.arguments['photo']) ?? "";
+  XFile? photo = (Get.arguments['img']);
   // RxList<List<dynamic>> tmpResult = [
   //   ["비닐", 148, 48, 752, 568],
   //   ["플라스틱", 148, 48, 752, 568]

@@ -23,8 +23,8 @@ class CameraScreenController extends GetxController {
     Logger().d("1. 이미지 선택");
     imagePath.value = await imageRegister();
     Logger().d("2. ${resultImage?.path}경로");
-    // var result = await PhotoRepository.getPhotoReuslt(imagePath.value);
-    // return result;
+    var result = await PhotoRepository.getPhotoReuslt(imagePath.value);
+    return result;
   }
 
   ///* 휴대폰 내부 이미지 선택

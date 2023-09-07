@@ -101,7 +101,7 @@ class PublicApi {
       var data = response.data['data'];
       var id = 0;
       for (var i in data) {
-        Logger().d(i["설치주소"]);
+        // Logger().d(i["설치주소"]);
         var location = await MapRepository.getLocationFromAddress(
             i["설치주소"] ?? "서울특별시 중구 을지로 281");
 

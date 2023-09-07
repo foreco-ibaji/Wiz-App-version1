@@ -102,7 +102,20 @@ class CameraScreen extends GetView<CameraScreenController> {
                             onTap: () async {
                               if (await PermissionHandler()
                                   .requestGallery(context)) {
-                                controller.imagePick();
+                                var result = controller.imagePick();
+                                var result2 = [
+                                  ["자전거", 71, 33, 1143, 1074]
+                                ];
+                                var result1 = 1;
+                                if (result.runtimeType == int) {
+                                  //TODO result로 통일
+                                  Get.put(DetailMethodController(id: result1));
+                                  await Future.delayed(Duration(seconds: 2));
+                                  await Get.to(() => DetailMethodScreen());
+                                } else {
+                                  Get.to(() => CameraResultScreen(),
+                                      arguments: {'result': result2});
+                                }
                               }
                             },
                             child: Image.asset(

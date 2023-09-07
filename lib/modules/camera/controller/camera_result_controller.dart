@@ -3,14 +3,16 @@ import 'package:get/get.dart';
 
 class CameraResultController extends GetxController {
   static CameraResultController get to => Get.find();
-  List<List<dynamic>> result = Get.arguments['result'] ??
-      [
-        [1]
-      ];
-  RxList<List<dynamic>> tmpResult = [
-    ["비닐", 148, 48, 752, 568],
-    ["플라스틱", 148, 48, 752, 568]
-  ].obs;
+  List<List<dynamic>> tmpResult = (Get.arguments['result']) ??
+      ([
+        ["비닐", 30, 48, 130, 140],
+        ["플라스틱", 20, 48, 100, 140]
+      ]);
+  String photo = (Get.arguments['photo']) ?? "";
+  // RxList<List<dynamic>> tmpResult = [
+  //   ["비닐", 148, 48, 752, 568],
+  //   ["플라스틱", 148, 48, 752, 568]
+  // ].obs;
 
   // Future<ByteData> loadImage() async {
   //   final ByteData data =

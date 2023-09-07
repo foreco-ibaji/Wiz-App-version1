@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:ibaji/modules/camera/view/camera_result_view.dart';
+import 'package:ibaji/modules/detail_method/controller/detail_method_controller.dart';
 import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:logger/logger.dart';
@@ -113,13 +115,32 @@ class CameraScreen extends GetView<CameraScreenController> {
                               // var result = await PhotoRepository.getPhotoReuslt(
                               //     img?.path ?? "");
                               // if (result.isNotEmpty) {
-                              // if (CameraService.to.cameraController?.value !=
-                              //     null) {
-                              //   await CameraService.to.stopImageStream();
+                              //   if (CameraService.to.cameraController?.value !=
+                              //       null) {
+                              //     await CameraService.to.stopImageStream();
+                              //   }
                               // }
-                              //TODO: 임시 하드코딩
-                              await Get.to(() => DetailMethodScreen(),
-                                  arguments: {'trash': '비닐봉지'});
+                              var result = [
+                                ["자전거", 71, 33, 1143, 1074]
+                              ];
+                              var result1 = 1;
+                              // var result2 = [
+                              //   [
+                              //     ["자전거", 71, 33, 1143, 1074]
+                              //   ]
+                              // ];
+                              if (result.runtimeType == int) {
+                                //TODO result로 통일
+                                Get.put(DetailMethodController(id: result1));
+                                await Future.delayed(Duration(seconds: 2));
+                                await Get.to(() => DetailMethodScreen());
+                              } else {
+                                Get.to(() => CameraResultScreen(),
+                                    arguments: {'result': result});
+                              }
+                              // //TODO: 임시 하드코딩
+                              // await Get.to(() => DetailMethodScreen(),
+                              //     arguments: {'trash': '비닐봉지'});
                               // } else {
                               // Fluttertoast.showToast(
                               // msg: "조회되지 않습니다. 다시 시도해주세요");

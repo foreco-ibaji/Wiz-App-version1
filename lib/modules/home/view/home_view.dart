@@ -211,8 +211,8 @@ class HomeScreen extends GetView<HomeController> {
               onNavigate: () async {
                 // await Get.to(() => DetailMethodScreen(), arguments: {"id": 1});
                 await Get.to(
-                    // () => CameraScreen(),
-                    () => CameraResultScreen());
+                  () => CameraScreen(),
+                );
               },
             ),
             BottomNaviItem(

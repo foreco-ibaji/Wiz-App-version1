@@ -101,14 +101,34 @@ class MapScreen extends GetView<MapController> {
                         itemBuilder: ((context, index) {
                           return Obx(() => GestureDetector(
                               behavior: HitTestBehavior.translucent,
-                              onTap: (() {
+                              onTap: (() async {
+                                if (index != 0) {
+                                  MapService.to
+                                      .markers[controller.placeEngType[index]]
+                                      ?.forEach((element) {
+                                    element.setIsVisible(true);
+                                  });
+                                  MapService
+                                      .to
+                                      .markers[
+                                          controller.placeEngType[3 - index]]
+                                      ?.forEach((element) {
+                                    element.setIsVisible(false);
+                                  });
+                                  Logger().d("dfd");
+                                } else if (controller.isSelected.value != 0 &&
+                                    index == 0) {
+                                  MapService.to.markers['cloth']
+                                      ?.forEach((element) {
+                                    element.setIsVisible(true);
+                                  });
+                                  MapService.to.markers['bolt']
+                                      ?.forEach((element) {
+                                    element.setIsVisible(true);
+                                  });
+                                  Logger().d("hjhkhk");
+                                }
                                 controller.isSelected.value = index;
-
-                                // Set<Marker> visibleMarkers = MapService.to.markers
-                                //     .where((marker) =>
-                                //         marker.markerId.value.startsWith('bolt'))
-                                //     .toSet();
-                                //  visibleMarkers.forEach((element) {element.visible = false;})
                               }),
                               child: MapTypeChip(
                                   isSelected:
@@ -132,19 +152,18 @@ class MapScreen extends GetView<MapController> {
                 ),
                 onMapReady: ((mapController) async {
                   MapService.naverMapController = mapController;
-                  await mapController
-                      .addOverlayAll(MapService.to.markers)
-                      .then((marker) async {
-                    Logger().d(MapService.to.markers.length);
-                    try {
-                      await mapController.updateCamera(
-                          NCameraUpdate.scrollAndZoomTo(
-                              target: MapService.to.markers.first.position,
-                              zoom: 15.0));
-                      return true;
-                    } catch (e) {
-                      Logger().d(e);
-                    }
+                  MapService.to.markers.keys.forEach((element) async {
+                    await mapController
+                        .addOverlayAll(MapService.to.markers[element] ?? {})
+                        .then((marker) async {
+                      Logger().d(MapService.to.markers.length);
+                      try {
+                        return true;
+                      } catch (e) {
+                        Logger().d(e);
+                      }
+                      ;
+                    });
                   });
                 }),
               ),

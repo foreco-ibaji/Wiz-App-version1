@@ -20,11 +20,11 @@ class PublicApi {
 
   ///23년도 6월 get 요청주소
   static String clothParam =
-      '/15112228/v1/uddi:67d42349-302e-40f6-af11-c496e532d090?page=1&perPage=10&serviceKey=6ukHRfTd3TeZw03mnb3%2BI%2Bsoh%2FyRKlMGlnmDmdvh%2BdkRCDP%2B6xuNi%2Bo1%2BJv2XVe39xd34MFqClKgMhtpVlXrzA%3D%3D';
+      '/15112228/v1/uddi:67d42349-302e-40f6-af11-c496e532d090?page=1&perPage=50&serviceKey=6ukHRfTd3TeZw03mnb3%2BI%2Bsoh%2FyRKlMGlnmDmdvh%2BdkRCDP%2B6xuNi%2Bo1%2BJv2XVe39xd34MFqClKgMhtpVlXrzA%3D%3D';
 
   ///23년도 6월 get 요청주소
   static String lightParam =
-      '/15038091/v1/uddi:2636cb3c-30e3-4ce3-aca9-ca040f5deb27?page=1&perPage=10&serviceKey=6ukHRfTd3TeZw03mnb3%2BI%2Bsoh%2FyRKlMGlnmDmdvh%2BdkRCDP%2B6xuNi%2Bo1%2BJv2XVe39xd34MFqClKgMhtpVlXrzA%3D%3D';
+      '/15038091/v1/uddi:2636cb3c-30e3-4ce3-aca9-ca040f5deb27?page=1&perPage=50&serviceKey=6ukHRfTd3TeZw03mnb3%2BI%2Bsoh%2FyRKlMGlnmDmdvh%2BdkRCDP%2B6xuNi%2Bo1%2BJv2XVe39xd34MFqClKgMhtpVlXrzA%3D%3D';
   static Future<void> getClothApi() async {
     try {
       var response = await Dio().get(
@@ -57,6 +57,8 @@ class PublicApi {
             iconTintColor: Colors.black,
             size: Size(30.w, 30.w));
         marker.setOnTapListener((overlay) async {
+          // overlay.setIcon(NOverlayImage.fromAssetImage(
+          //     'asset/image/object/map/ic_selected_pin_44.png'));
           var walkDur = await MapRepository.getWalkTime(
               LatLng(double.parse(i['위도']), double.parse(i['경도'])));
           Get.bottomSheet(MapBottomContainer(
@@ -68,10 +70,10 @@ class PublicApi {
           ));
         });
 
-        MapService.to.markers.add(marker);
-        if (!MapService.to.markers.add(marker)) {
-          Logger().d('왜..?');
-        }
+        MapService.to.markers['cloth'] == null
+            ? MapService.to.markers['cloth'] = <NMarker>{marker}
+            : MapService.to.markers['cloth']!.add(marker);
+
         id++;
       }
       Logger().d("marker 추가 완료");
@@ -97,16 +99,11 @@ class PublicApi {
       Logger().d('2 data get');
 
       var data = response.data['data'];
-      var customIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 1.0),
-        'asset/image/object/map/ic_basci_picker_32.png',
-      );
       var id = 0;
       for (var i in data) {
-        Logger().d(i);
-        var location = await MapRepository.getLocationFromAddress(i['설치주소']);
-        Logger()
-            .d('의류 ${i}번째는 ${double.parse(i['위도'])} ${double.parse(i['경도'])}');
+        Logger().d(i["설치주소"]);
+        var location = await MapRepository.getLocationFromAddress(
+            i["설치주소"] ?? "서울특별시 중구 을지로 281");
 
         NMarker marker = NMarker(
             id: 'light$id',
@@ -118,6 +115,11 @@ class PublicApi {
           var walkDur = await MapRepository.getWalkTime(LatLng(
               location?.latitude ?? 37.568350744909324,
               location?.longitude ?? 127.00873566042249));
+          var result = await MapService.naverMapController?.updateCamera(
+              NCameraUpdate.withParams(
+                  target: NLatLng(location?.latitude ?? 37.568350744909324,
+                      location?.longitude ?? 127.00873566042249)));
+          Logger().d(result);
           Get.bottomSheet(MapBottomContainer(
             type: "폐건전지/형광등",
             iconUrl: 'bolt',
@@ -126,10 +128,9 @@ class PublicApi {
             duration: walkDur['duration'] ?? 0,
           ));
         });
-
-        if (!MapService.to.markers.add(marker)) {
-          Logger().d('왜..?');
-        }
+        MapService.to.markers['bolt'] == null
+            ? MapService.to.markers['bolt'] = <NMarker>{marker}
+            : MapService.to.markers['bolt']!.add(marker);
         id++;
       }
       Logger().d("marker 추가 완료");

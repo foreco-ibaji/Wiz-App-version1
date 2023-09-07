@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:ibaji/modules/detail_method/controller/detail_method_controller.dart';
 import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
 import 'package:ibaji/modules/map/view/map_view.dart';
+import 'package:ibaji/provider/api/trash_api.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 import 'package:ibaji/util/global_button_widget.dart';
@@ -103,8 +104,13 @@ class DetailVerticalContainer extends StatelessWidget {
             onTap: () async {
               Logger().d("click?");
               //TODO route 설정
-              await Get.to(() => DetailMethodScreen(),
-                  arguments: {'id': trash.id});
+              DetailMethodController.to.detailMethod.value =
+                  await TrashRepository.getDetailMethod(id: trash.id);
+              DetailMethodController.to.relationTrash.value =
+                  await TrashRepository.getRelationTrash(id: trash.id);
+              await DetailMethodController.to.scrollToTop();
+              // await Get.to(() => DetailMethodScreen(),
+              //     arguments: {'id': trash.id});
               // DetailMethodController.to.trash = title;
             },
           )
@@ -205,8 +211,10 @@ class DispoalDayChip extends StatelessWidget {
       "일": Color(0xff96C954),
     };
     return Container(
+      alignment: Alignment.center,
       margin: EdgeInsets.symmetric(horizontal: 4.w),
-      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h)
+          .copyWith(bottom: 8.h),
       width: 34.h,
       height: 34.h,
       //TODO: data 임시 하드코딩
@@ -227,7 +235,7 @@ class MapNavigationBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 140.h,
+      height: 150.h,
       // width: double.infinity,
       padding: EdgeInsets.symmetric(vertical: 27.h, horizontal: 23.w),
       decoration: BoxDecoration(

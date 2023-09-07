@@ -22,200 +22,207 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(DetailMethodController());
+    // Get.put(DetailMethodController());
     var detailMethod = controller.detailMethod.value;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.primary6,
-        elevation: 0.0,
-        automaticallyImplyLeading: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: SvgPicture.asset("asset/image/icon/ic_home_24.svg"),
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.primary6,
+          elevation: 0.0,
+          automaticallyImplyLeading: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Get.to(() => SearchScreen());
+              Get.back();
             },
           ),
-        ],
-      ),
-      body: Obx(() => ListView(
-            shrinkWrap: true,
-            children: [
-              //1. header
-              Container(
-                padding: EdgeInsets.only(bottom: 40.h),
-                color: AppColors.primary6,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Image.network(
-                      controller.detailMethod.value.iconUrl,
-                      width: 160.w,
-                    ),
-                    Text(
-                      controller.detailMethod.value.name,
-                      style: AppTextStyles.heading1Bold
-                          .copyWith(color: AppColors.grey1),
-                    ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    Text(
-                      "동대문구 전농1동 기준 배출 방법",
-                      style: AppTextStyles.title3Medium
-                          .copyWith(color: AppColors.grey1),
-                    ),
-                  ],
+          actions: [
+            IconButton(
+              icon: SvgPicture.asset("asset/image/icon/ic_home_24.svg"),
+              onPressed: () {
+                Get.to(() => SearchScreen());
+              },
+            ),
+          ],
+        ),
+        body: Obx(() => ListView(
+              controller: controller.scrollController.value,
+              shrinkWrap: true,
+              children: [
+                //1. header
+                Container(
+                  padding: EdgeInsets.only(bottom: 40.h),
+                  color: AppColors.primary6,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Image.network(
+                        controller.detailMethod.value.iconUrl,
+                        width: 160.w,
+                      ),
+                      Text(
+                        controller.detailMethod.value.name,
+                        style: AppTextStyles.heading1Bold
+                            .copyWith(color: AppColors.grey1),
+                      ),
+                      SizedBox(
+                        height: 12.h,
+                      ),
+                      Text(
+                        "동대문구 전농1동 기준 배출 방법",
+                        style: AppTextStyles.title3Medium
+                            .copyWith(color: AppColors.grey1),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 40.h,
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          "asset/image/icon/ic_trash_can_36.png",
-                          width: 24.w,
-                        ),
-                        SizedBox(
-                          width: 8.w,
-                        ),
-                        Text(
-                          '쓰레기 배출 방법',
-                          style: AppTextStyles.heading3Bold,
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 24.h,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.r),
-                          color: AppColors.grey1),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 18.w, vertical: 30.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 40.h,
+                      ),
+                      Row(
                         children: [
+                          Image.asset(
+                            "asset/image/icon/ic_trash_can_36.png",
+                            width: 24.w,
+                          ),
+                          SizedBox(
+                            width: 8.w,
+                          ),
                           Text(
-                            "이렇게 버려주세요",
-                            style: AppTextStyles.title3SemiBold
-                                .copyWith(color: AppColors.grey4),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Text(controller.detailMethod.value.disposalMethod,
-                              style: AppTextStyles.title1Bold),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 24.h),
-                            child: Divider(
-                              color: AppColors.grey2,
-                              thickness: 1.h,
-                            ),
-                          ),
-                          controller.detailMethod.value.remark.isNotEmpty
-                              ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "유의해주세요",
-                                      style: AppTextStyles.title3SemiBold
-                                          .copyWith(color: AppColors.grey4),
-                                    ),
-                                    SizedBox(
-                                      height: 15.h,
-                                    ),
-                                    ListView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount: controller
-                                            .detailMethod.value.remark.length,
-                                        itemBuilder: ((context, index) {
-                                          return DisposalMethod(
-                                              index: index + 1,
-                                              content: controller.detailMethod
-                                                  .value.remark[index]);
-                                        })),
-                                  ],
-                                )
-                              : SizedBox.shrink(),
-                          SizedBox(
-                            height: 20.h,
+                            '쓰레기 배출 방법',
+                            style: AppTextStyles.heading3Bold,
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
-                    ),
-                    SizedBox(
-                      height: 50.h,
-                    ),
-                    controller.detailMethod.value.detailType == "BASIC"
-                        ? DisposalDayContainer()
-                        : controller.detailMethod.value.detailType == "BIG"
-                            ? BigTrashCatuion()
-                            : SizedBox.shrink(),
-                    SizedBox(
-                      height: 50.h,
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          "asset/image/icon/ic_question_24.png",
-                          width: 24.w,
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            color: AppColors.grey1),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 18.w, vertical: 30.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "이렇게 버려주세요",
+                              style: AppTextStyles.title3SemiBold
+                                  .copyWith(color: AppColors.grey4),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text(controller.detailMethod.value.disposalMethod,
+                                style: AppTextStyles.title1Bold),
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 24.h),
+                              child: Divider(
+                                color: AppColors.grey2,
+                                thickness: 1.h,
+                              ),
+                            ),
+                            controller.detailMethod.value.remark.isNotEmpty
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "유의해주세요",
+                                        style: AppTextStyles.title3SemiBold
+                                            .copyWith(color: AppColors.grey4),
+                                      ),
+                                      SizedBox(
+                                        height: 15.h,
+                                      ),
+                                      ListView.builder(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: controller
+                                              .detailMethod.value.remark.length,
+                                          itemBuilder: ((context, index) {
+                                            return DisposalMethod(
+                                                index: index + 1,
+                                                content: controller.detailMethod
+                                                    .value.remark[index]);
+                                          })),
+                                    ],
+                                  )
+                                : SizedBox.shrink(),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Text(
-                          '이런 쓰레기는 어떻게 버리나요?',
-                          style: AppTextStyles.title1SemiBold,
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 19.h,
-                    ),
-                    controller.relationTrash.isNotEmpty
-                        ? SizedBox(
-                            height: 200.h,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: controller.relationTrash.length,
-                                itemBuilder: ((context, index) {
-                                  return DetailVerticalContainer(
-                                    trash: controller.relationTrash[index],
-                                  );
-                                })),
-                          )
-                        : SizedBox.shrink(),
-                    SizedBox(
-                      height: 100.h,
-                    ),
-                  ],
+                      ),
+                      SizedBox(
+                        height: 50.h,
+                      ),
+                      controller.detailMethod.value.detailType == "BASIC"
+                          ? DisposalDayContainer()
+                          : controller.detailMethod.value.detailType == "BIG"
+                              ? BigTrashCatuion()
+                              : SizedBox.shrink(),
+                      SizedBox(
+                        height: 50.h,
+                      ),
+                      Row(
+                        children: [
+                          Image.asset(
+                            "asset/image/icon/ic_question_24.png",
+                            width: 24.w,
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Text(
+                            '이런 쓰레기는 어떻게 버리나요?',
+                            style: AppTextStyles.title1SemiBold,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 19.h,
+                      ),
+                      controller.relationTrash.isNotEmpty
+                          ? SizedBox(
+                              height: 210.h,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: controller.relationTrash.length,
+                                  itemBuilder: ((context, index) {
+                                    return DetailVerticalContainer(
+                                      trash: controller.relationTrash[index],
+                                    );
+                                  })),
+                            )
+                          : SizedBox.shrink(),
+                      SizedBox(
+                        height: 100.h,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          )),
+              ],
+            )),
+        bottomNavigationBar: controller.detailMethod.value.detailType == "MAP"
+            ? MapNavigationBottomSheet()
+            : null,
+      ),
     );
   }
 

@@ -5,10 +5,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:http/http.dart' as http;
+import '../../modules/camera/view/camera_result_view.dart';
 import 'util/secret_key.dart';
 
 class PhotoRepository {
-  static Future<List<dynamic>> getPhotoReuslt(String photoUrl) async {
+  static Future<dynamic> getPhotoReuslt(String photoUrl) async {
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse(dotenv.env['apiUrl']! + "/image"));
@@ -26,16 +27,17 @@ class PhotoRepository {
       var json = jsonDecode(responseBody);
       Logger().d(json);
       var result = jsonDecode(json['data']['result']);
-      Logger().d(result['bboxes']);
-      Logger().d(result['bboxes'].first[0]);
+      Logger().d(result['result']);
+      Logger().d(result['result'].first[0]);
       try {
-        Get.toNamed('/home/detail',
-            arguments: {'trash': result['bboxes'].first[0]});
+        if (result['id'] != null) {
+          return result['id'];
+        }
       } catch (e) {
-        // RangeError 예외 처리
+        Logger().d(e.toString());
       }
 
-      return result['bboxes'];
+      return result['result'];
     } catch (e) {
       Logger().d(e.toString());
       throw e.toString();

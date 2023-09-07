@@ -20,7 +20,7 @@ class MapService extends GetxService {
   RxMap<PolylineId, Polyline> polylines = <PolylineId, Polyline>{}.obs;
   // GoogleMapController? googleMapController;
   static NaverMapController? naverMapController;
-  RxSet<NMarker> markers = <NMarker>{}.obs;
+  RxMap<String, Set<NMarker>> markers = <String, Set<NMarker>>{}.obs;
 
   @override
   void onInit() async {

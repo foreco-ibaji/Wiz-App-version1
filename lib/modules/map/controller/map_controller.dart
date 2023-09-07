@@ -14,7 +14,7 @@ import '../../../provider/service/map_service.dart';
 
 class MapController extends GetxController {
   List<String> placeType = ['전체', '의류수거함', '폐건전지/형광등'];
-
+  List<String> placeEngType = ['all', 'cloth', 'bolt'];
   Rx<LatLng> initialPosition = LatLng(37.7749, -122.4194).obs;
 
   ///0 -> 전체

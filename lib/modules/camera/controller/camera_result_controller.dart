@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CameraResultController extends GetxController {
+  static CameraResultController get to => Get.find();
+  List<List<dynamic>> result = Get.arguments['result'] ??
+      [
+        [1]
+      ];
   RxList<List<dynamic>> tmpResult = [
     ["비닐", 148, 48, 752, 568],
     ["플라스틱", 148, 48, 752, 568]

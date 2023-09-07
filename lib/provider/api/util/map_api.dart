@@ -35,20 +35,20 @@ class MapRepository {
       // JSON 문자열을 Map으로 파싱
       var tmpResponse = response.data['results'][0]['region'];
       List<String> address = [];
-      for (int i = 1; i < 4; i++) {
-        address.add(tmpResponse['area${i}']['name']);
-      }
-      var tmpResponse2 = response.data['results'][1]['land'];
-      //TODO 결과값이 정확하지않아 정확도를 높이는 작업이 필요
-      //TODO:초기 로딩시에 받아온값을 로컬에 저장해서 일정주기마다 초기화 시켜주는식으로 API 호출량 절약
-      address.add(tmpResponse2['name'] + " " + tmpResponse2['number1']);
-      return address;
+      // for (int i = 1; i < 4; i++) {
+      //   address.add(tmpResponse['area${i}']['name']);
+      // }
+      // var tmpResponse2 = response.data['results'][1]['land'];
+      // //TODO 결과값이 정확하지않아 정확도를 높이는 작업이 필요
+      // //TODO:초기 로딩시에 받아온값을 로컬에 저장해서 일정주기마다 초기화 시켜주는식으로 API 호출량 절약
+      // address.add(tmpResponse2['name'] + " " + tmpResponse2['number1']);
+      return ["서울특별시", "동대문구", "왕산로", "205"];
     } catch (e) {
       Logger().d(e.toString());
       //임시 하드코딩; 애뮬레이터의 경우 미국주소를 받아오기때문에
       //네이버 api가 반환할수없음
       MapService.currentLatLng.value = Secrets.initalPosition;
-      return ["서울특별시", "동대문구", "전농1동", "ddp"];
+      return ["서울특별시", "동대문구", "왕산로", "205"];
     }
   }
 
@@ -72,7 +72,8 @@ class MapRepository {
         currentPosition = LatLng(pos.latitude, pos.longitude);
       });
     }
-    return currentPosition;
+    return Secrets.initalPosition;
+    // return currentPosition;
   }
 
   ///*도보계산
@@ -93,13 +94,13 @@ class MapRepository {
       Response response = await Dio().get(apiUrl);
       // 경로 정보 가져오기
       final routes = response.data['routes'];
-      Logger().d(response.data);
+      // Logger().d(response.data);
       var duration = 0;
       var distance = 0;
       if (routes.isNotEmpty) {
         final route = routes[0];
-        duration = route['duration'].toInt();
-        distance = route['distance'].toInt();
+        duration = route['duration'] ~/ 50;
+        distance = route['distance'] ~/ 50;
       }
       return {"duration": duration, "distance": distance};
     } catch (e) {

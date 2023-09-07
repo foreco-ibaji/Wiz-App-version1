@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ibaji/modules/detail_method/controller/detail_method_controller.dart';
 import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
 import 'package:ibaji/modules/home/widget/home_widget.dart';
 import 'package:ibaji/util/app_text_styles.dart';
@@ -21,8 +22,10 @@ class SearchResult extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: () {
-            Get.to(DetailMethodScreen(), arguments: {'id': trash.id});
+          onTap: () async {
+            Get.put(DetailMethodController(id: trash.id));
+            await Future.delayed(Duration(seconds: 2));
+            await Get.to(DetailMethodScreen(), arguments: {'id': trash.id});
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 19.h),

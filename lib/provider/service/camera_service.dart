@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:get/get.dart';
+import 'package:ibaji/modules/camera/controller/camera_controller.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -30,7 +31,7 @@ class CameraService extends GetxService {
       final XFile imageFile =
           await cameraController?.value.takePicture() ?? XFile(path);
       // 사진 촬영이 완료되면 해당 경로에 이미지가 저장됩니다.
-
+      CameraScreenController.to.imagePath.value = imageFile.path ?? "";
       Logger().d('사진이 저장되었습니다 ${imageFile.path}');
       return imageFile;
     } catch (e) {

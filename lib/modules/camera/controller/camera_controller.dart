@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/provider/api/photo_api.dart';
 import 'package:ibaji/provider/api/trash_api.dart';
@@ -14,22 +13,25 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../detail_method/view/detail_method_view.dart';
 
 class CameraScreenController extends GetxController {
+  static CameraScreenController get to => Get.find();
   Rx<bool> isFlash = false.obs;
   RxString imagePath = ''.obs;
-
+  XFile? resultImage;
   //"{\"bboxes\":[[\"비닐\",148,48,752,568]]}"
   ///* 이미지 선택
   Future<void> imagePick() async {
-    Logger().d("이미지 선택");
+    Logger().d("1. 이미지 선택");
     imagePath.value = await imageRegister();
-    await PhotoRepository.getPhotoReuslt(imagePath.value);
+    Logger().d("2. ${resultImage?.path}경로");
+    var result = await PhotoRepository.getPhotoReuslt(imagePath.value);
+    return result;
   }
 
   ///* 휴대폰 내부 이미지 선택
   Future<String> imageRegister() async {
     final ImagePicker picker = ImagePicker();
 
-    XFile? resultImage = await picker.pickImage(
+    resultImage = await picker.pickImage(
       source: ImageSource.gallery,
       imageQuality: 60,
     );

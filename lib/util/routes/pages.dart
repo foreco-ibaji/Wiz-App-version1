@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/detail_method/binding/detail_method_binding.dart';
+import 'package:ibaji/util/routes/routes.dart';
 import '../../modules/detail_method/view/detail_method_view.dart';
 import '../../modules/splash/binding/splash_binding.dart';
 import '../../modules/splash/view/splash_view.dart';
 import '../../modules/camera/binding/camera_binding.dart';
 import '../../modules/camera/view/camera_view.dart';
 import '../../modules/home/binding/home_binding.dart';
-import '../../provider/routes/routes.dart';
 import '../../modules/home/view/home_view.dart';
 import '../../modules/map/binding/map_binding.dart';
 import '../../modules/map/view/map_view.dart';

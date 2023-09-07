@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../api/public_api.dart';
@@ -12,20 +15,19 @@ class MapService extends GetxService {
   static MapService get to => Get.find();
   static Rx<LatLng> currentLatLng = Secrets.initalPosition.obs;
   static RxList<String> currentAddress = <String>[].obs;
-  static late BitmapDescriptor customIcon;
+  static NOverlayImage customIcon = NOverlayImage.fromAssetImage(
+      'asset/image/object/map/ic_basci_picker_32.png');
   RxMap<PolylineId, Polyline> polylines = <PolylineId, Polyline>{}.obs;
-  GoogleMapController? googleMapController;
-  RxSet<Marker> markers = <Marker>{}.obs;
+  // GoogleMapController? googleMapController;
+  static NaverMapController? naverMapController;
+  RxMap<String, Set<NMarker>> markers = <String, Set<NMarker>>{}.obs;
 
   @override
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
 
-    customIcon = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(devicePixelRatio: 1.0),
-      'asset/image/object/map/ic_basic_picker_32.svg',
-    );
+    Logger().d(customIcon.runtimeType);
     await PublicApi.getClothApi();
     await PublicApi.getLightApi();
   }

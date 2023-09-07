@@ -51,10 +51,10 @@ class GlobalButton extends StatelessWidget {
   factory GlobalButton.moveMapScreen({onTap}) {
     return GlobalButton(
         text: "근처 수거함 위치 보기",
-        textStyle: AppTextStyles.title3Bold.copyWith(color: AppColors.primary8),
+        textStyle: AppTextStyles.title3Bold.copyWith(color: AppColors.grey1),
         horizontalPadding: 16,
         verticalPadding: 8,
-        backgroundColor: AppColors.grey1,
+        backgroundColor: AppColors.primary8,
         onTap: onTap);
   }
 

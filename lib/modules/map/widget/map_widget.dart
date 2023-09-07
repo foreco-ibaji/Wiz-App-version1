@@ -26,6 +26,8 @@ class MapBottomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 205.h,
+      width: 330.w,
       margin: EdgeInsets.symmetric(vertical: 32.h, horizontal: 24.w),
       padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 20.w)
           .copyWith(bottom: 32.h),
@@ -46,11 +48,12 @@ class MapBottomContainer extends StatelessWidget {
           ),
           Row(
             children: [
-              SvgPicture.asset("asset/image/icon/iv_${iconUrl}_48.svg"),
+              SvgPicture.asset("asset/image/object/map/iv_${iconUrl}_48.svg"),
               SizedBox(
                 width: 12.w,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "${type}수거함",
@@ -74,6 +77,9 @@ class MapBottomContainer extends StatelessWidget {
           Row(
             children: [
               InformChip.location(disatnce: distance),
+              SizedBox(
+                width: 9.w,
+              ),
               InformChip.walk(duration: duration)
             ],
           )
@@ -86,11 +92,18 @@ class MapBottomContainer extends StatelessWidget {
 class InformChip extends StatelessWidget {
   final String iconUrl;
   final String text;
-  const InformChip({super.key, required this.iconUrl, required this.text});
+  final double maxWidth;
+  const InformChip(
+      {super.key,
+      required this.iconUrl,
+      required this.text,
+      required this.maxWidth});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: BoxConstraints(maxWidth: maxWidth // 최대 너비 설정
+          ),
       padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: AppColors.primary9,
@@ -102,20 +115,34 @@ class InformChip extends StatelessWidget {
           SizedBox(
             width: 5.5.w,
           ),
-          Text(text,
+          Expanded(
+            child: Text(
+              text,
               style: AppTextStyles.body1Medium.copyWith(
                 color: AppColors.grey1,
-              )),
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+          ),
         ],
       ),
     );
   }
 
   factory InformChip.location({required int disatnce}) {
-    return InformChip(iconUrl: "location_pin", text: "현재 위치에서 ${disatnce}m");
+    return InformChip(
+      iconUrl: "location_pin",
+      text: "현재 위치에서 ${disatnce}m",
+      maxWidth: 158.w,
+    );
   }
   factory InformChip.walk({required int duration}) {
-    return InformChip(iconUrl: "walk", text: "걸어서 ${duration}분");
+    return InformChip(
+      iconUrl: "walk",
+      text: "걸어서 ${duration}분",
+      maxWidth: 120.w,
+    );
   }
 }
 
@@ -142,6 +169,7 @@ class MapTypeChip extends StatelessWidget {
               : null),
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
       child: Text(
+        overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
         text,
         style: isSelected

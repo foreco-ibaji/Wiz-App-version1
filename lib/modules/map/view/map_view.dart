@@ -11,7 +11,7 @@ import 'package:ibaji/util/app_text_styles.dart';
 import 'package:logger/logger.dart';
 
 import '../../../provider/api/public_api.dart';
-import '../../../provider/routes/routes.dart';
+import '../../../util/routes/routes.dart';
 import '../../../provider/service/map_service.dart';
 import '../controller/map_controller.dart';
 import '../widget/map_widget.dart';
@@ -49,7 +49,7 @@ class MapScreen extends GetView<MapController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SvgPicture.asset(
-                        "asset/image/icon/ic_left_14.svg",
+                        "asset/image/icon/ic_arrow_left_14.svg",
                         width: 14.w,
                         color: AppColors.black,
                       ),
@@ -101,14 +101,34 @@ class MapScreen extends GetView<MapController> {
                         itemBuilder: ((context, index) {
                           return Obx(() => GestureDetector(
                               behavior: HitTestBehavior.translucent,
-                              onTap: (() {
+                              onTap: (() async {
+                                if (index != 0) {
+                                  MapService.to
+                                      .markers[controller.placeEngType[index]]
+                                      ?.forEach((element) {
+                                    element.setIsVisible(true);
+                                  });
+                                  MapService
+                                      .to
+                                      .markers[
+                                          controller.placeEngType[3 - index]]
+                                      ?.forEach((element) {
+                                    element.setIsVisible(false);
+                                  });
+                                  Logger().d("dfd");
+                                } else if (controller.isSelected.value != 0 &&
+                                    index == 0) {
+                                  MapService.to.markers['cloth']
+                                      ?.forEach((element) {
+                                    element.setIsVisible(true);
+                                  });
+                                  MapService.to.markers['bolt']
+                                      ?.forEach((element) {
+                                    element.setIsVisible(true);
+                                  });
+                                  Logger().d("hjhkhk");
+                                }
                                 controller.isSelected.value = index;
-
-                                // Set<Marker> visibleMarkers = MapService.to.markers
-                                //     .where((marker) =>
-                                //         marker.markerId.value.startsWith('bolt'))
-                                //     .toSet();
-                                //  visibleMarkers.forEach((element) {element.visible = false;})
                               }),
                               child: MapTypeChip(
                                   isSelected:
@@ -120,22 +140,51 @@ class MapScreen extends GetView<MapController> {
               ),
             ),
             Expanded(
-              child: GoogleMap(
-                zoomControlsEnabled: false,
-                markers: MapService.to.markers,
-                onMapCreated: ((GoogleMapController mapController) async {
-                  MapService.to.googleMapController = mapController;
-                  await controller.getCurrentLocation();
-                  // await ClothApi.getClothPlace();
-                  // var tmpList = await ClothApi.getClothPlace() ?? [];
-                }),
-                polylines: Set<Polyline>.of(MapService.to.polylines.values),
-                initialCameraPosition: CameraPosition(
-                  target: controller.initialPosition.value, // 초기 지도 위치 설정
-                  zoom: 13.0,
+              child: NaverMap(
+                options: NaverMapViewOptions(
+                  initialCameraPosition: NCameraPosition(
+                    target: NLatLng(
+                        MapService.currentLatLng.value.latitude,
+                        MapService
+                            .currentLatLng.value.longitude), // 초기 지도 위치 설정
+                    zoom: 15.0,
+                  ),
                 ),
+                onMapReady: ((mapController) async {
+                  MapService.naverMapController = mapController;
+                  MapService.to.markers.keys.forEach((element) async {
+                    await mapController
+                        .addOverlayAll(MapService.to.markers[element] ?? {})
+                        .then((marker) async {
+                      Logger().d(MapService.to.markers.length);
+                      try {
+                        return true;
+                      } catch (e) {
+                        Logger().d(e);
+                      }
+                      ;
+                    });
+                  });
+                }),
               ),
-            ),
+            )
+            // Expanded(
+            //   child: GoogleMap(
+            //     zoomControlsEnabled: false,
+            //     markers: MapService.to.markers,
+            //     onMapCreated: ((GoogleMapController mapController) async {
+            //       MapService.to.googleMapController = mapController;
+            //       await controller.getCurrentLocation();
+            //       // await ClothApi.getClothPlace();
+            //       // var tmpList = await ClothApi.getClothPlace() ?? [];
+            //     }),
+            //     polylines: Set<Polyline>.of(MapService.to.polylines.values),
+            //     initialCameraPosition: CameraPosition(
+            //       target: controller.initialPosition.value, // 초기 지도 위치 설정
+            //       zoom: 13.0,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

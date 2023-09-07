@@ -10,13 +10,19 @@
         <uses-permission android:name="android.permission.CAMERA" />
         <uses-feature android:name="android.hardware.camera" android:required="true" />
    <application
-        android:label="이바지"
+        android:label="위즈"
         android:name="${applicationName}"
         android:icon="@mipmap/logo">
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
         <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="$GOOGLE_API_KEY"/>
+        <meta-data
+           android:name="com.naver.maps.map.CLIENT_ID"
+           android:value="$NAVER_API_KEY" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -9,6 +9,7 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:ibaji/modules/camera/view/camera_view.dart';
 import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
 import 'package:ibaji/modules/map/view/map_view.dart';
+import 'package:ibaji/modules/mission/mission_view.dart';
 import 'package:ibaji/modules/search/view/search_view.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
@@ -16,8 +17,8 @@ import 'package:ibaji/util/global_button_widget.dart';
 import 'package:logger/logger.dart';
 
 import '../../../provider/api/trash_api.dart';
-import '../../../provider/routes/pages.dart';
-import '../../../provider/routes/routes.dart';
+import '../../../util/routes/pages.dart';
+import '../../../util/routes/routes.dart';
 import '../../../provider/service/map_service.dart';
 import '../../camera/view/camera_result_view.dart';
 import '../controller/home_controller.dart';
@@ -83,10 +84,22 @@ class HomeScreen extends GetView<HomeController> {
                             width: 8.w,
                           ),
                           //TODO: 데이터가 없을때 예외처리
-                          Text(
-                            "오늘은 ${controller.trashDay.join(", ")} 버리는 날 ",
-                            style: AppTextStyles.body1SemiBold,
-                          )
+                          Expanded(
+                            child: Text(
+                              controller.trashDay.isEmpty
+                                  ? "오늘은 버릴 수 있는 쓰레기가 없어요"
+                                  : "오늘은 ${controller.trashDay.join(", ")} ",
+                              style: AppTextStyles.body1SemiBold,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          !controller.trashDay.isEmpty
+                              ? Text(
+                                  '버리는 날',
+                                  style: AppTextStyles.body1SemiBold,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              : SizedBox.shrink()
                         ],
                       ),
                     ),
@@ -199,14 +212,20 @@ class HomeScreen extends GetView<HomeController> {
               onNavigate: () async {
                 // await Get.to(() => DetailMethodScreen(), arguments: {"id": 1});
                 await Get.to(
-                    // () => CameraScreen(),
-                    () => CameraResultScreen());
+                  () => CameraScreen(),
+                );
               },
             ),
             BottomNaviItem(
               iconText: "mission",
               text: "미션",
               isSelected: false,
+              onNavigate: () async {
+                // await Get.to(() => DetailMethodScreen(), arguments: {"id": 1});
+                await Get.to(
+                  () => MissionScreen(),
+                );
+              },
             ),
           ],
         ),

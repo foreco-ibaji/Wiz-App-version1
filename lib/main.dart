@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ibaji/util/app_colors.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 
 import 'modules/splash/binding/splash_binding.dart';
@@ -15,14 +16,18 @@ import 'util/routes/pages.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  runApp(
-    const MyApp(),
-  );
   await NaverMapSdk.instance.initialize(
       clientId: dotenv.env['NAVER_CLIENT_ID'].toString(),
       onAuthFailed: (error) {
         Logger().d('Auth failed: $error');
       });
+  KakaoSdk.init(
+    nativeAppKey: dotenv.env['KAKAO_API_KEY'].toString(),
+  );
+
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {

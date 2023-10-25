@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/detail_method/binding/detail_method_binding.dart';
+import 'package:ibaji/modules/login/binding/login_binding.dart';
+import 'package:ibaji/modules/login/view/login_view.dart';
 import 'package:ibaji/util/routes/routes.dart';
 import '../../modules/detail_method/view/detail_method_view.dart';
 import '../../modules/splash/binding/splash_binding.dart';
@@ -14,6 +16,15 @@ import '../../modules/map/view/map_view.dart';
 
 class Pages {
   static final routes = [
+    GetPage(
+      title: "로그인 화면",
+      name: Routes.login,
+      page: () => const LoginScreen(),
+      transition: Transition.noTransition,
+      binding: LoginBinding(),
+      curve: Curves.easeIn,
+      popGesture: false,
+    ),
     GetPage(
       title: "스플래시 화면",
       name: Routes.splash,

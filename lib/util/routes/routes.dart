@@ -2,9 +2,11 @@ import 'package:get/get.dart';
 
 abstract class Routes {
   Routes._();
-
   /// 스플래시 화면(onboarding)
   static const splash = _Paths.splash;
+
+  /// 스플래시 화면(onboarding)
+  static const login = _Paths.login;
 
   /// 홈 화면
   static const home = _Paths.home;
@@ -27,6 +29,9 @@ abstract class _Paths {
 
   /// 스플래시 화면(onboarding)
   static const splash = "/splash";
+
+  /// 스플래시 화면(onboarding)
+  static const login = "/login";
 
   /// 홈 화면
   static const home = "/home";

@@ -4,18 +4,20 @@ import 'package:ibaji/provider/api/util/global_api_field.dart';
 
 import '../../model/member/member.dart';
 import '../../util/style/global_logger.dart';
+import '../service/map_service.dart';
 
-class AuthApi {
+class LoginApi {
   ///<h2>login kakao API </h2>
   static Future<Member?> getMemberSignIn({
     required String token,
-    required String region,
   }) async {
     try {
       logger.d("api호출 성공");
       Response response = await DioServices().to().get(
-          "/api/v1/account/kakao/result",
-          queryParameters: {"token": token, "region": region});
+          "/account/kakao/result",
+          queryParameters: {"token": token,
+            "region": "서울특별시 ${MapService.currentAddress[1]} 면목동"
+          });
       return Member.fromJson(response.data[DATA]);
     } catch (e) {
       logger.e(e.toString());

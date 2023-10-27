@@ -13,6 +13,7 @@ import 'package:ibaji/provider/api/util/secret_key.dart';
 import 'package:logger/logger.dart';
 
 import '../../modules/map/widget/map_widget.dart';
+import '../../util/style/global_logger.dart';
 import '../service/map_service.dart';
 
 class PublicApi {
@@ -25,6 +26,7 @@ class PublicApi {
   ///23년도 6월 get 요청주소
   static String lightParam =
       '/15038091/v1/uddi:2636cb3c-30e3-4ce3-aca9-ca040f5deb27?page=1&perPage=50&serviceKey=6ukHRfTd3TeZw03mnb3%2BI%2Bsoh%2FyRKlMGlnmDmdvh%2BdkRCDP%2B6xuNi%2Bo1%2BJv2XVe39xd34MFqClKgMhtpVlXrzA%3D%3D';
+
   static Future<void> getClothApi() async {
     try {
       var response = await Dio().get(
@@ -47,8 +49,8 @@ class PublicApi {
       var id = 0;
       for (var i in data) {
         // var location = await MapRepository.getLocationFromAddress(i['주소']);
-        Logger()
-            .d('의류 ${i}번째는 ${double.parse(i['위도'])} ${double.parse(i['경도'])}');
+        // logger
+        //     .d('의류 ${i}번째는 ${double.parse(i['위도'])} ${double.parse(i['경도'])}');
         NMarker marker = NMarker(
             id: 'cloth' + id.toString(),
             position: NLatLng(

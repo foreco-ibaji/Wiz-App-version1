@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/login/controller/login_controller.dart';
 import 'package:ibaji/util/app_text_styles.dart';
-
 import '../../../util/app_colors.dart';
 import '../../../util/global_variables.dart';
 
@@ -18,19 +17,29 @@ class LoginScreen extends GetView<LoginController> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(child: Center(child: SvgPicture.asset("${imgDir}logo/ic_home_logo.svg"))),
+            Expanded(
+                child: Center(
+                    child: SvgPicture.asset("${imgDir}logo/ic_home_logo.svg"))),
             GestureDetector(
-              onTap: () {},
+              onTap: () async {
+                await controller.signInWithKakao();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w),
-                margin: EdgeInsets.symmetric(horizontal: 24.w).copyWith(bottom: 90.h),
+                margin: EdgeInsets.symmetric(horizontal: 24.w)
+                    .copyWith(bottom: 90.h),
                 decoration: BoxDecoration(
                     color: AppColors.kakao,
                     borderRadius: BorderRadius.circular(10.r)),
                 child: Row(
                   children: [
                     SvgPicture.asset("${imgDir}logo/ic_login_kakao_18.svg"),
-                    Expanded(child: Center(child: Text('카카오로 로그인하기',style: AppTextStyles.title2Bold,))),
+                    Expanded(
+                        child: Center(
+                            child: Text(
+                      '카카오로 로그인하기',
+                      style: AppTextStyles.title2Bold,
+                    ))),
                   ],
                 ),
               ),

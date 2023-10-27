@@ -24,7 +24,7 @@ class DioServices {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'X-AUTH-TOKEN': tmpToken
+        // 'X-AUTH-TOKEN': tmpToken
       },
     );
     _dio = Dio(_baseOptions);

@@ -66,19 +66,21 @@ class _$ExpectCopyWithImpl<$Res, $Val extends Expect>
 }
 
 /// @nodoc
-abstract class _$$_ExpectCopyWith<$Res> implements $ExpectCopyWith<$Res> {
-  factory _$$_ExpectCopyWith(_$_Expect value, $Res Function(_$_Expect) then) =
-      __$$_ExpectCopyWithImpl<$Res>;
+abstract class _$$ExpectImplCopyWith<$Res> implements $ExpectCopyWith<$Res> {
+  factory _$$ExpectImplCopyWith(
+          _$ExpectImpl value, $Res Function(_$ExpectImpl) then) =
+      __$$ExpectImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String imgUrl, String imgName});
 }
 
 /// @nodoc
-class __$$_ExpectCopyWithImpl<$Res>
-    extends _$ExpectCopyWithImpl<$Res, _$_Expect>
-    implements _$$_ExpectCopyWith<$Res> {
-  __$$_ExpectCopyWithImpl(_$_Expect _value, $Res Function(_$_Expect) _then)
+class __$$ExpectImplCopyWithImpl<$Res>
+    extends _$ExpectCopyWithImpl<$Res, _$ExpectImpl>
+    implements _$$ExpectImplCopyWith<$Res> {
+  __$$ExpectImplCopyWithImpl(
+      _$ExpectImpl _value, $Res Function(_$ExpectImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +89,7 @@ class __$$_ExpectCopyWithImpl<$Res>
     Object? imgUrl = null,
     Object? imgName = null,
   }) {
-    return _then(_$_Expect(
+    return _then(_$ExpectImpl(
       imgUrl: null == imgUrl
           ? _value.imgUrl
           : imgUrl // ignore: cast_nullable_to_non_nullable
@@ -102,11 +104,11 @@ class __$$_ExpectCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Expect implements _Expect {
-  const _$_Expect({required this.imgUrl, required this.imgName});
+class _$ExpectImpl implements _Expect {
+  const _$ExpectImpl({required this.imgUrl, required this.imgName});
 
-  factory _$_Expect.fromJson(Map<String, dynamic> json) =>
-      _$$_ExpectFromJson(json);
+  factory _$ExpectImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ExpectImplFromJson(json);
 
   @override
   final String imgUrl;
@@ -122,7 +124,7 @@ class _$_Expect implements _Expect {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Expect &&
+            other is _$ExpectImpl &&
             (identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl) &&
             (identical(other.imgName, imgName) || other.imgName == imgName));
   }
@@ -134,12 +136,12 @@ class _$_Expect implements _Expect {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ExpectCopyWith<_$_Expect> get copyWith =>
-      __$$_ExpectCopyWithImpl<_$_Expect>(this, _$identity);
+  _$$ExpectImplCopyWith<_$ExpectImpl> get copyWith =>
+      __$$ExpectImplCopyWithImpl<_$ExpectImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ExpectToJson(
+    return _$$ExpectImplToJson(
       this,
     );
   }
@@ -148,9 +150,9 @@ class _$_Expect implements _Expect {
 abstract class _Expect implements Expect {
   const factory _Expect(
       {required final String imgUrl,
-      required final String imgName}) = _$_Expect;
+      required final String imgName}) = _$ExpectImpl;
 
-  factory _Expect.fromJson(Map<String, dynamic> json) = _$_Expect.fromJson;
+  factory _Expect.fromJson(Map<String, dynamic> json) = _$ExpectImpl.fromJson;
 
   @override
   String get imgUrl;
@@ -158,6 +160,6 @@ abstract class _Expect implements Expect {
   String get imgName;
   @override
   @JsonKey(ignore: true)
-  _$$_ExpectCopyWith<_$_Expect> get copyWith =>
+  _$$ExpectImplCopyWith<_$ExpectImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

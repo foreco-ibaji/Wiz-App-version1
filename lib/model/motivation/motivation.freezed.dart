@@ -77,11 +77,11 @@ class _$MotivationCopyWithImpl<$Res, $Val extends Motivation>
 }
 
 /// @nodoc
-abstract class _$$_MotivationCopyWith<$Res>
+abstract class _$$MotivationImplCopyWith<$Res>
     implements $MotivationCopyWith<$Res> {
-  factory _$$_MotivationCopyWith(
-          _$_Motivation value, $Res Function(_$_Motivation) then) =
-      __$$_MotivationCopyWithImpl<$Res>;
+  factory _$$MotivationImplCopyWith(
+          _$MotivationImpl value, $Res Function(_$MotivationImpl) then) =
+      __$$MotivationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -91,11 +91,11 @@ abstract class _$$_MotivationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_MotivationCopyWithImpl<$Res>
-    extends _$MotivationCopyWithImpl<$Res, _$_Motivation>
-    implements _$$_MotivationCopyWith<$Res> {
-  __$$_MotivationCopyWithImpl(
-      _$_Motivation _value, $Res Function(_$_Motivation) _then)
+class __$$MotivationImplCopyWithImpl<$Res>
+    extends _$MotivationCopyWithImpl<$Res, _$MotivationImpl>
+    implements _$$MotivationImplCopyWith<$Res> {
+  __$$MotivationImplCopyWithImpl(
+      _$MotivationImpl _value, $Res Function(_$MotivationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -105,7 +105,7 @@ class __$$_MotivationCopyWithImpl<$Res>
     Object? time = null,
     Object? ifYouDoNot = null,
   }) {
-    return _then(_$_Motivation(
+    return _then(_$MotivationImpl(
       recyclingProcess: null == recyclingProcess
           ? _value._recyclingProcess
           : recyclingProcess // ignore: cast_nullable_to_non_nullable
@@ -124,8 +124,8 @@ class __$$_MotivationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Motivation implements _Motivation {
-  const _$_Motivation(
+class _$MotivationImpl implements _Motivation {
+  const _$MotivationImpl(
       {required final List<Process> recyclingProcess,
       required final List<Expect> time,
       required final List<Process> ifYouDoNot})
@@ -133,8 +133,8 @@ class _$_Motivation implements _Motivation {
         _time = time,
         _ifYouDoNot = ifYouDoNot;
 
-  factory _$_Motivation.fromJson(Map<String, dynamic> json) =>
-      _$$_MotivationFromJson(json);
+  factory _$MotivationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MotivationImplFromJson(json);
 
   final List<Process> _recyclingProcess;
   @override
@@ -170,7 +170,7 @@ class _$_Motivation implements _Motivation {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Motivation &&
+            other is _$MotivationImpl &&
             const DeepCollectionEquality()
                 .equals(other._recyclingProcess, _recyclingProcess) &&
             const DeepCollectionEquality().equals(other._time, _time) &&
@@ -189,12 +189,12 @@ class _$_Motivation implements _Motivation {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MotivationCopyWith<_$_Motivation> get copyWith =>
-      __$$_MotivationCopyWithImpl<_$_Motivation>(this, _$identity);
+  _$$MotivationImplCopyWith<_$MotivationImpl> get copyWith =>
+      __$$MotivationImplCopyWithImpl<_$MotivationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MotivationToJson(
+    return _$$MotivationImplToJson(
       this,
     );
   }
@@ -204,10 +204,10 @@ abstract class _Motivation implements Motivation {
   const factory _Motivation(
       {required final List<Process> recyclingProcess,
       required final List<Expect> time,
-      required final List<Process> ifYouDoNot}) = _$_Motivation;
+      required final List<Process> ifYouDoNot}) = _$MotivationImpl;
 
   factory _Motivation.fromJson(Map<String, dynamic> json) =
-      _$_Motivation.fromJson;
+      _$MotivationImpl.fromJson;
 
   @override
   List<Process> get recyclingProcess;
@@ -217,6 +217,6 @@ abstract class _Motivation implements Motivation {
   List<Process> get ifYouDoNot;
   @override
   @JsonKey(ignore: true)
-  _$$_MotivationCopyWith<_$_Motivation> get copyWith =>
+  _$$MotivationImplCopyWith<_$MotivationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

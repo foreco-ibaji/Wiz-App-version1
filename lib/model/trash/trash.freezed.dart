@@ -72,18 +72,21 @@ class _$TrashCopyWithImpl<$Res, $Val extends Trash>
 }
 
 /// @nodoc
-abstract class _$$_TrashCopyWith<$Res> implements $TrashCopyWith<$Res> {
-  factory _$$_TrashCopyWith(_$_Trash value, $Res Function(_$_Trash) then) =
-      __$$_TrashCopyWithImpl<$Res>;
+abstract class _$$TrashImplCopyWith<$Res> implements $TrashCopyWith<$Res> {
+  factory _$$TrashImplCopyWith(
+          _$TrashImpl value, $Res Function(_$TrashImpl) then) =
+      __$$TrashImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int id, String name, String? iconUrl});
 }
 
 /// @nodoc
-class __$$_TrashCopyWithImpl<$Res> extends _$TrashCopyWithImpl<$Res, _$_Trash>
-    implements _$$_TrashCopyWith<$Res> {
-  __$$_TrashCopyWithImpl(_$_Trash _value, $Res Function(_$_Trash) _then)
+class __$$TrashImplCopyWithImpl<$Res>
+    extends _$TrashCopyWithImpl<$Res, _$TrashImpl>
+    implements _$$TrashImplCopyWith<$Res> {
+  __$$TrashImplCopyWithImpl(
+      _$TrashImpl _value, $Res Function(_$TrashImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -93,7 +96,7 @@ class __$$_TrashCopyWithImpl<$Res> extends _$TrashCopyWithImpl<$Res, _$_Trash>
     Object? name = null,
     Object? iconUrl = freezed,
   }) {
-    return _then(_$_Trash(
+    return _then(_$TrashImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -112,11 +115,12 @@ class __$$_TrashCopyWithImpl<$Res> extends _$TrashCopyWithImpl<$Res, _$_Trash>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Trash implements _Trash {
-  const _$_Trash({required this.id, required this.name, required this.iconUrl});
+class _$TrashImpl implements _Trash {
+  const _$TrashImpl(
+      {required this.id, required this.name, required this.iconUrl});
 
-  factory _$_Trash.fromJson(Map<String, dynamic> json) =>
-      _$$_TrashFromJson(json);
+  factory _$TrashImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TrashImplFromJson(json);
 
   @override
   final int id;
@@ -134,7 +138,7 @@ class _$_Trash implements _Trash {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Trash &&
+            other is _$TrashImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl));
@@ -147,12 +151,12 @@ class _$_Trash implements _Trash {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TrashCopyWith<_$_Trash> get copyWith =>
-      __$$_TrashCopyWithImpl<_$_Trash>(this, _$identity);
+  _$$TrashImplCopyWith<_$TrashImpl> get copyWith =>
+      __$$TrashImplCopyWithImpl<_$TrashImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TrashToJson(
+    return _$$TrashImplToJson(
       this,
     );
   }
@@ -162,9 +166,9 @@ abstract class _Trash implements Trash {
   const factory _Trash(
       {required final int id,
       required final String name,
-      required final String? iconUrl}) = _$_Trash;
+      required final String? iconUrl}) = _$TrashImpl;
 
-  factory _Trash.fromJson(Map<String, dynamic> json) = _$_Trash.fromJson;
+  factory _Trash.fromJson(Map<String, dynamic> json) = _$TrashImpl.fromJson;
 
   @override
   int get id;
@@ -174,6 +178,6 @@ abstract class _Trash implements Trash {
   String? get iconUrl;
   @override
   @JsonKey(ignore: true)
-  _$$_TrashCopyWith<_$_Trash> get copyWith =>
+  _$$TrashImplCopyWith<_$TrashImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

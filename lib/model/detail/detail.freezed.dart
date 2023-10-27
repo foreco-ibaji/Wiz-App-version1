@@ -72,19 +72,21 @@ class _$DetailCopyWithImpl<$Res, $Val extends Detail>
 }
 
 /// @nodoc
-abstract class _$$_DetailCopyWith<$Res> implements $DetailCopyWith<$Res> {
-  factory _$$_DetailCopyWith(_$_Detail value, $Res Function(_$_Detail) then) =
-      __$$_DetailCopyWithImpl<$Res>;
+abstract class _$$DetailImplCopyWith<$Res> implements $DetailCopyWith<$Res> {
+  factory _$$DetailImplCopyWith(
+          _$DetailImpl value, $Res Function(_$DetailImpl) then) =
+      __$$DetailImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String imgUrl, String trashName, String? disposalMethod});
 }
 
 /// @nodoc
-class __$$_DetailCopyWithImpl<$Res>
-    extends _$DetailCopyWithImpl<$Res, _$_Detail>
-    implements _$$_DetailCopyWith<$Res> {
-  __$$_DetailCopyWithImpl(_$_Detail _value, $Res Function(_$_Detail) _then)
+class __$$DetailImplCopyWithImpl<$Res>
+    extends _$DetailCopyWithImpl<$Res, _$DetailImpl>
+    implements _$$DetailImplCopyWith<$Res> {
+  __$$DetailImplCopyWithImpl(
+      _$DetailImpl _value, $Res Function(_$DetailImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -94,7 +96,7 @@ class __$$_DetailCopyWithImpl<$Res>
     Object? trashName = null,
     Object? disposalMethod = freezed,
   }) {
-    return _then(_$_Detail(
+    return _then(_$DetailImpl(
       imgUrl: null == imgUrl
           ? _value.imgUrl
           : imgUrl // ignore: cast_nullable_to_non_nullable
@@ -113,12 +115,12 @@ class __$$_DetailCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Detail implements _Detail {
-  const _$_Detail(
+class _$DetailImpl implements _Detail {
+  const _$DetailImpl(
       {required this.imgUrl, required this.trashName, this.disposalMethod});
 
-  factory _$_Detail.fromJson(Map<String, dynamic> json) =>
-      _$$_DetailFromJson(json);
+  factory _$DetailImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DetailImplFromJson(json);
 
   @override
   final String imgUrl;
@@ -136,7 +138,7 @@ class _$_Detail implements _Detail {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Detail &&
+            other is _$DetailImpl &&
             (identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl) &&
             (identical(other.trashName, trashName) ||
                 other.trashName == trashName) &&
@@ -152,12 +154,12 @@ class _$_Detail implements _Detail {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DetailCopyWith<_$_Detail> get copyWith =>
-      __$$_DetailCopyWithImpl<_$_Detail>(this, _$identity);
+  _$$DetailImplCopyWith<_$DetailImpl> get copyWith =>
+      __$$DetailImplCopyWithImpl<_$DetailImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DetailToJson(
+    return _$$DetailImplToJson(
       this,
     );
   }
@@ -167,9 +169,9 @@ abstract class _Detail implements Detail {
   const factory _Detail(
       {required final String imgUrl,
       required final String trashName,
-      final String? disposalMethod}) = _$_Detail;
+      final String? disposalMethod}) = _$DetailImpl;
 
-  factory _Detail.fromJson(Map<String, dynamic> json) = _$_Detail.fromJson;
+  factory _Detail.fromJson(Map<String, dynamic> json) = _$DetailImpl.fromJson;
 
   @override
   String get imgUrl;
@@ -179,6 +181,6 @@ abstract class _Detail implements Detail {
   String? get disposalMethod;
   @override
   @JsonKey(ignore: true)
-  _$$_DetailCopyWith<_$_Detail> get copyWith =>
+  _$$DetailImplCopyWith<_$DetailImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

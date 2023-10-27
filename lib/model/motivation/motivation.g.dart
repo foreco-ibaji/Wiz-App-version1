@@ -6,8 +6,8 @@ part of 'motivation.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Motivation _$$_MotivationFromJson(Map<String, dynamic> json) =>
-    _$_Motivation(
+_$MotivationImpl _$$MotivationImplFromJson(Map<String, dynamic> json) =>
+    _$MotivationImpl(
       recyclingProcess: (json['recyclingProcess'] as List<dynamic>)
           .map((e) => Process.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -19,7 +19,7 @@ _$_Motivation _$$_MotivationFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$_MotivationToJson(_$_Motivation instance) =>
+Map<String, dynamic> _$$MotivationImplToJson(_$MotivationImpl instance) =>
     <String, dynamic>{
       'recyclingProcess': instance.recyclingProcess,
       'time': instance.time,

@@ -16,7 +16,7 @@ class LoginApi {
       Response response = await DioServices().to().get(
           "/account/kakao/result",
           queryParameters: {"token": token,
-            "region": "서울특별시 ${MapService.currentAddress[1]} 면목동"
+            // "region": "서울특별시 ${MapService.currentAddress[1]} 면목동"
           });
       return Member.fromJson(response.data[DATA]);
     } catch (e) {

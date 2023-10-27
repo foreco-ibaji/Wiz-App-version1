@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ibaji/provider/api/login_api.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
+import '../../../util/routes/routes.dart';
 import '../../../util/style/global_logger.dart';
 
 class LoginController extends GetxController {
@@ -17,6 +18,9 @@ class LoginController extends GetxController {
           : await UserApi.instance.loginWithKakaoAccount();
       var tmpResult = await LoginApi.getMemberSignIn(token: token.accessToken);
       logger.d(tmpResult);
+
+      ///* 임시 라우팅
+      await Get.toNamed(Routes.main);
     } catch (error) {
       logger.e(error.toString());
       if (error is PlatformException && error.code == 'CANCELED') {

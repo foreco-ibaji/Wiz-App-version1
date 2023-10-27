@@ -3,6 +3,10 @@ import 'package:get/get.dart';
 import 'package:ibaji/modules/detail_method/binding/detail_method_binding.dart';
 import 'package:ibaji/modules/login/binding/login_binding.dart';
 import 'package:ibaji/modules/login/view/login_view.dart';
+import 'package:ibaji/modules/main/binding/main_binding.dart';
+import 'package:ibaji/modules/main/view/main_view.dart';
+import 'package:ibaji/modules/mission/binding/mission_binding.dart';
+import 'package:ibaji/modules/mission/view/mission_view.dart';
 import 'package:ibaji/util/routes/routes.dart';
 import '../../modules/detail_method/view/detail_method_view.dart';
 import '../../modules/splash/binding/splash_binding.dart';
@@ -31,6 +35,15 @@ class Pages {
       page: () => const SplashScreen(),
       transition: Transition.noTransition,
       binding: SplashBinding(),
+      curve: Curves.easeIn,
+      popGesture: false,
+    ),
+    GetPage(
+      title: "메인 화면",
+      name: Routes.main,
+      page: () => const MainScreen(),
+      transition: Transition.noTransition,
+      binding: MainBinding(),
       curve: Curves.easeIn,
       popGesture: false,
     ),
@@ -70,6 +83,15 @@ class Pages {
       page: () => const MapScreen(),
       transition: Transition.noTransition,
       binding: MapBinding(),
+      curve: Curves.easeIn,
+      popGesture: false,
+    ),
+    GetPage(
+      title: "미션 화면",
+      name: Routes.mission,
+      page: () => const MissionScreen(),
+      transition: Transition.noTransition,
+      binding: MissionBinding(),
       curve: Curves.easeIn,
       popGesture: false,
     ),

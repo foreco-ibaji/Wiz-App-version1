@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/mission/controller/mission_controller.dart';
+import 'package:ibaji/modules/mission/widget/mission_widget.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 import '../../../util/app_colors.dart';
 import '../../../util/global_variables.dart';
@@ -13,7 +14,7 @@ class MissionScreen extends GetView<MissionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
           Padding(
             padding:
@@ -100,6 +101,39 @@ class MissionScreen extends GetView<MissionController> {
             color: AppColors.grey1,
             height: 10.h,
           ),
+          TabBar(
+            controller: controller.missionTabBar.value.controller,
+            onTap: (index) async {
+              controller.tabIndex.value = index;
+            },
+            labelColor: AppColors.grey9,
+            labelStyle: AppTextStyles.title1Bold,
+            unselectedLabelColor: AppColors.grey4,
+            indicatorColor: AppColors.grey9,
+            tabAlignment: TabAlignment.fill,
+            tabs: [
+              Tab(
+                text: "위즈 미션",
+              ),
+              Tab(text: "환경 미션"),
+              Tab(text: "쇼핑하기"),
+            ],
+          ),
+          Expanded(child:  [
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: 3,
+                itemBuilder: (context, index) => MissionListTile()),
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: 3,
+                itemBuilder: (context, index) => MissionListTile()),
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: 3,
+                itemBuilder: (context, index) => MissionListTile()),
+          ][controller.tabIndex.value])
+
         ],
       ),
     );

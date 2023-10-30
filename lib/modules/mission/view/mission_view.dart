@@ -15,6 +15,7 @@ class MissionScreen extends GetView<MissionController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
+        shrinkWrap: true,
         children: [
           Padding(
             padding:
@@ -119,7 +120,8 @@ class MissionScreen extends GetView<MissionController> {
               Tab(text: "쇼핑하기"),
             ],
           ),
-          Expanded(child:  [
+          Expanded(
+              child: [
             ListView.builder(
                 shrinkWrap: true,
                 itemCount: 3,
@@ -133,7 +135,6 @@ class MissionScreen extends GetView<MissionController> {
                 itemCount: 3,
                 itemBuilder: (context, index) => MissionListTile()),
           ][controller.tabIndex.value])
-
         ],
       ),
     );

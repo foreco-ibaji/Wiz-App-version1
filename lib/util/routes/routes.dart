@@ -19,7 +19,7 @@ abstract class Routes {
   static const detail = _Paths.detail;
 
   /// 동기부여화면
-  static const recycle_motivation = _Paths.recycle_motivation;
+  static const recycleMotivation = _Paths.recycleMotivation;
 
   /// 카메라
   static const camera = _Paths.camera;
@@ -29,6 +29,9 @@ abstract class Routes {
 
   /// 미션 화면
   static const mission = _Paths.mission;
+
+  /// 미션 상세화면
+  static const missionDetail = _Paths.missionDetail;
 }
 
 abstract class _Paths {
@@ -50,7 +53,7 @@ abstract class _Paths {
   static const detail = "/detail";
 
   /// 동기부여화면
-  static const recycle_motivation = "/motivation";
+  static const recycleMotivation = "/motivation";
 
   /// 카메라
   static const camera = "/camera";
@@ -60,4 +63,7 @@ abstract class _Paths {
 
   /// 미션 화면
   static const mission = "/mission";
+
+  /// 미션 상세화면
+  static const missionDetail = "/mission_detail";
 }

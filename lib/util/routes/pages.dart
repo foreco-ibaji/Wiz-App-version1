@@ -7,6 +7,8 @@ import 'package:ibaji/modules/main/binding/main_binding.dart';
 import 'package:ibaji/modules/main/view/main_view.dart';
 import 'package:ibaji/modules/mission/binding/mission_binding.dart';
 import 'package:ibaji/modules/mission/view/mission_view.dart';
+import 'package:ibaji/modules/mission_detail/binding/mission_detail_binding.dart';
+import 'package:ibaji/modules/mission_detail/view/mission_detail_view.dart';
 import 'package:ibaji/util/routes/routes.dart';
 import '../../modules/detail_method/view/detail_method_view.dart';
 import '../../modules/splash/binding/splash_binding.dart';
@@ -92,6 +94,15 @@ class Pages {
       page: () => const MissionScreen(),
       transition: Transition.noTransition,
       binding: MissionBinding(),
+      curve: Curves.easeIn,
+      popGesture: false,
+    ),
+    GetPage(
+      title: "미션 상세 화면",
+      name: Routes.missionDetail,
+      page: () => const MissionDetailScreen(),
+      transition: Transition.noTransition,
+      binding: MissionDetailBinding(),
       curve: Curves.easeIn,
       popGesture: false,
     ),

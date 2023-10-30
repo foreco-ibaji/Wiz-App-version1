@@ -18,13 +18,14 @@ class GlobalButton extends StatelessWidget {
   final Color backgroundColor;
   final Color borderColor;
   final Future<void> Function()? onTap;
+
   const GlobalButton(
       {super.key,
       required this.text,
       required this.textStyle,
       required this.backgroundColor,
       required this.onTap,
-      required this.horizontalPadding,
+      this.horizontalPadding = 0,
       required this.verticalPadding,
       this.borderColor = Colors.transparent});
 
@@ -33,6 +34,7 @@ class GlobalButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        alignment: Alignment.center,
         padding: EdgeInsets.symmetric(
             horizontal: horizontalPadding.w, vertical: verticalPadding.h),
         decoration: BoxDecoration(
@@ -87,6 +89,18 @@ class GlobalButton extends StatelessWidget {
           )) {
             throw Exception('Could not launch url');
           }
+        });
+  }
+
+  factory GlobalButton.missionSubmit(
+      {required Function() onTap, bool isActive = false}) {
+    return GlobalButton(
+        text: "선택하기",
+        textStyle: AppTextStyles.title2Bold.copyWith(color: AppColors.grey1),
+        verticalPadding: 14,
+        backgroundColor: isActive ? AppColors.primary6 : AppColors.grey3,
+        onTap: () async {
+          onTap();
         });
   }
 }

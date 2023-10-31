@@ -6,6 +6,5 @@ class SplashBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(SplashController());
-    Get.put(MapService());
   }
 }

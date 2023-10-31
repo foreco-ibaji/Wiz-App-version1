@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -6,6 +5,8 @@ import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:ibaji/modules/login/binding/login_binding.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
@@ -21,6 +22,9 @@ void main() async {
       onAuthFailed: (error) {
         Logger().d('Auth failed: $error');
       });
+  /// * GetStorage 초기화
+  await GetStorage.init();
+
   KakaoSdk.init(
     nativeAppKey: dotenv.env['KAKAO_API_KEY'].toString(),
   );
@@ -60,7 +64,7 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate
           ],
           initialRoute: "/splash",
-          initialBinding: SplashBinding(),
+          initialBinding: LoginBinding(),
           smartManagement: SmartManagement.full,
           navigatorKey: Get.key,
         );

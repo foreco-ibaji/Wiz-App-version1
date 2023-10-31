@@ -5,21 +5,21 @@ import '../../model/mission/mission.dart';
 import '../../model/mission_detail/mission_detail.dart';
 import '../../util/style/global_logger.dart';
 import 'util/global_api_field.dart';
-
+const MISSION = "missions";
 class MissionApi {
-
   ///<h2>미션 리스트 반환</h2>
   static Future<List<Mission>> getMissionList(
-      {required String kind, required String difficulty}) async {
+      {String kind = "WIZ", String? difficulty}) async {
     try {
+      var queryParam = <String, dynamic>{};
+      if (difficulty != null) {
+        queryParam['difficulty'] = difficulty;
+      }
       Response response =
-          await DioServices().to().get("/mission", queryParameters: {
-        "kind": kind,
-        "difficulty": difficulty,
-      });
+          await DioServices().to().get("/mission", queryParameters: queryParam);
 
-      return List.generate(response.data[RESULT].length,
-          (index) => Mission.fromJson(response.data[RESULT][index]));
+      return List.generate(response.data[DATA][MISSION].length,
+          (index) => Mission.fromJson(response.data[DATA][MISSION][index]));
     } catch (e) {
       logger.e(e.toString());
       return [];
@@ -31,11 +31,9 @@ class MissionApi {
       {required int missionId}) async {
     try {
       Response response =
-          await DioServices().to().get("/mission", queryParameters: {
-        "id": missionId,
-      });
+          await DioServices().to().get("/mission/${missionId}");
 
-      return MissionDetail.fromJson(response.data[RESULT]);
+      return MissionDetail.fromJson(response.data[DATA][MISSION]);
     } catch (e) {
       logger.e(e.toString());
       return null;
@@ -52,7 +50,7 @@ class MissionApi {
         "isSuccess": isSuccess,
       });
 
-      return response.data[RESULT]["userPoint"];
+      return response.data[DATA]["userPoint"];
     } catch (e) {
       logger.e(e.toString());
       return -1;

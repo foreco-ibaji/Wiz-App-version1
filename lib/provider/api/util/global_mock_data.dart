@@ -1,3 +1,5 @@
+import 'package:ibaji/model/dashboard/dashboard.dart';
+import 'package:ibaji/model/member/member.dart';
 import 'package:ibaji/model/mission_detail/mission_detail.dart';
 
 import '../../../model/mission/mission.dart';
@@ -34,3 +36,10 @@ const MissionDetail tmpMissionDetail = MissionDetail(
         name: "소파",
         imageUrl: "소파이미지url",
         disposalMethod: "지자체에 신고 후 버려주세요."));
+const Dashboard tmpDashBoard =
+    Dashboard(name: "name", profileUrl: "profileUrl", point: 0);
+
+const Member tmpMember = Member(
+    accessToken: "accessToken",
+    refreshToken: "refreshToken",
+    member: MemberInfo(memberId: ""));

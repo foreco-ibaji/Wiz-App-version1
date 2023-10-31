@@ -5,6 +5,7 @@ import 'package:ibaji/modules/mission_detail/view/mission_result_view.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 import 'package:transparent_image/transparent_image.dart';
 
+import '../../../provider/api/mission_api.dart';
 import '../../../util/app_colors.dart';
 import '../../../util/global_button_widget.dart';
 import '../../../util/widget/global_chip.dart';
@@ -127,9 +128,10 @@ class MissionDetailScreen extends GetView<MissionDetailController> {
                   children: [
                     Expanded(
                       child: GlobalButton.missionSubmit(
-                        onTap: () {
-                          //TODO: add post api
-                          Get.to(
+                        onTap: () async{
+                          await MissionApi.setMissionResult(missionId: controller.missionId, isSuccess: controller.currentChocieId.value ==
+                              mission.value.answer.id);
+                          await Get.to(
                             MissionResultScreen(
                                 mission: mission.value,
                                 isSuccess: controller.currentChocieId.value ==

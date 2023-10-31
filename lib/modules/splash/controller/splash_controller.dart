@@ -10,13 +10,6 @@ class SplashController extends GetxController {
   void onInit() async {
     // TODO: get user location
     super.onInit();
-    // //api 속도때문에 map service로 이동
-    MapService.currentLatLng.value = await MapRepository.getCurrentLocation();
-    MapService.currentAddress.assignAll(
-        await MapRepository.getAddressFromLatLng(
-            MapService.currentLatLng.value));
-    Future.delayed(Duration(seconds: 1), () {
-      Get.offAllNamed(Routes.login); // 홈 화면으로 이동
-    });
+
   }
 }

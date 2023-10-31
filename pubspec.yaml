@@ -47,6 +47,7 @@ dependencies:
   kakao_flutter_sdk_user: ^1.6.1
   transparent_image: ^2.0.1
   dotted_border: ^2.1.0
+  fdottedline_nullsafety: ^2.0.1
 
 dev_dependencies:
   build_runner: ^2.3.3

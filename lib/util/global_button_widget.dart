@@ -103,4 +103,28 @@ class GlobalButton extends StatelessWidget {
           onTap();
         });
   }
+
+  factory GlobalButton.darkPrimary9(
+      {required Function() onTap, String text = "미션 홈 가기"}) {
+    return GlobalButton(
+        text: text,
+        textStyle: AppTextStyles.title2Bold.copyWith(color: AppColors.grey1),
+        verticalPadding: 14,
+        backgroundColor: AppColors.primary9,
+        onTap: () async {
+          onTap();
+        });
+  }
+
+  factory GlobalButton.lightPrimary3(
+      {required Function() onTap, String text = "한번 더 도전"}) {
+    return GlobalButton(
+        text: text,
+        textStyle: AppTextStyles.title2Bold.copyWith(color: AppColors.primary8),
+        verticalPadding: 14,
+        backgroundColor: AppColors.primary3,
+        onTap: () async {
+          onTap();
+        });
+  }
 }

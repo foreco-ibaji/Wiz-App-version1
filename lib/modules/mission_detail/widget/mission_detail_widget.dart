@@ -1,4 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:fdottedline_nullsafety/fdottedline__nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,15 +9,27 @@ import '../../../util/app_colors.dart';
 import '../../../util/global_variables.dart';
 
 Widget AnswerChip({required String text}) {
-  return DottedBorder(
-      radius: Radius.circular(1000.r),
-      child: SizedBox(
-        height: 42.h,
+  return FDottedLine(
+    height: 42.h,
+    color: AppColors.grey3,
+    strokeWidth: 1,
+    corner: FDottedLineCorner.all(4),
+
+    /// add widget
+    child: IntrinsicHeight(
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 7.h),
+        decoration: BoxDecoration(
+          color: AppColors.grey1,
+        ),
+        alignment: Alignment.center,
         child: Text(
           text,
           style: AppTextStyles.title3Bold.copyWith(color: AppColors.grey4),
         ),
-      ));
+      ),
+    ),
+  );
 }
 
 Widget MissionInfoChip(

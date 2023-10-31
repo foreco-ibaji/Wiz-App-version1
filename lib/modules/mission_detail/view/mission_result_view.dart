@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:ibaji/model/mission_detail/mission_detail.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 import 'package:ibaji/util/global_button_widget.dart';
 import 'package:ibaji/util/global_variables.dart';
 import '../../../util/app_colors.dart';
+import '../../../util/routes/routes.dart';
 
 class MissionResultScreen extends StatelessWidget {
   final bool isSuccess;
   final MissionDetail mission;
+  final int id;
 
   const MissionResultScreen(
-      {super.key, required this.isSuccess, required this.mission});
+      {super.key,
+      required this.isSuccess,
+      required this.mission,
+      required this.id});
 
 //TODO: add mission result with mission_detail -> answer
   @override
@@ -100,11 +106,16 @@ class MissionResultScreen extends StatelessWidget {
             ),
             Row(
               children: [
-                Expanded(child: GlobalButton.darkPrimary9(onTap: () {})),
+                Expanded(child: GlobalButton.darkPrimary9(onTap: () async {
+                  await Get.offAllNamed(Routes.mission);
+                })),
                 SizedBox(
                   width: 10.w,
                 ),
-                Expanded(child: GlobalButton.lightPrimary3(onTap: () {})),
+                Expanded(child: GlobalButton.lightPrimary3(onTap: () async {
+                  await Get.offAllNamed(Routes.missionDetail,
+                      arguments: {"missionId": id});
+                })),
               ],
             )
           ],

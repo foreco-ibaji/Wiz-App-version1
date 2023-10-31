@@ -128,10 +128,14 @@ class MissionDetailScreen extends GetView<MissionDetailController> {
                     Expanded(
                       child: GlobalButton.missionSubmit(
                         onTap: () {
-                          Get.to(MissionResultScreen(
-                              mission: mission.value,
-                              isSuccess: controller.currentChocieId.value ==
-                                  mission.value.answer.id));
+                          //TODO: add post api
+                          Get.to(
+                            MissionResultScreen(
+                                mission: mission.value,
+                                isSuccess: controller.currentChocieId.value ==
+                                    mission.value.answer.id,
+                                id: controller.missionId),
+                          );
                         },
                       ),
                     )

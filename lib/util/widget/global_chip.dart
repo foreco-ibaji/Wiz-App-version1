@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ibaji/model/enum/level_type.dart';
 
 import '../app_colors.dart';
 import '../app_text_styles.dart';
@@ -74,31 +75,27 @@ class TextChip extends StatelessWidget {
   }
 
   //TODO: 난이도에 따라 색상 변경 <- enum class
-  factory TextChip.missionLevel({
-    required String level,
-  }) {
+  factory TextChip.missionLevel({required LevelStatus level}) {
     return TextChip(
-      text: "난이도 $level",
+      text: "난이도 ${level.stateName}",
       textStyle: AppTextStyles.body2Bold,
       textColor: AppColors.grey1,
-      backgroundColor: AppColors.primary5,
+      backgroundColor: level.badeColor,
       borderRadius: 32,
       paddingVertical: 3,
       paddingHorizontal: 10,
     );
   }
 
-  factory TextChip.total({
-    required String level,
-  }) {
+  factory TextChip.total() {
     return TextChip(
       text: "전체",
       textStyle: AppTextStyles.title3Bold,
       textColor: AppColors.grey1,
       backgroundColor: AppColors.grey9,
       borderRadius: 32,
-      paddingVertical: 3,
-      paddingHorizontal: 10,
+      paddingVertical: 14,
+      paddingHorizontal: 6,
     );
   }
 
@@ -112,7 +109,7 @@ class TextChip extends StatelessWidget {
       backgroundColor: AppColors.grey1,
       borderStroke: AppColors.primary6,
       borderRadius: 1000,
-      paddingVertical: 4,
+      paddingVertical: 7,
       paddingHorizontal: 40,
     );
   }

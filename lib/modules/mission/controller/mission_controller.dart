@@ -28,21 +28,28 @@ class MissionTabBar extends GetxController
 class MissionController extends GetxController {
   Rx<MissionTabBar> missionTabBar = MissionTabBar().obs;
   RxInt tabIndex = 0.obs;
-  RxList<Mission> missionList = <Mission>[].obs;
-  Rx<LevelStatus> currentLevel = LevelStatus.LOW.obs;
+  Rx<bool> isTotal = false.obs;
+  RxList<Mission> wizMissions = <Mission>[].obs;
+  RxList<Mission> socialMissions = <Mission>[].obs;
+  Rx<LevelStatus>? currentLevel;
   Rx<Dashboard> mypage = tmpDashBoard.obs;
 
-  Future<void> setLevelList() async {
-    missionList.assignAll(
-        await MissionApi.getMissionList(difficulty: currentLevel.value.name));
+  Future<void> setLevelList({
+    required String level
+}) async {
+    wizMissions.assignAll(await MissionApi.getMissionList(
+        difficulty: level));
   }
+
 
   @override
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
     missionTabBar.value = Get.put(MissionTabBar());
-    missionList.assignAll(await MissionApi.getMissionList());
+    wizMissions.assignAll(await MissionApi.getMissionList());
+    socialMissions.assignAll(await MissionApi.getMissionList(kind: "ETC"));
+
     mypage.value = await LoginApi.getDashBoard() ?? tmpDashBoard;
   }
 }

@@ -127,4 +127,17 @@ class GlobalButton extends StatelessWidget {
           onTap();
         });
   }
+
+  factory GlobalButton.lightGrey6({required Function() onTap}) {
+    return GlobalButton(
+      text: "닫기",
+      textStyle: AppTextStyles.title2Bold.copyWith(color: AppColors.grey9),
+      verticalPadding: 14,
+      backgroundColor: AppColors.white,
+      borderColor: AppColors.grey6,
+      onTap: () async {
+        onTap();
+      },
+    );
+  }
 }

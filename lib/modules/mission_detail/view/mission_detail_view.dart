@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:ibaji/modules/mission_detail/view/mission_result_view.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 import 'package:transparent_image/transparent_image.dart';
-
 import '../../../provider/api/mission_api.dart';
 import '../../../util/app_colors.dart';
 import '../../../util/global_button_widget.dart';
 import '../../../util/widget/global_chip.dart';
+import '../../mission/widget/mission_widget.dart';
 import '../controller/mission_detail_controller.dart';
 import '../widget/mission_detail_widget.dart';
 
@@ -17,7 +17,6 @@ class MissionDetailScreen extends GetView<MissionDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    final mission = controller.missionDetail;
     return Scaffold(
       backgroundColor: AppColors.primary6,
       body: Container(
@@ -41,7 +40,8 @@ class MissionDetailScreen extends GetView<MissionDetailController> {
                   children: [
                     MissionInfoChip(
                         backgroundColor: AppColors.grey9,
-                        text: "${mission.value.missionInfo.rewardPoint}",
+                        text:
+                            "${controller.missionDetail.value.missionInfo.rewardPoint}",
                         imgDir: "mission_money"),
                     SizedBox(
                       width: 6.w,
@@ -49,19 +49,19 @@ class MissionDetailScreen extends GetView<MissionDetailController> {
                     MissionInfoChip(
                       backgroundColor: AppColors.primary6,
                       text:
-                          "${mission.value.missionInfo.personalParticipatingCount}/${mission.value.missionInfo.personalCount} 참여중",
+                          "${controller.missionDetail.value.missionInfo.personalParticipatingCount}/${controller.missionDetail.value.missionInfo.personalCount} 참여중",
                     ),
                   ],
                 ),
                 SizedBox(
                   height: 10.h,
                 ),
-                Text(mission.value.missionInfo.title,
+                Text(controller.missionDetail.value.missionInfo.title,
                     style: AppTextStyles.heading2Bold),
                 SizedBox(
                   height: 4.h,
                 ),
-                Text(mission.value.missionInfo.description,
+                Text(controller.missionDetail.value.missionInfo.description,
                     style: AppTextStyles.title2SemiBold.copyWith(
                       color: AppColors.grey5,
                     )),
@@ -78,7 +78,7 @@ class MissionDetailScreen extends GetView<MissionDetailController> {
                     crossAxisCount: 2,
                     mainAxisSpacing: 16.w,
                     crossAxisSpacing: 16.w,
-                    children: mission.value.images
+                    children: controller.missionDetail.value.images
                         .map(
                           (img) => FadeInImage(
                             placeholder: MemoryImage(kTransparentImage),
@@ -95,26 +95,34 @@ class MissionDetailScreen extends GetView<MissionDetailController> {
                   height: 36.h,
                 ),
 
-                ///*2. mission.value answer
+                ///*2. controller.missionDetail.value answer
                 SizedBox(
                   width: 260.h,
                   height: 100.h,
                   child: GridView.builder(
-                    itemCount: mission.value.choices.length,
+                    itemCount: controller.missionDetail.value.choices.length,
                     itemBuilder: (context, index) {
-                      return GestureDetector(
-                          onTap: () {
-                            controller.currentChocieId.value =
-                                mission.value.choices[index].id;
-                          },
-                          child: controller.currentChocieId.value ==
-                                  mission.value.choices[index].id
-                              ? TextChip.choice(
-                                  text: mission.value.choices[index].name)
-                              : AnswerChip(
-                                  text: mission.value.choices[index].name));
+                      return Obx(
+                        () => GestureDetector(
+                            onTap: () {
+                              controller.currentChocieId.value = controller
+                                  .missionDetail.value.choices[index].id;
+                            },
+                            child: controller.currentChocieId.value ==
+                                    controller
+                                        .missionDetail.value.choices[index].id
+                                ? Center(
+                                    child: TextChip.choice(
+                                        text: controller.missionDetail.value
+                                            .choices[index].name),
+                                  )
+                                : AnswerChip(
+                                    text: controller.missionDetail.value
+                                        .choices[index].name)),
+                      );
                     },
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 120.w / 42.h,
                       crossAxisCount: 2,
                       mainAxisSpacing: 16.w,
                       crossAxisSpacing: 16.w,
@@ -127,18 +135,23 @@ class MissionDetailScreen extends GetView<MissionDetailController> {
                 Row(
                   children: [
                     Expanded(
-                      child: GlobalButton.missionSubmit(
-                        onTap: () async{
-                          await MissionApi.setMissionResult(missionId: controller.missionId, isSuccess: controller.currentChocieId.value ==
-                              mission.value.answer.id);
-                          await Get.to(
-                            MissionResultScreen(
-                                mission: mission.value,
+                      child: Obx(
+                        ()=>GlobalButton.missionSubmit(
+                          isActive: controller.currentChocieId.value != -1,
+                          onTap: () async {
+                            await MissionApi.setMissionResult(
+                                missionId: controller.missionId,
                                 isSuccess: controller.currentChocieId.value ==
-                                    mission.value.answer.id,
-                                id: controller.missionId),
-                          );
-                        },
+                                    controller.missionDetail.value.answer.id);
+                            await Get.to(
+                              MissionResultScreen(
+                                  mission: controller.missionDetail.value,
+                                  isSuccess: controller.currentChocieId.value ==
+                                      controller.missionDetail.value.answer.id,
+                                  id: controller.missionId),
+                            );
+                          },
+                        ),
                       ),
                     )
                   ],

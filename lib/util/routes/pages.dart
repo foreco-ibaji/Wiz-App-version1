@@ -11,8 +11,6 @@ import 'package:ibaji/modules/mission_detail/binding/mission_detail_binding.dart
 import 'package:ibaji/modules/mission_detail/view/mission_detail_view.dart';
 import 'package:ibaji/util/routes/routes.dart';
 import '../../modules/detail_method/view/detail_method_view.dart';
-import '../../modules/splash/binding/splash_binding.dart';
-import '../../modules/splash/view/splash_view.dart';
 import '../../modules/camera/binding/camera_binding.dart';
 import '../../modules/camera/view/camera_view.dart';
 import '../../modules/home/binding/home_binding.dart';
@@ -28,15 +26,6 @@ class Pages {
       page: () => const LoginScreen(),
       transition: Transition.noTransition,
       binding: LoginBinding(),
-      curve: Curves.easeIn,
-      popGesture: false,
-    ),
-    GetPage(
-      title: "스플래시 화면",
-      name: Routes.splash,
-      page: () => const SplashScreen(),
-      transition: Transition.noTransition,
-      binding: SplashBinding(),
       curve: Curves.easeIn,
       popGesture: false,
     ),

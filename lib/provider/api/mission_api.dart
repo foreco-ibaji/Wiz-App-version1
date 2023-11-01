@@ -5,7 +5,9 @@ import '../../model/mission/mission.dart';
 import '../../model/mission_detail/mission_detail.dart';
 import '../../util/style/global_logger.dart';
 import 'util/global_api_field.dart';
+
 const MISSION = "missions";
+
 class MissionApi {
   ///<h2>미션 리스트 반환</h2>
   static Future<List<Mission>> getMissionList(
@@ -30,10 +32,9 @@ class MissionApi {
   static Future<MissionDetail?> getMissionDetail(
       {required int missionId}) async {
     try {
-      Response response =
-          await DioServices().to().get("/mission/${missionId}");
-
-      return MissionDetail.fromJson(response.data[DATA][MISSION]);
+      Response response = await DioServices().to().get("/mission/$missionId");
+      // logger.e(MissionDetail.fromJson(response.data[DATA]));
+      return MissionDetail.fromJson(response.data[DATA]);
     } catch (e) {
       logger.e(e.toString());
       return null;

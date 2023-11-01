@@ -7,11 +7,10 @@ import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ibaji/modules/login/binding/login_binding.dart';
+import 'package:ibaji/modules/main/binding/main_binding.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
-
-import 'modules/splash/binding/splash_binding.dart';
 import 'util/routes/pages.dart';
 
 void main() async {
@@ -63,8 +62,8 @@ class MyApp extends StatelessWidget {
             GlobalMaterialLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate
           ],
-          initialRoute: "/splash",
-          initialBinding: LoginBinding(),
+          initialRoute: "/main",
+          initialBinding: MainBinding(),
           smartManagement: SmartManagement.full,
           navigatorKey: Get.key,
         );

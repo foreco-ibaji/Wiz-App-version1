@@ -13,8 +13,7 @@ Widget AnswerChip({required String text}) {
     height: 42.h,
     color: AppColors.grey3,
     strokeWidth: 1,
-    corner: FDottedLineCorner.all(4),
-
+    corner: FDottedLineCorner.all(20),
     /// add widget
     child: IntrinsicHeight(
       child: Container(
@@ -26,7 +25,30 @@ Widget AnswerChip({required String text}) {
         child: Text(
           text,
           style: AppTextStyles.title3Bold.copyWith(color: AppColors.grey4),
+          textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
+
         ),
+      ),
+    ),
+  );
+}
+
+
+Widget AnswerSelectChip({required String text}) {
+  return IntrinsicHeight(
+    child: Container(
+      height: 42.h,
+      padding: EdgeInsets.symmetric(vertical: 7.h),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(20.r),
+        border: Border.all(color: AppColors.primary6, width: 1.w),
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: AppTextStyles.title3Bold.copyWith(color: AppColors.primary6),
+        textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
       ),
     ),
   );

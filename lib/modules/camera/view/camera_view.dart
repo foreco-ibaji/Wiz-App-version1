@@ -93,7 +93,7 @@ class CameraScreen extends GetView<CameraScreenController> {
                   child: Container(
                     decoration: BoxDecoration(color: AppColors.black),
                     padding:
-                        EdgeInsets.symmetric(vertical: 65.h, horizontal: 52.w),
+                        EdgeInsets.symmetric(vertical: 39.h, horizontal: 52.w),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -22,7 +22,8 @@ class LoginScreen extends GetView<LoginController> {
                     child: SvgPicture.asset("${imgDir}logo/ic_home_logo.svg"))),
             GestureDetector(
               onTap: () async {
-                await controller.signInWithKakao();
+                // await controller.signInWithKakao();
+
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w),

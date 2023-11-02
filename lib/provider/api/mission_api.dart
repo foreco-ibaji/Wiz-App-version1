@@ -33,7 +33,7 @@ class MissionApi {
       {required int missionId}) async {
     try {
       Response response = await DioServices().to().get("/mission/$missionId");
-      // logger.e(MissionDetail.fromJson(response.data[DATA]));
+      logger.e(MissionDetail.fromJson(response.data[DATA]));
       return MissionDetail.fromJson(response.data[DATA]);
     } catch (e) {
       logger.e(e.toString());

@@ -51,10 +51,13 @@ BottomNavigationBarItem bottomNaviItem({
 }) {
   return BottomNavigationBarItem(
       icon: SvgPicture.asset(
-        "${iconDir}ic_bottom_${iconUrl}_32.svg",
+        "${iconDir}ic_bottom_${iconUrl}_unable.svg",
         height: 32.h,
       ),
-
+      activeIcon: SvgPicture.asset(
+        "${iconDir}ic_bottom_${iconUrl}.svg",
+        height: 32.h,
+      ),
       backgroundColor: AppColors.white,
       label: naviText);
 }

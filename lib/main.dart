@@ -62,8 +62,8 @@ class MyApp extends StatelessWidget {
             GlobalMaterialLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate
           ],
-          initialRoute: "/main",
-          initialBinding: MainBinding(),
+          initialRoute: "/login",
+          initialBinding: LoginBinding(),
           smartManagement: SmartManagement.full,
           navigatorKey: Get.key,
         );

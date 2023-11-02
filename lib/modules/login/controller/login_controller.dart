@@ -44,11 +44,11 @@ class LoginController extends GetxController {
         await MapRepository.getAddressFromLatLng(
         MapService.currentLatLng.value));
     Future.delayed(Duration(seconds: 1), () {
-    Get.offAllNamed(Routes.login); // 홈 화면으로 이동
+      Get.offAllNamed(Routes.main); // 홈 화면으로 이동
     });
 
-    if(GetStorageUtil.getToken(StorageKey.JWT_TOKEN) != null){
-      Get.offAllNamed(Routes.main);
-    }
+    // if(GetStorageUtil.getToken(StorageKey.JWT_TOKEN) != null){
+    //   Get.offAllNamed(Routes.main);
+    // }
   }
 }

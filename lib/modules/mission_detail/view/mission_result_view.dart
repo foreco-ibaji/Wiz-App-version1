@@ -107,7 +107,7 @@ class MissionResultScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(child: GlobalButton.darkPrimary9(onTap: () async {
-                  await Get.offAllNamed(Routes.mission);
+                  await Get.toNamed(Routes.main);
                 })),
                 SizedBox(
                   width: 10.w,

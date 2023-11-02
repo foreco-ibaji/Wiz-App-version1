@@ -79,15 +79,11 @@ class MissionDetailScreen extends GetView<MissionDetailController> {
                     mainAxisSpacing: 16.w,
                     crossAxisSpacing: 16.w,
                     children: controller.missionDetail.value.images
-                        .map(
-                          (img) => FadeInImage(
-                            placeholder: MemoryImage(kTransparentImage),
-                            image: NetworkImage(img),
-                            fit: BoxFit.cover,
-                            height: 122.w,
-                            width: 122.w,
-                          ),
-                        )
+                        .map((img) => Image.network(
+                              img,
+                              width: 122.w,
+                              height: 122.w,
+                            ))
                         .toList(),
                   ),
                 ),
@@ -111,11 +107,9 @@ class MissionDetailScreen extends GetView<MissionDetailController> {
                             child: controller.currentChocieId.value ==
                                     controller
                                         .missionDetail.value.choices[index].id
-                                ? Center(
-                                    child: TextChip.choice(
-                                        text: controller.missionDetail.value
-                                            .choices[index].name),
-                                  )
+                                ? AnswerSelectChip(
+                                    text: controller.missionDetail.value
+                                        .choices[index].name)
                                 : AnswerChip(
                                     text: controller.missionDetail.value
                                         .choices[index].name)),
@@ -136,7 +130,7 @@ class MissionDetailScreen extends GetView<MissionDetailController> {
                   children: [
                     Expanded(
                       child: Obx(
-                        ()=>GlobalButton.missionSubmit(
+                        () => GlobalButton.missionSubmit(
                           isActive: controller.currentChocieId.value != -1,
                           onTap: () async {
                             await MissionApi.setMissionResult(

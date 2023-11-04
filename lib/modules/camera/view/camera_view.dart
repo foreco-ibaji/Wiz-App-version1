@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/camera/view/camera_result_view.dart';
 import 'package:ibaji/util/app_colors.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../../provider/api/photo_api.dart';
 import '../../../provider/service/camera_service.dart';
 import '../../../util/app_text_styles.dart';
@@ -98,32 +99,10 @@ class CameraScreen extends GetView<CameraScreenController> {
                             onTap: () async {
                               if (await PermissionHandler()
                                   .requestGallery(context)) {
-                                var imgPath = await controller.imagePick();
-                                var result =
-                                    await PhotoRepository.getPhotoReuslt(
-                                        imgPath);
-
-                                ///* 1. result가 빈리스트로 반환될때 ; ai 모델이 전혀 감지하지 못했을 때
-                                if (result.isEmpty) {
-                                  Fluttertoast.showToast(
-                                      msg: "인식할수 없습니다. 다시 시도해주세요");
-                                }
-
-                                ///* 2. 단일재질 분리수거 가능 물품일때 상세페이지로 이동
-                                /// ai 서버와 DB 데이터가 일치하지않을 경우도 분기처리에 포함
-                                else if (result.length == 1 &&
-                                    result[0].id != -1) {
-                                  ///*2-2 상세페이지로 이동
-                                  await Get.toNamed(Routes.detail,
-                                      arguments: {'id': result[0].id});
-                                }
-
-                                ///* 3. 다중재질 분리수거 가능 물품일때 상세페이지로 이동
-                                else {
-                                  Get.to(CameraResultScreen(),
-                                      arguments: {'result': result});
-                                }
+                                await Permission.storage.request();
                               }
+                              var imgPath = await controller.imagePick();
+                              await controller.getImgResult(imgPath);
                             },
                             child: Image.asset(
                               "asset/image/icon/ic_gallery_30.png",
@@ -132,22 +111,7 @@ class CameraScreen extends GetView<CameraScreenController> {
                         GestureDetector(
                             onTap: () async {
                               var img = await CameraService.to.takePhoto();
-                              var result = await PhotoRepository.getPhotoReuslt(
-                                  img?.path ?? "");
-
-                              if (result.runtimeType == int && result != -1) {
-                                //TODO result로 통일
-                                await Future.delayed(Duration(seconds: 1));
-                                await Get.toNamed(Routes.detail,
-                                    arguments: {'id': result});
-                              } else if (result == -1) {
-                                Fluttertoast.showToast(
-                                    msg: "인식할수 없습니다. 다시 시도해주세요");
-                              } else {
-                                logger.e(result);
-                                Get.to(CameraResultScreen(),
-                                    arguments: {'result': result});
-                              }
+                              await controller.getImgResult(img?.path ?? "");
                             },
                             child: Image.asset(
                               "asset/image/icon/ic_camera_press.png",

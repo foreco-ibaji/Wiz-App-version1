@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/provider/api/photo_api.dart';
 import 'package:ibaji/provider/api/trash_api.dart';
@@ -10,7 +11,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../util/routes/routes.dart';
 import '../../detail_method/view/detail_method_view.dart';
+import '../view/camera_result_view.dart';
 
 class CameraScreenController extends GetxController {
   static CameraScreenController get to => Get.find();
@@ -45,6 +48,28 @@ class CameraScreenController extends GetxController {
     );
     CameraService.to.cameraController?.value.setExposurePoint(offset);
     CameraService.to.cameraController?.value.setFocusPoint(offset);
+  }
+
+  ///* 이미지 api 호출 및 라우팅 처리
+  Future<void> getImgResult(String imgPath) async {
+    var result = await PhotoRepository.getPhotoReuslt(imgPath);
+
+    ///* 1. result가 빈리스트로 반환될때 ; ai 모델이 전혀 감지하지 못했을 때
+    if (result.isEmpty) {
+      Fluttertoast.showToast(msg: "인식할수 없습니다. 다시 시도해주세요");
+    }
+
+    ///* 2. 단일재질 분리수거 가능 물품일때 상세페이지로 이동
+    /// ai 서버와 DB 데이터가 일치하지않을 경우도 분기처리에 포함
+    else if (result.length == 1 && result[0].id != -1) {
+      ///*2-2 상세페이지로 이동
+      await Get.toNamed(Routes.detail, arguments: {'id': result[0].id});
+    }
+
+    ///* 3. 다중재질 분리수거 가능 물품일때 상세페이지로 이동
+    else {
+      Get.to(CameraResultScreen(), arguments: {'result': result});
+    }
   }
 
   @override

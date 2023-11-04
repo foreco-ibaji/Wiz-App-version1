@@ -108,18 +108,16 @@ class CameraScreen extends GetView<CameraScreenController> {
                                   Fluttertoast.showToast(
                                       msg: "인식할수 없습니다. 다시 시도해주세요");
                                 }
+
                                 ///* 2. 단일재질 분리수거 가능 물품일때 상세페이지로 이동
-                                else if (result.length == 1) {
-                                  ///*2-1 ai 서버와 DB가 일치하지 않을 대
-                                  if (result[0].id == -1) {
-                                    Get.to(CameraResultScreen(),
-                                        arguments: {'result': result});
-                                  } else {
-                                    ///*2-2 상세페이지로 이동
-                                    await Get.toNamed(Routes.detail,
-                                        arguments: {'id': result[0].id});
-                                  }
+                                /// ai 서버와 DB 데이터가 일치하지않을 경우도 분기처리에 포함
+                                else if (result.length == 1 &&
+                                    result[0].id != -1) {
+                                  ///*2-2 상세페이지로 이동
+                                  await Get.toNamed(Routes.detail,
+                                      arguments: {'id': result[0].id});
                                 }
+
                                 ///* 3. 다중재질 분리수거 가능 물품일때 상세페이지로 이동
                                 else {
                                   Get.to(CameraResultScreen(),

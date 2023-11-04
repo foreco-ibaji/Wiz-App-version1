@@ -68,7 +68,9 @@ class CameraScreenController extends GetxController {
 
     ///* 3. 다중재질 분리수거 가능 물품일때 상세페이지로 이동
     else {
-      Get.to(CameraResultScreen(), arguments: {'result': result});
+      Get.to(CameraResultScreen(
+        resultList: result,
+      ));
     }
   }
 

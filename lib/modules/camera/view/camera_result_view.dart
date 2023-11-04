@@ -16,8 +16,12 @@ import 'dart:ui' as ui;
 
 import 'package:logger/logger.dart';
 
-class CameraResultScreen extends GetView<CameraResultController> {
-  const CameraResultScreen({super.key});
+import '../../../model/photo_result/photo_result.dart';
+
+class CameraResultScreen extends StatelessWidget {
+  final List<ResultDetail> resultList;
+
+  const CameraResultScreen({super.key, required this.resultList});
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +62,6 @@ class CameraResultScreen extends GetView<CameraResultController> {
                                 Colors.black.withOpacity(0.1),
                                 BlendMode.darken))),
                   ),
-                  // Image.asset(
-                  //   "asset/image/object/iv_egg_trash_160.png",
-                  //   width: 180.w,
-                  // ),
                   SizedBox(
                     height: 42.h,
                   ),
@@ -81,23 +81,23 @@ class CameraResultScreen extends GetView<CameraResultController> {
                               size: Size(40, 40), // 원하는 이미지 크기로 조절
                               painter: ImageCropperPainter(
                                 startX:
-                                    controller.tmpResult[index][1].toDouble(),
+                                    resultList[index].coordinate[0].toDouble(),
                                 startY:
-                                    controller.tmpResult[index][2].toDouble(),
-                                endX: controller.tmpResult[index][3].toDouble(),
-                                endY: controller.tmpResult[index][4].toDouble(),
+                                resultList[index].coordinate[1].toDouble(),
+                                endX: resultList[index].coordinate[2].toDouble(),
+                                endY: resultList[index].coordinate[3].toDouble(),
                               ), // 커스텀 페인터 사용
                             ),
-                            title: controller.tmpResult[index][0],
+                            title: resultList[index].name,
                             description:
-                                "이부분은 ${controller.tmpResult[index][0]}로 버려주세요");
+                                "이부분은 ${resultList[index].name}로 버려주세요");
                       }),
                       separatorBuilder: ((context, index) {
                         return SizedBox(
                           height: 12.h,
                         );
                       }),
-                      itemCount: controller.tmpResult.length)
+                      itemCount: resultList.length)
                 ],
               ),
             ),
@@ -160,6 +160,7 @@ class ImageCropperPainter extends CustomPainter {
       required this.startY,
       required this.endX,
       required this.endY});
+
   //TODO: 이미지
   @override
   void paint(Canvas canvas, Size size) async {

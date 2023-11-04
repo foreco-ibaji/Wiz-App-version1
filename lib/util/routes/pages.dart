@@ -46,18 +46,16 @@ class Pages {
       binding: HomeBinding(),
       curve: Curves.easeIn,
       popGesture: false,
-      children: [
-        GetPage(
-          title: "세부 품목 화면",
-          name: Routes.detail,
-          page: () => const DetailMethodScreen(),
-          transition: Transition.native,
-          binding: DetailMethodBinding(),
-          curve: Curves.easeIn,
-          popGesture: false,
-          children: [],
-        ),
-      ],
+    ),
+    GetPage(
+      title: "세부 품목 화면",
+      name: Routes.detail,
+      page: () => const DetailMethodScreen(),
+      transition: Transition.native,
+      binding: DetailMethodBinding(),
+      curve: Curves.easeIn,
+      popGesture: false,
+      children: [],
     ),
     GetPage(
       title: "카메라 화면",

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ibaji/model/detail_method/detail_method.dart';
+import 'package:ibaji/provider/api/util/dio_services.dart';
 import 'package:logger/logger.dart';
 import '../../model/trash/trash.dart';
 
@@ -12,8 +13,8 @@ class TrashRepository {
   }) async {
     try {
       // 다른 필요한 데이터가 있다면 추가
-      Response response = await Dio()
-          .get(dotenv.env['apiUrl']! + "/trash/detail", queryParameters: {
+      Response response =
+          await DioServices().to().get("/trash/detail", queryParameters: {
         'id': id,
       });
 

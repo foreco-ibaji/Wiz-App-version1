@@ -17,14 +17,13 @@ class CameraScreenController extends GetxController {
   Rx<bool> isFlash = false.obs;
   RxString imagePath = ''.obs;
   XFile? resultImage;
+
   //"{\"bboxes\":[[\"비닐\",148,48,752,568]]}"
   ///* 이미지 선택
-  Future<void> imagePick() async {
+  Future<String> imagePick() async {
     Logger().d("1. 이미지 선택");
     imagePath.value = await imageRegister();
-    Logger().d("2. ${resultImage?.path}경로");
-    var result = await PhotoRepository.getPhotoReuslt(imagePath.value);
-    return result;
+    return imagePath.value;
   }
 
   ///* 휴대폰 내부 이미지 선택

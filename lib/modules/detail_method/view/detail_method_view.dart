@@ -22,8 +22,7 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
 
   @override
   Widget build(BuildContext context) {
-    // Get.put(DetailMethodController());
-    var detailMethod = controller.detailMethod.value;
+    Get.put(DetailMethodController());
     return Obx(
       () => Scaffold(
         appBar: AppBar(
@@ -169,7 +168,8 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                       SizedBox(
                         height: 50.h,
                       ),
-                      controller.detailMethod.value.detailType == "BASIC"
+                      controller.detailMethod.value.detailType == "BASIC" ||
+                              controller.detailMethod.value.detailType == "MAP"
                           ? DisposalDayContainer()
                           : controller.detailMethod.value.detailType == "BIG"
                               ? BigTrashCatuion()
@@ -177,6 +177,8 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                       SizedBox(
                         height: 50.h,
                       ),
+                      controller.relationTrash.isNotEmpty
+                          ?
                       Row(
                         children: [
                           Image.asset(
@@ -192,7 +194,7 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                             textAlign: TextAlign.center,
                           ),
                         ],
-                      ),
+                      ):SizedBox.shrink(),
                       SizedBox(
                         height: 19.h,
                       ),

@@ -144,22 +144,22 @@ class MissionScreen extends GetView<MissionController> {
                       SizedBox(
                         width: 10.w,
                       ),
-                      GestureDetector(
-                        onTap: () async {
-                          await Get.bottomSheet(LevelSelectSheet(
-                            selectLevel: controller.currentLevel ??
-                                LevelStatus.MIDDLE.obs,
-                          ));
-                          await controller.setLevelList(
-                              level: controller.currentLevel?.value.name ?? "LOW");
-                        },
-                        child: SelectTypeChip(
-                            value:
-                                "난이도 ${controller.currentLevel?.value.stateName ?? "순"}",
-                            isSelect:
-                                controller.currentLevel == null ? false : true,
-                            isIcon: true),
-                      )
+                      // GestureDetector(
+                      //   onTap: () async {
+                      //     await Get.bottomSheet(LevelSelectSheet(
+                      //       selectLevel: controller.currentLevel ??
+                      //           LevelStatus.MIDDLE.obs,
+                      //     ));
+                      //     // await controller.setLevelList(
+                      //     //     level: controller.currentLevel?.value.name ?? "LOW");
+                      //   },
+                      //   child: SelectTypeChip(
+                      //       value:
+                      //           "난이도 ${controller.currentLevel?.value.stateName ?? "순"}",
+                      //       isSelect:
+                      //           controller.currentLevel == null ? false : true,
+                      //       isIcon: true),
+                      // )
                     ],
                   ),
                   Row(

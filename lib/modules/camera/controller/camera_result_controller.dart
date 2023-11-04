@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 class CameraResultController extends GetxController {
   static CameraResultController get to => Get.find();
-  List<List<dynamic>> tmpResult = (Get.arguments['result']) ??
+  dynamic tmpResult = (Get.arguments['result']) ??
       ([
         ["비닐", 30, 48, 130, 140],
         ["플라스틱", 20, 48, 100, 140]

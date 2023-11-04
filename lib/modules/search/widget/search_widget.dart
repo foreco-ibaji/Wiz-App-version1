@@ -23,7 +23,7 @@ class SearchResult extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () async {
-            Get.put(DetailMethodController(id: trash.id));
+            // Get.put(DetailMethodController(id: trash.id));
             await Future.delayed(Duration(seconds: 2));
             await Get.to(DetailMethodScreen(), arguments: {'id': trash.id});
           },

@@ -1,21 +1,17 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/camera/view/camera_result_view.dart';
-import 'package:ibaji/modules/detail_method/controller/detail_method_controller.dart';
-import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
 import 'package:ibaji/util/app_colors.dart';
-import 'package:logger/logger.dart';
-
 import '../../../provider/api/photo_api.dart';
 import '../../../provider/service/camera_service.dart';
 import '../../../util/app_text_styles.dart';
 import '../../../util/permission_handler.dart';
+import '../../../util/routes/routes.dart';
+import '../../../util/style/global_logger.dart';
 import '../controller/camera_controller.dart';
 
 class CameraScreen extends GetView<CameraScreenController> {
@@ -102,19 +98,32 @@ class CameraScreen extends GetView<CameraScreenController> {
                             onTap: () async {
                               if (await PermissionHandler()
                                   .requestGallery(context)) {
-                                var result = controller.imagePick();
-                                var result2 = [
-                                  ["자전거", 71, 33, 1143, 1074]
-                                ];
-                                var result1 = 1;
-                                if (result.runtimeType == int) {
-                                  //TODO result로 통일
-                                  Get.put(DetailMethodController(id: result1));
-                                  await Future.delayed(Duration(seconds: 2));
-                                  await Get.to(() => DetailMethodScreen());
-                                } else {
-                                  Get.to(() => CameraResultScreen(),
-                                      arguments: {'result': result2});
+                                var imgPath = await controller.imagePick();
+                                var result =
+                                    await PhotoRepository.getPhotoReuslt(
+                                        imgPath);
+
+                                ///* 1. result가 빈리스트로 반환될때 ; ai 모델이 전혀 감지하지 못했을 때
+                                if (result.isEmpty) {
+                                  Fluttertoast.showToast(
+                                      msg: "인식할수 없습니다. 다시 시도해주세요");
+                                }
+                                ///* 2. 단일재질 분리수거 가능 물품일때 상세페이지로 이동
+                                else if (result.length == 1) {
+                                  ///*2-1 ai 서버와 DB가 일치하지 않을 대
+                                  if (result[0].id == -1) {
+                                    Get.to(CameraResultScreen(),
+                                        arguments: {'result': result});
+                                  } else {
+                                    ///*2-2 상세페이지로 이동
+                                    await Get.toNamed(Routes.detail,
+                                        arguments: {'id': result[0].id});
+                                  }
+                                }
+                                ///* 3. 다중재질 분리수거 가능 물품일때 상세페이지로 이동
+                                else {
+                                  Get.to(CameraResultScreen(),
+                                      arguments: {'result': result});
                                 }
                               }
                             },
@@ -125,39 +134,22 @@ class CameraScreen extends GetView<CameraScreenController> {
                         GestureDetector(
                             onTap: () async {
                               var img = await CameraService.to.takePhoto();
-                              // var result = await PhotoRepository.getPhotoReuslt(
-                              //     img?.path ?? "");
-                              // if (result.isNotEmpty) {
-                              //   if (CameraService.to.cameraController?.value !=
-                              //       null) {
-                              //     await CameraService.to.stopImageStream();
-                              //   }
-                              // }
-                              var result = [
-                                ["자전거", 71, 33, 1143, 1074]
-                              ];
-                              var result1 = 1;
-                              // var result2 = [
-                              //   [
-                              //     ["자전거", 71, 33, 1143, 1074]
-                              //   ]
-                              // ];
-                              if (result.runtimeType == int) {
+                              var result = await PhotoRepository.getPhotoReuslt(
+                                  img?.path ?? "");
+
+                              if (result.runtimeType == int && result != -1) {
                                 //TODO result로 통일
-                                Get.put(DetailMethodController(id: result1));
-                                await Future.delayed(Duration(seconds: 2));
-                                await Get.to(() => DetailMethodScreen());
+                                await Future.delayed(Duration(seconds: 1));
+                                await Get.toNamed(Routes.detail,
+                                    arguments: {'id': result});
+                              } else if (result == -1) {
+                                Fluttertoast.showToast(
+                                    msg: "인식할수 없습니다. 다시 시도해주세요");
                               } else {
-                                Get.to(() => CameraResultScreen(),
+                                logger.e(result);
+                                Get.to(CameraResultScreen(),
                                     arguments: {'result': result});
                               }
-                              // //TODO: 임시 하드코딩
-                              // await Get.to(() => DetailMethodScreen(),
-                              //     arguments: {'trash': '비닐봉지'});
-                              // } else {
-                              // Fluttertoast.showToast(
-                              // msg: "조회되지 않습니다. 다시 시도해주세요");
-                              // }
                             },
                             child: Image.asset(
                               "asset/image/icon/ic_camera_press.png",

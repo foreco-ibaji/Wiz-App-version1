@@ -26,7 +26,7 @@ class MissionListTile extends StatelessWidget {
             arguments: {"missionId": mission.id});
       },
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 30.h),
+        padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 30.h),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

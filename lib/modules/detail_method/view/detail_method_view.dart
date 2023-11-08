@@ -15,6 +15,7 @@ import 'package:ibaji/util/global_button_widget.dart';
 import '../../../provider/api/trash_api.dart';
 import '../../../util/routes/pages.dart';
 import '../../../util/routes/routes.dart';
+import '../../../util/widget/global_skeleton.dart';
 import '../controller/detail_method_controller.dart';
 
 class DetailMethodScreen extends GetView<DetailMethodController> {
@@ -59,10 +60,12 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Image.network(
-                        controller.detailMethod.value.iconUrl,
-                        width: 160.w,
-                      ),
+                      controller.detailMethod.value.iconUrl == "trashIcon"
+                          ? CommonSkeleton.image()
+                          : Image.network(
+                              controller.detailMethod.value.iconUrl,
+                              width: 160.w,
+                            ),
                       Text(
                         controller.detailMethod.value.name,
                         style: AppTextStyles.heading1Bold
@@ -178,23 +181,23 @@ class DetailMethodScreen extends GetView<DetailMethodController> {
                         height: 50.h,
                       ),
                       controller.relationTrash.isNotEmpty
-                          ?
-                      Row(
-                        children: [
-                          Image.asset(
-                            "asset/image/icon/ic_question_24.png",
-                            width: 24.w,
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Text(
-                            '이런 쓰레기는 어떻게 버리나요?',
-                            style: AppTextStyles.title1SemiBold,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ):SizedBox.shrink(),
+                          ? Row(
+                              children: [
+                                Image.asset(
+                                  "asset/image/icon/ic_question_24.png",
+                                  width: 24.w,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Text(
+                                  '이런 쓰레기는 어떻게 버리나요?',
+                                  style: AppTextStyles.title1SemiBold,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            )
+                          : SizedBox.shrink(),
                       SizedBox(
                         height: 19.h,
                       ),

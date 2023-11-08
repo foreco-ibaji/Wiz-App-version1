@@ -49,6 +49,7 @@ dependencies:
   dotted_border: ^2.1.0
   fdottedline_nullsafety: ^2.0.1
   get_storage: ^2.1.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   build_runner: ^2.3.3
@@ -70,7 +71,6 @@ flutter:
     - .env
     - asset/image/icon/
     - asset/image/object/
-    - asset/image/real-object/
     - asset/image/logo/
     - asset/image/marker/
     - asset/image/object/map/

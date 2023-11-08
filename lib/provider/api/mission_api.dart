@@ -14,9 +14,9 @@ class MissionApi {
       {String kind = "WIZ", String? difficulty}) async {
     try {
       var queryParam = <String, dynamic>{};
-      // if (difficulty != null) {
-      //   queryParam['difficulty'] = difficulty;
-      // }
+      if (difficulty != null) {
+        queryParam['difficulty'] = difficulty;
+      }
       queryParam["kind"] = kind;
       Response response =
           await DioServices().to().get("/mission", queryParameters: queryParam);

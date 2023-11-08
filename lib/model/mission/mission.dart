@@ -18,6 +18,7 @@ class Mission with _$Mission {
     required int personalParticipatingCount,
     required int personalCount,
     required String iconUrl,
+    required String? missionUrl,
   }) = _Mission;
   factory Mission.fromJson(Map<String, dynamic> json) => _$MissionFromJson(json);
 }

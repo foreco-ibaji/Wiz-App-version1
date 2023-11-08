@@ -9,6 +9,7 @@ import 'package:ibaji/modules/mission/controller/mission_controller.dart';
 import 'package:ibaji/modules/mission/widget/mission_widget.dart';
 import 'package:ibaji/provider/service/map_service.dart';
 import 'package:ibaji/util/app_text_styles.dart';
+import '../../../provider/api/mission_api.dart';
 import '../../../util/app_colors.dart';
 import '../../../util/global_variables.dart';
 import '../../../util/widget/global_chip.dart';
@@ -136,30 +137,42 @@ class MissionScreen extends GetView<MissionController> {
                 children: [
                   Row(
                     children: [
-                      SelectTypeChip(
-                        value: "전체",
-                        isSelect: false,
-                        isIcon: false,
+                      GestureDetector(
+                        onTap:()async{
+                          controller.isAll.value = true;
+                          controller.wizMissions.assignAll(await MissionApi.getMissionList());
+                          controller.socialMissions.assignAll(await MissionApi.getMissionList(kind: "ETC"));
+                        },
+                        child: SelectTypeChip(
+                          value: "전체",
+                          isSelect: controller.isAll,
+                          isIcon: false,
+                        ),
                       ),
                       SizedBox(
                         width: 10.w,
                       ),
-                      // GestureDetector(
-                      //   onTap: () async {
-                      //     await Get.bottomSheet(LevelSelectSheet(
-                      //       selectLevel: controller.currentLevel ??
-                      //           LevelStatus.MIDDLE.obs,
-                      //     ));
-                      //     // await controller.setLevelList(
-                      //     //     level: controller.currentLevel?.value.name ?? "LOW");
-                      //   },
-                      //   child: SelectTypeChip(
-                      //       value:
-                      //           "난이도 ${controller.currentLevel?.value.stateName ?? "순"}",
-                      //       isSelect:
-                      //           controller.currentLevel == null ? false : true,
-                      //       isIcon: true),
-                      // )
+                      GestureDetector(
+                        onTap: () async {
+                          controller.isAll.value = false;
+                          await Get.bottomSheet(LevelSelectSheet(
+                            selectLevel: controller.currentLevel ??
+                                LevelStatus.MIDDLE.obs,
+                          ));
+                          await controller.setLevelList(
+                              type: controller.tabIndex.value == 0
+                                  ? "WIZ"
+                                  : "ETC",
+                              level:
+                                  controller.currentLevel?.value.name ?? "LOW");
+                        },
+                        child: SelectTypeChip(
+                            value:
+                                "난이도 ${controller.currentLevel?.value.stateName ?? "순"}",
+                            isSelect:
+                                controller.currentLevel == null ? false.obs : true.obs,
+                            isIcon: true),
+                      )
                     ],
                   ),
                   Row(
@@ -187,22 +200,28 @@ class MissionScreen extends GetView<MissionController> {
             ),
             Expanded(
                 child: [
-              ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: controller.wizMissions.length,
-                  itemBuilder: (context, index) {
-                    return MissionListTile(
-                      mission: controller.wizMissions[index],
-                    );
-                  }),
-              ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: controller.socialMissions.length,
-                  itemBuilder: (context, index) {
-                    return MissionListTile(
-                      mission: controller.socialMissions[index],
-                    );
-                  }),
+              controller.wizMissions.isEmpty
+                  ? Text("해당 하는 미션이 없습니다")
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: controller.wizMissions.length,
+                      itemBuilder: (context, index) {
+                        return MissionListTile(
+                          mission: controller.wizMissions[index],
+                          missionType: "WIZ",
+                        );
+                      }),
+              controller.socialMissions.isEmpty
+                  ? Text("해당 하는 미션이 없습니다")
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: controller.socialMissions.length,
+                      itemBuilder: (context, index) {
+                        return MissionListTile(
+                          mission: controller.socialMissions[index],
+                        );
+                      }),
               Center(
                   child: Text(
                 "준비 중 입니다",

@@ -31,6 +31,7 @@ mixin _$Mission {
   int get personalParticipatingCount => throw _privateConstructorUsedError;
   int get personalCount => throw _privateConstructorUsedError;
   String get iconUrl => throw _privateConstructorUsedError;
+  String? get missionUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +54,8 @@ abstract class $MissionCopyWith<$Res> {
       int totalNumberOfParticipating,
       int personalParticipatingCount,
       int personalCount,
-      String iconUrl});
+      String iconUrl,
+      String? missionUrl});
 }
 
 /// @nodoc
@@ -80,6 +82,7 @@ class _$MissionCopyWithImpl<$Res, $Val extends Mission>
     Object? personalParticipatingCount = null,
     Object? personalCount = null,
     Object? iconUrl = null,
+    Object? missionUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -126,6 +129,10 @@ class _$MissionCopyWithImpl<$Res, $Val extends Mission>
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      missionUrl: freezed == missionUrl
+          ? _value.missionUrl
+          : missionUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -148,7 +155,8 @@ abstract class _$$MissionImplCopyWith<$Res> implements $MissionCopyWith<$Res> {
       int totalNumberOfParticipating,
       int personalParticipatingCount,
       int personalCount,
-      String iconUrl});
+      String iconUrl,
+      String? missionUrl});
 }
 
 /// @nodoc
@@ -173,6 +181,7 @@ class __$$MissionImplCopyWithImpl<$Res>
     Object? personalParticipatingCount = null,
     Object? personalCount = null,
     Object? iconUrl = null,
+    Object? missionUrl = freezed,
   }) {
     return _then(_$MissionImpl(
       id: null == id
@@ -219,6 +228,10 @@ class __$$MissionImplCopyWithImpl<$Res>
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      missionUrl: freezed == missionUrl
+          ? _value.missionUrl
+          : missionUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -237,7 +250,8 @@ class _$MissionImpl with DiagnosticableTreeMixin implements _Mission {
       required this.totalNumberOfParticipating,
       required this.personalParticipatingCount,
       required this.personalCount,
-      required this.iconUrl});
+      required this.iconUrl,
+      required this.missionUrl});
 
   factory _$MissionImpl.fromJson(Map<String, dynamic> json) =>
       _$$MissionImplFromJson(json);
@@ -264,10 +278,12 @@ class _$MissionImpl with DiagnosticableTreeMixin implements _Mission {
   final int personalCount;
   @override
   final String iconUrl;
+  @override
+  final String? missionUrl;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Mission(id: $id, kind: $kind, title: $title, description: $description, difficulty: $difficulty, rewardPoint: $rewardPoint, totalCount: $totalCount, totalNumberOfParticipating: $totalNumberOfParticipating, personalParticipatingCount: $personalParticipatingCount, personalCount: $personalCount, iconUrl: $iconUrl)';
+    return 'Mission(id: $id, kind: $kind, title: $title, description: $description, difficulty: $difficulty, rewardPoint: $rewardPoint, totalCount: $totalCount, totalNumberOfParticipating: $totalNumberOfParticipating, personalParticipatingCount: $personalParticipatingCount, personalCount: $personalCount, iconUrl: $iconUrl, missionUrl: $missionUrl)';
   }
 
   @override
@@ -287,7 +303,8 @@ class _$MissionImpl with DiagnosticableTreeMixin implements _Mission {
       ..add(DiagnosticsProperty(
           'personalParticipatingCount', personalParticipatingCount))
       ..add(DiagnosticsProperty('personalCount', personalCount))
-      ..add(DiagnosticsProperty('iconUrl', iconUrl));
+      ..add(DiagnosticsProperty('iconUrl', iconUrl))
+      ..add(DiagnosticsProperty('missionUrl', missionUrl));
   }
 
   @override
@@ -316,7 +333,9 @@ class _$MissionImpl with DiagnosticableTreeMixin implements _Mission {
                     personalParticipatingCount) &&
             (identical(other.personalCount, personalCount) ||
                 other.personalCount == personalCount) &&
-            (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl));
+            (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
+            (identical(other.missionUrl, missionUrl) ||
+                other.missionUrl == missionUrl));
   }
 
   @JsonKey(ignore: true)
@@ -333,7 +352,8 @@ class _$MissionImpl with DiagnosticableTreeMixin implements _Mission {
       totalNumberOfParticipating,
       personalParticipatingCount,
       personalCount,
-      iconUrl);
+      iconUrl,
+      missionUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -361,7 +381,8 @@ abstract class _Mission implements Mission {
       required final int totalNumberOfParticipating,
       required final int personalParticipatingCount,
       required final int personalCount,
-      required final String iconUrl}) = _$MissionImpl;
+      required final String iconUrl,
+      required final String? missionUrl}) = _$MissionImpl;
 
   factory _Mission.fromJson(Map<String, dynamic> json) = _$MissionImpl.fromJson;
 
@@ -387,6 +408,8 @@ abstract class _Mission implements Mission {
   int get personalCount;
   @override
   String get iconUrl;
+  @override
+  String? get missionUrl;
   @override
   @JsonKey(ignore: true)
   _$$MissionImplCopyWith<_$MissionImpl> get copyWith =>

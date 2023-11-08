@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/provider/api/util/global_mock_data.dart';
 import 'package:ibaji/util/app_text_styles.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../model/enum/level_type.dart';
 import '../../../model/mission/mission.dart';
@@ -15,15 +18,36 @@ import '../../../util/widget/global_chip.dart';
 
 class MissionListTile extends StatelessWidget {
   final Mission mission;
+  final String missionType;
 
-  const MissionListTile({super.key, this.mission = tmpMission});
+  const MissionListTile(
+      {super.key, this.mission = tmpMission, this.missionType = "ETC"});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await Get.toNamed(Routes.missionDetail,
-            arguments: {"missionId": mission.id});
+        if (missionType == "ETC") {
+          if (Platform.isAndroid) {
+            launchUrlString(
+                    mode: LaunchMode.externalApplication,
+                    mission.missionUrl ?? "")
+                .catchError((err) {
+              launchUrlString(mode: LaunchMode.externalApplication, '');
+              return true;
+            });
+          }
+          //IOS
+          else if (Platform.isIOS) {
+            launchUrlString(mission.missionUrl ?? "").catchError((err) {
+              launchUrlString('');
+              return true;
+            });
+          }
+        } else {
+          await Get.toNamed(Routes.missionDetail,
+              arguments: {"missionId": mission.id});
+        }
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 30.h),
@@ -50,10 +74,13 @@ class MissionListTile extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      mission.title,
-                      style: AppTextStyles.title2SemiBold.copyWith(
-                        color: AppColors.grey9,
+                    SizedBox(
+                      width: 185.w,
+                      child: Text(
+                        mission.title,
+                        style: AppTextStyles.title2SemiBold.copyWith(
+                          color: AppColors.grey9,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -64,10 +91,14 @@ class MissionListTile extends StatelessWidget {
                             LevelStatus.MIDDLE)
                   ],
                 ),
-                Text(
-                  mission.description,
-                  style: AppTextStyles.body1SemiBold.copyWith(
-                    color: AppColors.grey7,
+                SizedBox(
+                  width: 230.w,
+                  child: Text(
+                    mission.description,
+                    style: AppTextStyles.body1SemiBold.copyWith(
+                      color: AppColors.grey7,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -130,33 +161,37 @@ Widget MissionInfo({
 
 Widget SelectTypeChip({
   String value = "순",
-  required bool isSelect,
+  required RxBool isSelect,
   bool isIcon = false,
 }) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
-    decoration: BoxDecoration(
-        color: isSelect ? AppColors.grey9 : AppColors.grey1,
-        borderRadius: BorderRadius.circular(32.r),
-        border: !isSelect ? Border.all(color: AppColors.grey2) : null),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          value,
-          style: AppTextStyles.title3SemiBold
-              .copyWith(color: isSelect ? AppColors.grey1 : AppColors.grey8),
-        ),
-        SizedBox(
-          width: 4.w,
-        ),
-        isIcon
-            ? SvgPicture.asset(
-                "${iconDir}ic_arrow_down.svg",
-                width: 15.w,
-              )
-            : const SizedBox.shrink(),
-      ],
+  return Obx(
+    ()=> Container(
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
+      decoration: BoxDecoration(
+          color: isSelect.value ? AppColors.grey9 : AppColors.grey1,
+          borderRadius: BorderRadius.circular(32.r),
+          border: !isSelect.value ? Border.all(color: AppColors.grey2) : null),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            value,
+            style: AppTextStyles.title3SemiBold
+                .copyWith(color: isSelect.value ? AppColors.grey1 : AppColors.grey8),
+          ),
+          SizedBox(
+            width: 4.w,
+          ),
+          isIcon
+              ? SvgPicture.asset(
+                  "${iconDir}ic_arrow_down.svg",
+                  width: 14.w,
+                  // height: 21.h,
+                  color: AppColors.grey9,
+                )
+              : const SizedBox.shrink(),
+        ],
+      ),
     ),
   );
 }
@@ -244,5 +279,3 @@ class LevelSelectSheet extends StatelessWidget {
     );
   }
 }
-
-

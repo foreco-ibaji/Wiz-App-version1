@@ -33,14 +33,17 @@ class MissionController extends GetxController {
   RxList<Mission> socialMissions = <Mission>[].obs;
   Rx<LevelStatus>? currentLevel;
   Rx<Dashboard> mypage = tmpDashBoard.obs;
+  RxBool isAll = false.obs;
 
-  Future<void> setLevelList({
-    required String level
-}) async {
-    wizMissions.assignAll(await MissionApi.getMissionList(
-        difficulty: level));
+  Future<void> setLevelList(
+      {required String level, required String type}) async {
+    if (type == "WIZ") {
+      wizMissions.assignAll(await MissionApi.getMissionList(difficulty: level));
+    } else {
+      socialMissions.assignAll(
+          await MissionApi.getMissionList(difficulty: level, kind: "ETC"));
+    }
   }
-
 
   @override
   void onInit() async {

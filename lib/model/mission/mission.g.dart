@@ -19,6 +19,7 @@ _$MissionImpl _$$MissionImplFromJson(Map<String, dynamic> json) =>
       personalParticipatingCount: json['personalParticipatingCount'] as int,
       personalCount: json['personalCount'] as int,
       iconUrl: json['iconUrl'] as String,
+      missionUrl: json['missionUrl'] as String?,
     );
 
 Map<String, dynamic> _$$MissionImplToJson(_$MissionImpl instance) =>
@@ -34,6 +35,7 @@ Map<String, dynamic> _$$MissionImplToJson(_$MissionImpl instance) =>
       'personalParticipatingCount': instance.personalParticipatingCount,
       'personalCount': instance.personalCount,
       'iconUrl': instance.iconUrl,
+      'missionUrl': instance.missionUrl,
     };
 
 _$MissionInfoImpl _$$MissionInfoImplFromJson(Map<String, dynamic> json) =>

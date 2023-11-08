@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/mission_detail/view/mission_result_view.dart';
 import 'package:ibaji/util/app_text_styles.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:ibaji/util/widget/global_skeleton.dart';
 import '../../../provider/api/mission_api.dart';
 import '../../../util/app_colors.dart';
 import '../../../util/global_button_widget.dart';
@@ -79,11 +79,13 @@ class MissionDetailScreen extends GetView<MissionDetailController> {
                     mainAxisSpacing: 16.w,
                     crossAxisSpacing: 16.w,
                     children: controller.missionDetail.value.images
-                        .map((img) => Image.network(
-                              img,
-                              width: 122.w,
-                              height: 122.w,
-                            ))
+                        .map((img) => img != ""
+                            ? Image.network(
+                                img,
+                                width: 122.w,
+                                height: 122.w,
+                              )
+                            : CommonSkeleton.missionImg())
                         .toList(),
                   ),
                 ),

@@ -23,7 +23,8 @@ class PhotoRepository {
     try {
       response = await DioServices().to().post("/image",
           data: formData, options: Options(contentType: 'multipart/form-data'));
-      var result  = response.data[DATA]["result"];
+      var result = response.data[DATA]["result"];
+      logger.e(result);
       return List.generate(
         result.length,
         (index) {

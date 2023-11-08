@@ -4,15 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/provider/api/photo_api.dart';
-import 'package:ibaji/provider/api/trash_api.dart';
 import 'package:ibaji/provider/service/camera_service.dart';
-import 'package:ibaji/util/permission_handler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
-import 'package:permission_handler/permission_handler.dart';
-
 import '../../../util/routes/routes.dart';
-import '../../detail_method/view/detail_method_view.dart';
 import '../view/camera_result_view.dart';
 
 class CameraScreenController extends GetxController {
@@ -21,7 +16,7 @@ class CameraScreenController extends GetxController {
   RxString imagePath = ''.obs;
   XFile? resultImage;
 
-  //"{\"bboxes\":[[\"비닐\",148,48,752,568]]}"
+  //"{\"bboxes\":[[\"비닐\",148,48,7            52,568]]}"
   ///* 이미지 선택
   Future<String> imagePick() async {
     Logger().d("1. 이미지 선택");
@@ -52,6 +47,7 @@ class CameraScreenController extends GetxController {
 
   ///* 이미지 api 호출 및 라우팅 처리
   Future<void> getImgResult(String imgPath) async {
+    CameraService.setImagePath(imgPath);
     var result = await PhotoRepository.getPhotoReuslt(imgPath);
 
     ///* 1. result가 빈리스트로 반환될때 ; ai 모델이 전혀 감지하지 못했을 때
@@ -78,5 +74,30 @@ class CameraScreenController extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
+  }
+}
+
+class MyCustomClippers extends CustomClipper<Rect> {
+  final double startX;
+  final double startY;
+  final double endX;
+  final double endY;
+
+  MyCustomClippers({
+    required this.startX,
+    required this.startY,
+    required this.endX,
+    required this.endY,
+  });
+
+  @override
+  Rect getClip(Size size) {
+    final path = Rect.fromLTRB(startX, startY, endX, endY); // 클리핑할 영역을 지정
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Rect> oldClipper) {
+    return true; // 항상 업데이트가 필요한 경우
   }
 }

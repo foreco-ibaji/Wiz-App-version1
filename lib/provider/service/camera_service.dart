@@ -6,9 +6,13 @@ import 'package:permission_handler/permission_handler.dart';
 
 class CameraService extends GetxService {
   static CameraService get to => Get.find();
+  static RxString imgPath = "".obs;
   List<CameraDescription> cameras = <CameraDescription>[].obs;
   Rx<CameraController>? cameraController;
   Rx<bool> _isImageStreaming = false.obs;
+  static void setImagePath(String tmpImgPath){
+    imgPath.value = tmpImgPath;
+  }
   Future<void> initCamera() async {
     if (await Permission.camera.request().isGranted) {
       cameras = await availableCameras();

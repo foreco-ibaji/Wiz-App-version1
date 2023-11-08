@@ -20,6 +20,8 @@ def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
+//앱키
+def kakaoApiKey = localProperties.getProperty('kakaoApiKey')
 def GOOGLE_API_KEY = localProperties.getProperty('GOOGLE_API_KEY')
 
 apply plugin: 'com.android.application'

@@ -66,20 +66,21 @@ class _$ProcessCopyWithImpl<$Res, $Val extends Process>
 }
 
 /// @nodoc
-abstract class _$$_ProcessCopyWith<$Res> implements $ProcessCopyWith<$Res> {
-  factory _$$_ProcessCopyWith(
-          _$_Process value, $Res Function(_$_Process) then) =
-      __$$_ProcessCopyWithImpl<$Res>;
+abstract class _$$ProcessImplCopyWith<$Res> implements $ProcessCopyWith<$Res> {
+  factory _$$ProcessImplCopyWith(
+          _$ProcessImpl value, $Res Function(_$ProcessImpl) then) =
+      __$$ProcessImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String title, String content});
 }
 
 /// @nodoc
-class __$$_ProcessCopyWithImpl<$Res>
-    extends _$ProcessCopyWithImpl<$Res, _$_Process>
-    implements _$$_ProcessCopyWith<$Res> {
-  __$$_ProcessCopyWithImpl(_$_Process _value, $Res Function(_$_Process) _then)
+class __$$ProcessImplCopyWithImpl<$Res>
+    extends _$ProcessCopyWithImpl<$Res, _$ProcessImpl>
+    implements _$$ProcessImplCopyWith<$Res> {
+  __$$ProcessImplCopyWithImpl(
+      _$ProcessImpl _value, $Res Function(_$ProcessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -88,7 +89,7 @@ class __$$_ProcessCopyWithImpl<$Res>
     Object? title = null,
     Object? content = null,
   }) {
-    return _then(_$_Process(
+    return _then(_$ProcessImpl(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -103,11 +104,11 @@ class __$$_ProcessCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Process implements _Process {
-  const _$_Process({required this.title, required this.content});
+class _$ProcessImpl implements _Process {
+  const _$ProcessImpl({required this.title, required this.content});
 
-  factory _$_Process.fromJson(Map<String, dynamic> json) =>
-      _$$_ProcessFromJson(json);
+  factory _$ProcessImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProcessImplFromJson(json);
 
   @override
   final String title;
@@ -123,7 +124,7 @@ class _$_Process implements _Process {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Process &&
+            other is _$ProcessImpl &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.content, content) || other.content == content));
   }
@@ -135,12 +136,12 @@ class _$_Process implements _Process {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ProcessCopyWith<_$_Process> get copyWith =>
-      __$$_ProcessCopyWithImpl<_$_Process>(this, _$identity);
+  _$$ProcessImplCopyWith<_$ProcessImpl> get copyWith =>
+      __$$ProcessImplCopyWithImpl<_$ProcessImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ProcessToJson(
+    return _$$ProcessImplToJson(
       this,
     );
   }
@@ -149,9 +150,9 @@ class _$_Process implements _Process {
 abstract class _Process implements Process {
   const factory _Process(
       {required final String title,
-      required final String content}) = _$_Process;
+      required final String content}) = _$ProcessImpl;
 
-  factory _Process.fromJson(Map<String, dynamic> json) = _$_Process.fromJson;
+  factory _Process.fromJson(Map<String, dynamic> json) = _$ProcessImpl.fromJson;
 
   @override
   String get title;
@@ -159,6 +160,6 @@ abstract class _Process implements Process {
   String get content;
   @override
   @JsonKey(ignore: true)
-  _$$_ProcessCopyWith<_$_Process> get copyWith =>
+  _$$ProcessImplCopyWith<_$ProcessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

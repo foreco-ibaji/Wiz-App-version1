@@ -6,8 +6,8 @@ part of 'detail_method.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DetailMethod _$$_DetailMethodFromJson(Map<String, dynamic> json) =>
-    _$_DetailMethod(
+_$DetailMethodImpl _$$DetailMethodImplFromJson(Map<String, dynamic> json) =>
+    _$DetailMethodImpl(
       id: json['id'] as int,
       detailType: json['detailType'] as String,
       name: json['name'] as String,
@@ -19,7 +19,7 @@ _$_DetailMethod _$$_DetailMethodFromJson(Map<String, dynamic> json) =>
       iconUrl: json['iconUrl'] as String,
     );
 
-Map<String, dynamic> _$$_DetailMethodToJson(_$_DetailMethod instance) =>
+Map<String, dynamic> _$$DetailMethodImplToJson(_$DetailMethodImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'detailType': instance.detailType,

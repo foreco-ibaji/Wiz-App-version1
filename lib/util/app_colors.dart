@@ -4,7 +4,7 @@ class AppColors {
   static const Color black = Color(0XFF000000);
   static const Color white = Color(0XFFFFFFFF);
   static const Color white2 = Color(0xFFEFFAF5);
-  static const Color primary1 = Color(0XFF00423E);
+  static const Color primary1 = Color(0XFFEFFAF5);
   static const Color primary2 = Color(0XFFC9EEDD);
   static const Color primary3 = Color(0XFFA2E2C5);
   static const Color primary4 = Color(0XFF7BD6AC);
@@ -24,4 +24,5 @@ class AppColors {
   static const Color grey9 = Color(0XFF303130);
   static const Color territory = Color(0xFFF05542);
   static const Color borderLine = Color(0xffd9d9d9);
+  static const Color kakao = Color(0xFFFEE500);
 }

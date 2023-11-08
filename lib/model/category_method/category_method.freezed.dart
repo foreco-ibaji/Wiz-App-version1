@@ -108,11 +108,11 @@ class _$CategoryMethodCopyWithImpl<$Res, $Val extends CategoryMethod>
 }
 
 /// @nodoc
-abstract class _$$_CategoryMethodCopyWith<$Res>
+abstract class _$$CategoryMethodImplCopyWith<$Res>
     implements $CategoryMethodCopyWith<$Res> {
-  factory _$$_CategoryMethodCopyWith(
-          _$_CategoryMethod value, $Res Function(_$_CategoryMethod) then) =
-      __$$_CategoryMethodCopyWithImpl<$Res>;
+  factory _$$CategoryMethodImplCopyWith(_$CategoryMethodImpl value,
+          $Res Function(_$CategoryMethodImpl) then) =
+      __$$CategoryMethodImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -128,11 +128,11 @@ abstract class _$$_CategoryMethodCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CategoryMethodCopyWithImpl<$Res>
-    extends _$CategoryMethodCopyWithImpl<$Res, _$_CategoryMethod>
-    implements _$$_CategoryMethodCopyWith<$Res> {
-  __$$_CategoryMethodCopyWithImpl(
-      _$_CategoryMethod _value, $Res Function(_$_CategoryMethod) _then)
+class __$$CategoryMethodImplCopyWithImpl<$Res>
+    extends _$CategoryMethodCopyWithImpl<$Res, _$CategoryMethodImpl>
+    implements _$$CategoryMethodImplCopyWith<$Res> {
+  __$$CategoryMethodImplCopyWithImpl(
+      _$CategoryMethodImpl _value, $Res Function(_$CategoryMethodImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -145,7 +145,7 @@ class __$$_CategoryMethodCopyWithImpl<$Res>
     Object? disposalInfo = null,
     Object? recommendCategories = freezed,
   }) {
-    return _then(_$_CategoryMethod(
+    return _then(_$CategoryMethodImpl(
       categoryName: null == categoryName
           ? _value.categoryName
           : categoryName // ignore: cast_nullable_to_non_nullable
@@ -176,8 +176,8 @@ class __$$_CategoryMethodCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CategoryMethod implements _CategoryMethod {
-  const _$_CategoryMethod(
+class _$CategoryMethodImpl implements _CategoryMethod {
+  const _$CategoryMethodImpl(
       {required this.categoryName,
       required this.categoryIcon,
       final List<String>? disposalMethod,
@@ -188,8 +188,8 @@ class _$_CategoryMethod implements _CategoryMethod {
         _remark = remark,
         _recommendCategories = recommendCategories;
 
-  factory _$_CategoryMethod.fromJson(Map<String, dynamic> json) =>
-      _$$_CategoryMethodFromJson(json);
+  factory _$CategoryMethodImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CategoryMethodImplFromJson(json);
 
   @override
   final String categoryName;
@@ -237,7 +237,7 @@ class _$_CategoryMethod implements _CategoryMethod {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CategoryMethod &&
+            other is _$CategoryMethodImpl &&
             (identical(other.categoryName, categoryName) ||
                 other.categoryName == categoryName) &&
             (identical(other.categoryIcon, categoryIcon) ||
@@ -265,12 +265,13 @@ class _$_CategoryMethod implements _CategoryMethod {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CategoryMethodCopyWith<_$_CategoryMethod> get copyWith =>
-      __$$_CategoryMethodCopyWithImpl<_$_CategoryMethod>(this, _$identity);
+  _$$CategoryMethodImplCopyWith<_$CategoryMethodImpl> get copyWith =>
+      __$$CategoryMethodImplCopyWithImpl<_$CategoryMethodImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CategoryMethodToJson(
+    return _$$CategoryMethodImplToJson(
       this,
     );
   }
@@ -283,10 +284,10 @@ abstract class _CategoryMethod implements CategoryMethod {
       final List<String>? disposalMethod,
       final List<String>? remark,
       required final DisposalInfo disposalInfo,
-      final List<Category>? recommendCategories}) = _$_CategoryMethod;
+      final List<Category>? recommendCategories}) = _$CategoryMethodImpl;
 
   factory _CategoryMethod.fromJson(Map<String, dynamic> json) =
-      _$_CategoryMethod.fromJson;
+      _$CategoryMethodImpl.fromJson;
 
   @override
   String get categoryName;
@@ -302,6 +303,6 @@ abstract class _CategoryMethod implements CategoryMethod {
   List<Category>? get recommendCategories;
   @override
   @JsonKey(ignore: true)
-  _$$_CategoryMethodCopyWith<_$_CategoryMethod> get copyWith =>
+  _$$CategoryMethodImplCopyWith<_$CategoryMethodImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

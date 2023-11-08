@@ -6,8 +6,8 @@ part of 'category_method.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CategoryMethod _$$_CategoryMethodFromJson(Map<String, dynamic> json) =>
-    _$_CategoryMethod(
+_$CategoryMethodImpl _$$CategoryMethodImplFromJson(Map<String, dynamic> json) =>
+    _$CategoryMethodImpl(
       categoryName: json['categoryName'] as String,
       categoryIcon: json['categoryIcon'] as String,
       disposalMethod: (json['disposalMethod'] as List<dynamic>?)
@@ -22,7 +22,8 @@ _$_CategoryMethod _$$_CategoryMethodFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$_CategoryMethodToJson(_$_CategoryMethod instance) =>
+Map<String, dynamic> _$$CategoryMethodImplToJson(
+        _$CategoryMethodImpl instance) =>
     <String, dynamic>{
       'categoryName': instance.categoryName,
       'categoryIcon': instance.categoryIcon,

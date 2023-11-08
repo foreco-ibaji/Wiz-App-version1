@@ -68,22 +68,22 @@ class _$DisposalInfoCopyWithImpl<$Res, $Val extends DisposalInfo>
 }
 
 /// @nodoc
-abstract class _$$_DisposalInfoCopyWith<$Res>
+abstract class _$$DisposalInfoImplCopyWith<$Res>
     implements $DisposalInfoCopyWith<$Res> {
-  factory _$$_DisposalInfoCopyWith(
-          _$_DisposalInfo value, $Res Function(_$_DisposalInfo) then) =
-      __$$_DisposalInfoCopyWithImpl<$Res>;
+  factory _$$DisposalInfoImplCopyWith(
+          _$DisposalInfoImpl value, $Res Function(_$DisposalInfoImpl) then) =
+      __$$DisposalInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<String> days, String time});
 }
 
 /// @nodoc
-class __$$_DisposalInfoCopyWithImpl<$Res>
-    extends _$DisposalInfoCopyWithImpl<$Res, _$_DisposalInfo>
-    implements _$$_DisposalInfoCopyWith<$Res> {
-  __$$_DisposalInfoCopyWithImpl(
-      _$_DisposalInfo _value, $Res Function(_$_DisposalInfo) _then)
+class __$$DisposalInfoImplCopyWithImpl<$Res>
+    extends _$DisposalInfoCopyWithImpl<$Res, _$DisposalInfoImpl>
+    implements _$$DisposalInfoImplCopyWith<$Res> {
+  __$$DisposalInfoImplCopyWithImpl(
+      _$DisposalInfoImpl _value, $Res Function(_$DisposalInfoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$_DisposalInfoCopyWithImpl<$Res>
     Object? days = null,
     Object? time = null,
   }) {
-    return _then(_$_DisposalInfo(
+    return _then(_$DisposalInfoImpl(
       days: null == days
           ? _value._days
           : days // ignore: cast_nullable_to_non_nullable
@@ -107,12 +107,13 @@ class __$$_DisposalInfoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DisposalInfo implements _DisposalInfo {
-  const _$_DisposalInfo({required final List<String> days, required this.time})
+class _$DisposalInfoImpl implements _DisposalInfo {
+  const _$DisposalInfoImpl(
+      {required final List<String> days, required this.time})
       : _days = days;
 
-  factory _$_DisposalInfo.fromJson(Map<String, dynamic> json) =>
-      _$$_DisposalInfoFromJson(json);
+  factory _$DisposalInfoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DisposalInfoImplFromJson(json);
 
   final List<String> _days;
   @override
@@ -134,7 +135,7 @@ class _$_DisposalInfo implements _DisposalInfo {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DisposalInfo &&
+            other is _$DisposalInfoImpl &&
             const DeepCollectionEquality().equals(other._days, _days) &&
             (identical(other.time, time) || other.time == time));
   }
@@ -147,12 +148,12 @@ class _$_DisposalInfo implements _DisposalInfo {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DisposalInfoCopyWith<_$_DisposalInfo> get copyWith =>
-      __$$_DisposalInfoCopyWithImpl<_$_DisposalInfo>(this, _$identity);
+  _$$DisposalInfoImplCopyWith<_$DisposalInfoImpl> get copyWith =>
+      __$$DisposalInfoImplCopyWithImpl<_$DisposalInfoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DisposalInfoToJson(
+    return _$$DisposalInfoImplToJson(
       this,
     );
   }
@@ -161,10 +162,10 @@ class _$_DisposalInfo implements _DisposalInfo {
 abstract class _DisposalInfo implements DisposalInfo {
   const factory _DisposalInfo(
       {required final List<String> days,
-      required final String time}) = _$_DisposalInfo;
+      required final String time}) = _$DisposalInfoImpl;
 
   factory _DisposalInfo.fromJson(Map<String, dynamic> json) =
-      _$_DisposalInfo.fromJson;
+      _$DisposalInfoImpl.fromJson;
 
   @override
   List<String> get days;
@@ -172,6 +173,6 @@ abstract class _DisposalInfo implements DisposalInfo {
   String get time;
   @override
   @JsonKey(ignore: true)
-  _$$_DisposalInfoCopyWith<_$_DisposalInfo> get copyWith =>
+  _$$DisposalInfoImplCopyWith<_$DisposalInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

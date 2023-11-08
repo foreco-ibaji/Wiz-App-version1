@@ -115,11 +115,11 @@ class _$DetailMethodCopyWithImpl<$Res, $Val extends DetailMethod>
 }
 
 /// @nodoc
-abstract class _$$_DetailMethodCopyWith<$Res>
+abstract class _$$DetailMethodImplCopyWith<$Res>
     implements $DetailMethodCopyWith<$Res> {
-  factory _$$_DetailMethodCopyWith(
-          _$_DetailMethod value, $Res Function(_$_DetailMethod) then) =
-      __$$_DetailMethodCopyWithImpl<$Res>;
+  factory _$$DetailMethodImplCopyWith(
+          _$DetailMethodImpl value, $Res Function(_$DetailMethodImpl) then) =
+      __$$DetailMethodImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -136,11 +136,11 @@ abstract class _$$_DetailMethodCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DetailMethodCopyWithImpl<$Res>
-    extends _$DetailMethodCopyWithImpl<$Res, _$_DetailMethod>
-    implements _$$_DetailMethodCopyWith<$Res> {
-  __$$_DetailMethodCopyWithImpl(
-      _$_DetailMethod _value, $Res Function(_$_DetailMethod) _then)
+class __$$DetailMethodImplCopyWithImpl<$Res>
+    extends _$DetailMethodCopyWithImpl<$Res, _$DetailMethodImpl>
+    implements _$$DetailMethodImplCopyWith<$Res> {
+  __$$DetailMethodImplCopyWithImpl(
+      _$DetailMethodImpl _value, $Res Function(_$DetailMethodImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -154,7 +154,7 @@ class __$$_DetailMethodCopyWithImpl<$Res>
     Object? remark = null,
     Object? iconUrl = null,
   }) {
-    return _then(_$_DetailMethod(
+    return _then(_$DetailMethodImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -189,8 +189,8 @@ class __$$_DetailMethodCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DetailMethod implements _DetailMethod {
-  const _$_DetailMethod(
+class _$DetailMethodImpl implements _DetailMethod {
+  const _$DetailMethodImpl(
       {required this.id,
       required this.detailType,
       required this.name,
@@ -200,8 +200,8 @@ class _$_DetailMethod implements _DetailMethod {
       required this.iconUrl})
       : _remark = remark;
 
-  factory _$_DetailMethod.fromJson(Map<String, dynamic> json) =>
-      _$$_DetailMethodFromJson(json);
+  factory _$DetailMethodImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DetailMethodImplFromJson(json);
 
   @override
   final int id;
@@ -233,7 +233,7 @@ class _$_DetailMethod implements _DetailMethod {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DetailMethod &&
+            other is _$DetailMethodImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.detailType, detailType) ||
                 other.detailType == detailType) &&
@@ -261,12 +261,12 @@ class _$_DetailMethod implements _DetailMethod {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DetailMethodCopyWith<_$_DetailMethod> get copyWith =>
-      __$$_DetailMethodCopyWithImpl<_$_DetailMethod>(this, _$identity);
+  _$$DetailMethodImplCopyWith<_$DetailMethodImpl> get copyWith =>
+      __$$DetailMethodImplCopyWithImpl<_$DetailMethodImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DetailMethodToJson(
+    return _$$DetailMethodImplToJson(
       this,
     );
   }
@@ -280,10 +280,10 @@ abstract class _DetailMethod implements DetailMethod {
       required final String disposalMethod,
       required final DisposalInfo disposalInfoDto,
       required final List<String> remark,
-      required final String iconUrl}) = _$_DetailMethod;
+      required final String iconUrl}) = _$DetailMethodImpl;
 
   factory _DetailMethod.fromJson(Map<String, dynamic> json) =
-      _$_DetailMethod.fromJson;
+      _$DetailMethodImpl.fromJson;
 
   @override
   int get id;
@@ -301,6 +301,6 @@ abstract class _DetailMethod implements DetailMethod {
   String get iconUrl;
   @override
   @JsonKey(ignore: true)
-  _$$_DetailMethodCopyWith<_$_DetailMethod> get copyWith =>
+  _$$DetailMethodImplCopyWith<_$DetailMethodImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

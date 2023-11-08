@@ -1,10 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/detail_method/binding/detail_method_binding.dart';
+import 'package:ibaji/modules/login/binding/login_binding.dart';
+import 'package:ibaji/modules/login/view/login_view.dart';
+import 'package:ibaji/modules/main/binding/main_binding.dart';
+import 'package:ibaji/modules/main/view/main_view.dart';
+import 'package:ibaji/modules/mission/binding/mission_binding.dart';
+import 'package:ibaji/modules/mission/view/mission_view.dart';
+import 'package:ibaji/modules/mission_detail/binding/mission_detail_binding.dart';
+import 'package:ibaji/modules/mission_detail/view/mission_detail_view.dart';
 import 'package:ibaji/util/routes/routes.dart';
 import '../../modules/detail_method/view/detail_method_view.dart';
-import '../../modules/splash/binding/splash_binding.dart';
-import '../../modules/splash/view/splash_view.dart';
 import '../../modules/camera/binding/camera_binding.dart';
 import '../../modules/camera/view/camera_view.dart';
 import '../../modules/home/binding/home_binding.dart';
@@ -15,11 +21,20 @@ import '../../modules/map/view/map_view.dart';
 class Pages {
   static final routes = [
     GetPage(
-      title: "스플래시 화면",
-      name: Routes.splash,
-      page: () => const SplashScreen(),
+      title: "로그인 화면",
+      name: Routes.login,
+      page: () => const LoginScreen(),
       transition: Transition.noTransition,
-      binding: SplashBinding(),
+      binding: LoginBinding(),
+      curve: Curves.easeIn,
+      popGesture: false,
+    ),
+    GetPage(
+      title: "메인 화면",
+      name: Routes.main,
+      page: () => const MainScreen(),
+      transition: Transition.noTransition,
+      binding: MainBinding(),
       curve: Curves.easeIn,
       popGesture: false,
     ),
@@ -31,18 +46,16 @@ class Pages {
       binding: HomeBinding(),
       curve: Curves.easeIn,
       popGesture: false,
-      children: [
-        GetPage(
-          title: "세부 품목 화면",
-          name: Routes.detail,
-          page: () => const DetailMethodScreen(),
-          transition: Transition.native,
-          binding: DetailMethodBinding(),
-          curve: Curves.easeIn,
-          popGesture: false,
-          children: [],
-        ),
-      ],
+    ),
+    GetPage(
+      title: "세부 품목 화면",
+      name: Routes.detail,
+      page: () => const DetailMethodScreen(),
+      transition: Transition.native,
+      binding: DetailMethodBinding(),
+      curve: Curves.easeIn,
+      popGesture: false,
+      children: [],
     ),
     GetPage(
       title: "카메라 화면",
@@ -59,6 +72,24 @@ class Pages {
       page: () => const MapScreen(),
       transition: Transition.noTransition,
       binding: MapBinding(),
+      curve: Curves.easeIn,
+      popGesture: false,
+    ),
+    GetPage(
+      title: "미션 화면",
+      name: Routes.mission,
+      page: () => const MissionScreen(),
+      transition: Transition.noTransition,
+      binding: MissionBinding(),
+      curve: Curves.easeIn,
+      popGesture: false,
+    ),
+    GetPage(
+      title: "미션 상세 화면",
+      name: Routes.missionDetail,
+      page: () => const MissionDetailScreen(),
+      transition: Transition.noTransition,
+      binding: MissionDetailBinding(),
       curve: Curves.easeIn,
       popGesture: false,
     ),

@@ -1,21 +1,18 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/modules/camera/view/camera_result_view.dart';
-import 'package:ibaji/modules/detail_method/controller/detail_method_controller.dart';
-import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
 import 'package:ibaji/util/app_colors.dart';
-import 'package:logger/logger.dart';
-
+import 'package:permission_handler/permission_handler.dart';
 import '../../../provider/api/photo_api.dart';
 import '../../../provider/service/camera_service.dart';
 import '../../../util/app_text_styles.dart';
 import '../../../util/permission_handler.dart';
+import '../../../util/routes/routes.dart';
+import '../../../util/style/global_logger.dart';
 import '../controller/camera_controller.dart';
 
 class CameraScreen extends GetView<CameraScreenController> {
@@ -93,7 +90,7 @@ class CameraScreen extends GetView<CameraScreenController> {
                   child: Container(
                     decoration: BoxDecoration(color: AppColors.black),
                     padding:
-                        EdgeInsets.symmetric(vertical: 65.h, horizontal: 52.w),
+                        EdgeInsets.symmetric(vertical: 39.h, horizontal: 52.w),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -102,21 +99,10 @@ class CameraScreen extends GetView<CameraScreenController> {
                             onTap: () async {
                               if (await PermissionHandler()
                                   .requestGallery(context)) {
-                                var result = controller.imagePick();
-                                var result2 = [
-                                  ["자전거", 71, 33, 1143, 1074]
-                                ];
-                                var result1 = 1;
-                                if (result.runtimeType == int) {
-                                  //TODO result로 통일
-                                  Get.put(DetailMethodController(id: result1));
-                                  await Future.delayed(Duration(seconds: 2));
-                                  await Get.to(() => DetailMethodScreen());
-                                } else {
-                                  Get.to(() => CameraResultScreen(),
-                                      arguments: {'result': result2});
-                                }
+                                await Permission.storage.request();
                               }
+                              var imgPath = await controller.imagePick();
+                              await controller.getImgResult(imgPath);
                             },
                             child: Image.asset(
                               "asset/image/icon/ic_gallery_30.png",
@@ -125,39 +111,7 @@ class CameraScreen extends GetView<CameraScreenController> {
                         GestureDetector(
                             onTap: () async {
                               var img = await CameraService.to.takePhoto();
-                              // var result = await PhotoRepository.getPhotoReuslt(
-                              //     img?.path ?? "");
-                              // if (result.isNotEmpty) {
-                              //   if (CameraService.to.cameraController?.value !=
-                              //       null) {
-                              //     await CameraService.to.stopImageStream();
-                              //   }
-                              // }
-                              var result = [
-                                ["자전거", 71, 33, 1143, 1074]
-                              ];
-                              var result1 = 1;
-                              // var result2 = [
-                              //   [
-                              //     ["자전거", 71, 33, 1143, 1074]
-                              //   ]
-                              // ];
-                              if (result.runtimeType == int) {
-                                //TODO result로 통일
-                                Get.put(DetailMethodController(id: result1));
-                                await Future.delayed(Duration(seconds: 2));
-                                await Get.to(() => DetailMethodScreen());
-                              } else {
-                                Get.to(() => CameraResultScreen(),
-                                    arguments: {'result': result});
-                              }
-                              // //TODO: 임시 하드코딩
-                              // await Get.to(() => DetailMethodScreen(),
-                              //     arguments: {'trash': '비닐봉지'});
-                              // } else {
-                              // Fluttertoast.showToast(
-                              // msg: "조회되지 않습니다. 다시 시도해주세요");
-                              // }
+                              await controller.getImgResult(img?.path ?? "");
                             },
                             child: Image.asset(
                               "asset/image/icon/ic_camera_press.png",

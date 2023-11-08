@@ -35,7 +35,7 @@ class LoginController extends GetxController {
   }
 
   @override
-  void onInit() async{
+  void onInit() async {
     // TODO: implement onInit
     super.onInit();
     // //api 속도때문에 map service로 이동
@@ -45,7 +45,7 @@ class LoginController extends GetxController {
         MapService.currentLatLng.value));
 
 
-    if(GetStorageUtil.getToken(StorageKey.JWT_TOKEN) != null){
+    if(await GetStorageUtil.getToken(StorageKey.JWT_TOKEN) != null){
       Get.offAllNamed(Routes.main);
     }
   }

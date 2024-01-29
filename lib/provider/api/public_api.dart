@@ -34,7 +34,7 @@ class PublicApi {
         // queryParameters: {
         //   'page': 1,
         //   'perPage': 10,
-        //   'serviceKey': dotenv.env['OPEN_API_KEY_DEC']
+        //   'serviceKey': dotenv..env['OPEN_API_KEY_DEC']
         // }
       );
       // Logger().d(response.realUri);
@@ -95,7 +95,7 @@ class PublicApi {
         // queryParameters: {
         //   'page': 1,
         //   'perPage': 100,
-        //   'serviceKey': dotenv.env['OPEN_API_KEY_DEC']
+        //   'serviceKey': dotenv..env['OPEN_API_KEY_DEC']
         // }
       );
       Logger().d('2 data get');

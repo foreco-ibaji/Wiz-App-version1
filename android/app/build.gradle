@@ -46,7 +46,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.ibaji"
+        applicationId "com.foreco.wiz"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()

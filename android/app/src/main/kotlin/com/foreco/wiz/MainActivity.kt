@@ -1,4 +1,4 @@
-package com.example.ibaji
+package com.foreco.wiz
 
 import io.flutter.embedding.android.FlutterActivity
 

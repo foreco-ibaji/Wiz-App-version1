@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ibaji/modules/camera/view/camera_view.dart';
 import 'package:ibaji/modules/home/view/home_view.dart';
 import 'package:ibaji/modules/mission/view/mission_view.dart';
+import 'package:ibaji/modules/mypage/view/my_page_view.dart';
 import '../../../util/app_colors.dart';
 import '../../../util/app_text_styles.dart';
 import '../../../util/global_variables.dart';
@@ -20,7 +21,8 @@ class MainScreen extends GetView<MainController> {
         body: [
           HomeScreen(),
           CameraScreen(),
-          MissionScreen()
+          MissionScreen(),
+          MyPageScreen()
         ][controller.selectIdx.value],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
@@ -38,6 +40,7 @@ class MainScreen extends GetView<MainController> {
             bottomNaviItem(iconUrl: 'home', naviText: '홈'),
             bottomNaviItem(iconUrl: 'camera', naviText: '카메라'),
             bottomNaviItem(iconUrl: 'mission', naviText: "미션"),
+            bottomNaviItem(iconUrl: 'my', naviText: "마이")
           ],
         ),
       ),

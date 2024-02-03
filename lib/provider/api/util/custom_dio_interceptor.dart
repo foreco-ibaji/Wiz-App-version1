@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../../util/style/global_logger.dart';
-
 
 class CustomDioInterceptor extends Interceptor {
   // 1) 요청 보낼때
@@ -52,6 +52,11 @@ class CustomDioInterceptor extends Interceptor {
     logger.e("Error ${exception.error}");
     logger.e("Error Message ${exception.message}");
 
+    if (exception.type == DioExceptionType.connectionError ||
+        exception.type == DioExceptionType.connectionTimeout ||
+        exception.error  == DioExceptionType.connectionError) {
+      Fluttertoast.showToast(msg: "api가 작동하지 않습니다(추후 에러메세지 수정예정)");
+    }
     return super.onError(exception, handler);
   }
 }

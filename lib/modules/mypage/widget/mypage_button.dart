@@ -4,8 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 
-class MyPageButton extends StatelessWidget {
-  const MyPageButton(
+class UseInfoButton extends StatelessWidget {
+  // 마이페이지의 이용안내에서 사용하는 버튼
+  const UseInfoButton(
       {super.key,
       required this.onPressed,
       required this.iconUrl,

@@ -5,6 +5,7 @@ import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
 
 class ShoppingButton extends StatelessWidget {
+  /// 마이페이지의 쇼핑하기 버튼 UI
   const ShoppingButton(
       {super.key,
       required this.iconUrl,

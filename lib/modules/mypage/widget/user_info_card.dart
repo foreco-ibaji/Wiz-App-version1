@@ -8,6 +8,7 @@ import 'package:ibaji/util/extension.dart';
 import 'package:ibaji/util/global_variables.dart';
 
 class UserInfoCard extends StatelessWidget {
+  /// 마이페이지의 유저정보를 나타내는 카드 UI
   const UserInfoCard(
       {super.key,
       required this.profileUrl,

@@ -1,5 +1,3 @@
-import 'package:get/get.dart';
-
 abstract class Routes {
   Routes._();
 
@@ -29,6 +27,9 @@ abstract class Routes {
 
   /// 미션 상세화면
   static const missionDetail = _Paths.missionDetail;
+
+  /// 마이페이지
+  static const mypage = _Paths.mypage;
 }
 
 abstract class _Paths {
@@ -60,4 +61,7 @@ abstract class _Paths {
 
   /// 미션 상세화면
   static const missionDetail = "/mission_detail";
+
+  /// 마이페이지
+  static const mypage = "/mypage";
 }

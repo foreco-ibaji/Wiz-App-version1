@@ -9,6 +9,8 @@ import 'package:ibaji/modules/mission/binding/mission_binding.dart';
 import 'package:ibaji/modules/mission/view/mission_view.dart';
 import 'package:ibaji/modules/mission_detail/binding/mission_detail_binding.dart';
 import 'package:ibaji/modules/mission_detail/view/mission_detail_view.dart';
+import 'package:ibaji/modules/mypage/binding/my_page_binding.dart';
+import 'package:ibaji/modules/mypage/view/my_page_view.dart';
 import 'package:ibaji/util/routes/routes.dart';
 import '../../modules/detail_method/view/detail_method_view.dart';
 import '../../modules/camera/binding/camera_binding.dart';
@@ -93,5 +95,13 @@ class Pages {
       curve: Curves.easeIn,
       popGesture: false,
     ),
+    GetPage(
+      title: "마이 페이지 화면",
+      name: Routes.mypage,
+      page: () => const MyPageScreen(),
+      binding: MyPageBinding(),
+      curve: Curves.easeIn,
+      popGesture: false,
+    )
   ];
 }

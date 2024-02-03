@@ -38,7 +38,7 @@ class MyPageScreen extends GetView<MyPageController> {
             SizedBox(
               height: 24.h,
             ),
-            ShoppingButton(
+            const ShoppingButton(
               iconUrl: "${iconDir}ic_basket.svg",
               title: "쇼핑하기",
               content: "위즈 머니로 원하는 상품을 교환해보세요!",
@@ -46,7 +46,7 @@ class MyPageScreen extends GetView<MyPageController> {
             SizedBox(
               height: 40.h,
             ),
-            UseInfo(),
+            const UseInfo(),
           ],
         ),
       ),

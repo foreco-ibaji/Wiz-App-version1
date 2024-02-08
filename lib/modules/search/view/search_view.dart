@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -51,14 +50,14 @@ class SearchScreen extends GetView<SearchViewController> {
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 style:
-                    AppTextStyles.title3Medium.copyWith(color: AppColors.grey7),
+                    AppTextStyles.title3Medium.copyWith(color: AppColors.grey3),
                 placeholder: "찾으시는 쓰레기가 있으신가요?",
                 placeholderStyle:
-                    AppTextStyles.title3Medium.copyWith(color: AppColors.grey7),
+                    AppTextStyles.title3Medium.copyWith(color: AppColors.grey3),
                 suffix: Padding(
                     padding: EdgeInsets.only(right: 16.w),
-                    child:
-                        SvgPicture.asset("asset/image/icon/ic_search_24.svg")),
+                    child: SvgPicture.asset(
+                        "asset/image/icon/ic_search_outline.svg")),
                 onSubmitted: ((value) async {
                   await controller.getSearchResult(value);
                   controller.isSearch.value = true;

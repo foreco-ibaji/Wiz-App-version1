@@ -37,58 +37,56 @@ class SearchScreen extends GetView<SearchViewController> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Obx(
-          () => ListView(
-            children: [
-              // SizedBox(
-              //   height: 30.h,
-              // ),
-              CupertinoTextField(
-                padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 16.w),
-                controller: controller.searchTextController.value,
-                decoration: BoxDecoration(
-                  color: AppColors.grey1,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                style:
-                    AppTextStyles.title3Medium.copyWith(color: AppColors.grey3),
-                placeholder: "찾으시는 쓰레기가 있으신가요?",
-                placeholderStyle:
-                    AppTextStyles.title3Medium.copyWith(color: AppColors.grey3),
-                suffix: Padding(
-                    padding: EdgeInsets.only(right: 16.w),
-                    child: SvgPicture.asset(
-                        "asset/image/icon/ic_search_outline.svg")),
-                onSubmitted: ((value) async {
-                  await controller.getSearchResult(value);
-                  controller.isSearch.value = true;
+        child: Column(
+          children: [
+            CupertinoTextField(
+              padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 16.w),
+              controller: controller.searchTextController.value,
+              decoration: BoxDecoration(
+                color: AppColors.grey1,
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              style:
+                  AppTextStyles.title3Medium.copyWith(color: AppColors.grey3),
+              placeholder: "찾으시는 쓰레기가 있으신가요?",
+              placeholderStyle:
+                  AppTextStyles.title3Medium.copyWith(color: AppColors.grey3),
+              suffix: Padding(
+                  padding: EdgeInsets.only(right: 16.w),
+                  child: SvgPicture.asset(
+                      "asset/image/icon/ic_search_outline.svg")),
+              onSubmitted: ((value) async {
+                print('onSubmit Called');
+                controller.onSearch();
+                // await controller.getSearchResult(value);
+                // controller.isSearch.value = true;
+              }),
+            ),
+            SizedBox(
+              height: 40.h,
+            ),
+            Obx(() => LatestSearch(
+                latests: controller.latestSearches.toList(),
+                onClear: controller.onLatestClear,
+                onRemoveItem: controller.onRemoveLatestItem)),
+            SizedBox(
+              height: 40.h,
+            ),
+            const RecommendSearch(
+              recommends: ["계란", "비닐", "자전거", "밀대걸레", "폐건전지"],
+            ),
+            ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: ((context, index) {
+                  return SearchResult(trash: controller.searchResults[index]);
                 }),
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              const LatestSearch(
-                latests: ["부직포", "돋자리", "폐형광등"],
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              const RecommendSearch(
-                recommends: ["계란", "비닐", "자전거", "밀대걸레", "폐건전지"],
-              ),
-              ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: ((context, index) {
-                    return SearchResult(trash: controller.searchResults[index]);
-                  }),
-                  separatorBuilder: ((context, index) {
-                    return SizedBox(
-                      height: 15.h,
-                    );
-                  }),
-                  itemCount: controller.searchResults.length)
-            ],
-          ),
+                separatorBuilder: ((context, index) {
+                  return SizedBox(
+                    height: 15.h,
+                  );
+                }),
+                itemCount: controller.searchResults.length)
+          ],
         ),
       ),
     );

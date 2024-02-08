@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:get_storage/get_storage.dart';
-
+import 'package:ibaji/model/search_detail/search_detail.dart';
 
 enum StorageKey {
   JWT_TOKEN,
+  LATEST_SEARCH,
 }
-
 
 class GetStorageUtil {
   ///* singleton 내부 저장소
@@ -24,13 +24,28 @@ class GetStorageUtil {
 
   ///* return : String
   static Future<void> setToken(StorageKey key, String token) async {
-    await storage.write(key.name,token);
+    await storage.write(key.name, token);
   }
-  ///GetStorage에서 key에 해당하는 value를 설정해줌
 
+  ///GetStorage에서 key에 해당하는 value를 설정해줌
 
   ///GetStorage에서 key에 해당하는 value를 제거
   ///* [key] : [StorageKey] enum
   static Future<void> delAllSearch(StorageKey key) async =>
       await storage.remove(key.name);
+
+  ///GetStorage에서 최근 검색 목록 설정
+  static Future<void> setLatestSearches(List<SearchDetail> searches) async {
+    await storage.write(StorageKey.LATEST_SEARCH.name, searches);
+  }
+
+  ///GetStorage에서 최근 검색 목록 조회
+  static Future<List<SearchDetail>> getLatestSearches() async {
+    return storage.read(StorageKey.LATEST_SEARCH.name);
+  }
+
+  ///GetStorage에서 최근 검색 목록 전체 삭제
+  static Future<void> delAllLatestSearches() async {
+    await storage.remove(StorageKey.LATEST_SEARCH.name);
+  }
 }

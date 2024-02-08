@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:ibaji/modules/search/widget/latest_search_widget.dart';
-import 'package:ibaji/modules/search/widget/recommend_search_widget.dart';
+import 'package:ibaji/model/search_detail/search_detail.dart';
+import 'package:ibaji/modules/search/widget/search_group_widget.dart';
 import 'package:ibaji/modules/search/widget/search_widget.dart';
 
 import '../../../util/app_colors.dart';
@@ -56,7 +56,6 @@ class SearchScreen extends GetView<SearchViewController> {
                   child: SvgPicture.asset(
                       "asset/image/icon/ic_search_outline.svg")),
               onSubmitted: ((value) async {
-                print('onSubmit Called');
                 controller.onSearch();
                 // await controller.getSearchResult(value);
                 // controller.isSearch.value = true;
@@ -65,16 +64,25 @@ class SearchScreen extends GetView<SearchViewController> {
             SizedBox(
               height: 40.h,
             ),
-            Obx(() => LatestSearch(
-                latests: controller.latestSearches.toList(),
-                onClear: controller.onLatestClear,
-                onRemoveItem: controller.onRemoveLatestItem)),
+            Obx(() => SearchGroup(
+                type: SearchType.LATEST,
+                lists: controller.latestSearches.toList(),
+                onSubTitleClick: controller.onLatestClear,
+                onItemClick: controller.onRemoveLatestItem)),
             SizedBox(
               height: 40.h,
             ),
-            const RecommendSearch(
-              recommends: ["계란", "비닐", "자전거", "밀대걸레", "폐건전지"],
-            ),
+            SearchGroup(
+                type: SearchType.RECOMMEND,
+                lists: [
+                  SearchDetail(text: "계란", dateTime: DateTime.now()),
+                  SearchDetail(text: "비닐", dateTime: DateTime.now()),
+                  SearchDetail(text: "자전거", dateTime: DateTime.now()),
+                  SearchDetail(text: "밀대걸레", dateTime: DateTime.now()),
+                  SearchDetail(text: "폐건전지", dateTime: DateTime.now()),
+                ],
+                onSubTitleClick: controller.onLatestClear,
+                onItemClick: controller.onRemoveLatestItem),
             ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: ((context, index) {

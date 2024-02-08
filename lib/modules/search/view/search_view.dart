@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:ibaji/modules/search/widget/latest_search_widget.dart';
+import 'package:ibaji/modules/search/widget/recommend_search_widget.dart';
 import 'package:ibaji/modules/search/widget/search_widget.dart';
 
 import '../../../util/app_colors.dart';
@@ -23,7 +24,7 @@ class SearchScreen extends GetView<SearchViewController> {
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Get.back();
           },
@@ -65,6 +66,15 @@ class SearchScreen extends GetView<SearchViewController> {
               ),
               SizedBox(
                 height: 40.h,
+              ),
+              const LatestSearch(
+                latests: ["부직포", "돋자리", "폐형광등"],
+              ),
+              SizedBox(
+                height: 40.h,
+              ),
+              const RecommendSearch(
+                recommends: ["계란", "비닐", "자전거", "밀대걸레", "폐건전지"],
               ),
               ListView.separated(
                   shrinkWrap: true,

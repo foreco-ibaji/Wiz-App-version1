@@ -72,6 +72,7 @@ class SearchScreen extends GetView<SearchViewController> {
             SizedBox(
               height: 40.h,
             ),
+            //TODO API 적용 전 하드 코딩. 이후 수정 필요!
             SearchGroup(
                 type: SearchType.RECOMMEND,
                 lists: [

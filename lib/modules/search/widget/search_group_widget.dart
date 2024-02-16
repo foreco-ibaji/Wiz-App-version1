@@ -7,6 +7,7 @@ import 'package:ibaji/util/app_text_styles.dart';
 
 enum SearchType { LATEST, RECOMMEND }
 
+/// 최근 검색어, 추천 검색어 UI가 동일한 구조이기 때문에 하나의 위젯으로 사용
 class SearchGroup extends StatelessWidget {
   const SearchGroup(
       {super.key,
@@ -83,6 +84,7 @@ class SearchGroup extends StatelessWidget {
   }
 }
 
+/// 최근 검색어 결과를 나타내는 요소
 class LatestSearchItem extends StatelessWidget {
   const LatestSearchItem(
       {super.key, required this.index, required this.label, this.onClick});
@@ -125,6 +127,7 @@ class LatestSearchItem extends StatelessWidget {
   }
 }
 
+/// 추천 검색어 결과를 나타내는 요소
 class RecommendSearchItem extends StatelessWidget {
   const RecommendSearchItem({super.key, required this.label});
 

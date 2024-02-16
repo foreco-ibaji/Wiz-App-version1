@@ -44,7 +44,12 @@ class GetStorageUtil {
 
   ///GetStorage에서 최근 검색 목록 조회
   static Future<List<SearchDetail>> getLatestSearches() async {
-    String data = storage.read(StorageKey.LATEST_SEARCH.name);
+    String? data = storage.read(StorageKey.LATEST_SEARCH.name);
+
+    if (data == null) {
+      return List.empty();
+    }
+
     List<dynamic> jsons = jsonDecode(data);
 
     return jsons.map((json) => SearchDetail.fromJson(json)).toList();

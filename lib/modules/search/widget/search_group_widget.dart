@@ -20,6 +20,19 @@ class SearchGroup extends StatelessWidget {
   final VoidCallback? onSubTitleClick;
   final void Function(int index)? onItemClick;
 
+  Widget _title() {
+    if (type == SearchType.LATEST) {
+      return Text(
+        "최근 검색어",
+        style: AppTextStyles.title1Bold,
+      );
+    }
+    return Text(
+      "추천 검색어",
+      style: AppTextStyles.title1Bold,
+    );
+  }
+
   Widget _subTitle() {
     if (type == SearchType.LATEST) {
       return GestureDetector(
@@ -49,10 +62,7 @@ class SearchGroup extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "최근 검색어",
-              style: AppTextStyles.title1Bold,
-            ),
+            _title(),
             _subTitle(),
           ],
         ),
@@ -89,6 +99,7 @@ class LatestSearchItem extends StatelessWidget {
           color: AppColors.primary1,
           borderRadius: BorderRadius.circular(1000.r)),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
@@ -128,6 +139,7 @@ class RecommendSearchItem extends StatelessWidget {
           border: Border.all(color: AppColors.primary4)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset(
             "asset/image/icon/ic_search_outline.svg",

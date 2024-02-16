@@ -13,8 +13,10 @@ class SearchViewController extends GetxController {
   List<String> itemList = ['음식물이 묻은 쓰레기'];
   RxList<Trash> searchResults = <Trash>[].obs;
   RxList<SearchDetail> latestSearches = <SearchDetail>[].obs;
+  RxList<SearchDetail> searchHints = <SearchDetail>[].obs;
+  Rx<FocusNode> focus = FocusNode().obs;
 
-  Future<void> getSearchResult(String keyword) async {
+  Future<void> _getSearchResult(String keyword) async {
     var tmpList = await HomeRepository.getSearch(keyword);
 
     searchResults.assignAll(tmpList);
@@ -30,8 +32,10 @@ class SearchViewController extends GetxController {
     logger.d("onSearch Called");
 
     final String searchText = searchTextController.value.text;
+    _getSearchResult(searchText);
     latestSearches.value = _changeLatestSearch(searchText).obs;
     GetStorageUtil.setLatestSearches(latestSearches);
+    focus.value.unfocus();
   }
 
   List<SearchDetail> _changeLatestSearch(String text) {
@@ -59,6 +63,24 @@ class SearchViewController extends GetxController {
 
     latestSearches.value = current.obs;
     GetStorageUtil.setLatestSearches(current);
+  }
+
+  //TODO 검색어 자동완성 하드코딩
+  List<SearchDetail> onAutoCompleteChanged(TextEditingValue value) {
+    if (value.text.isEmpty) {
+      return List.empty();
+    }
+
+    return <SearchDetail>[
+      SearchDetail(text: "음식물", dateTime: DateTime.now()),
+      SearchDetail(text: "비닐", dateTime: DateTime.now()),
+      SearchDetail(text: "비닐포장재", dateTime: DateTime.now()),
+      SearchDetail(text: "비닐랩", dateTime: DateTime.now())
+    ];
+  }
+
+  void onAutoCompleteSelected(SearchDetail detail) {
+    searchTextController.value.text = detail.text;
   }
 
   @override

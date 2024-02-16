@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/model/search_detail/search_detail.dart';
+import 'package:ibaji/modules/search/widget/search_bar.dart';
 import 'package:ibaji/modules/search/widget/search_group_widget.dart';
 import 'package:ibaji/modules/search/widget/search_widget.dart';
 
@@ -39,27 +39,17 @@ class SearchScreen extends GetView<SearchViewController> {
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           children: [
-            CupertinoTextField(
-              padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 16.w),
-              controller: controller.searchTextController.value,
-              decoration: BoxDecoration(
-                color: AppColors.grey1,
-                borderRadius: BorderRadius.circular(8.r),
+            Obx(
+              () => CustomSearchBar(
+                options: controller.searchHints,
+                focus: controller.focus.value,
+                controller: controller.searchTextController.value,
+                onChanged: controller.onAutoCompleteChanged,
+                onSubmitted: (str) {
+                  controller.onSearch();
+                },
+                onSelected: controller.onAutoCompleteSelected,
               ),
-              style:
-                  AppTextStyles.title3Medium.copyWith(color: AppColors.grey3),
-              placeholder: "찾으시는 쓰레기가 있으신가요?",
-              placeholderStyle:
-                  AppTextStyles.title3Medium.copyWith(color: AppColors.grey3),
-              suffix: Padding(
-                  padding: EdgeInsets.only(right: 16.w),
-                  child: SvgPicture.asset(
-                      "asset/image/icon/ic_search_outline.svg")),
-              onSubmitted: ((value) async {
-                controller.onSearch();
-                // await controller.getSearchResult(value);
-                // controller.isSearch.value = true;
-              }),
             ),
             SizedBox(
               height: 40.h,

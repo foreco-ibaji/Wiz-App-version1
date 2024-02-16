@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:ibaji/model/search_detail/search_detail.dart';
@@ -36,12 +37,17 @@ class GetStorageUtil {
 
   ///GetStorage에서 최근 검색 목록 설정
   static Future<void> setLatestSearches(List<SearchDetail> searches) async {
-    await storage.write(StorageKey.LATEST_SEARCH.name, searches);
+    List<Map<String, dynamic>> input = searches.map((e) => e.toJson()).toList();
+
+    await storage.write(StorageKey.LATEST_SEARCH.name, jsonEncode(input));
   }
 
   ///GetStorage에서 최근 검색 목록 조회
   static Future<List<SearchDetail>> getLatestSearches() async {
-    return storage.read(StorageKey.LATEST_SEARCH.name);
+    String data = storage.read(StorageKey.LATEST_SEARCH.name);
+    List<dynamic> jsons = jsonDecode(data);
+
+    return jsons.map((json) => SearchDetail.fromJson(json)).toList();
   }
 
   ///GetStorage에서 최근 검색 목록 전체 삭제

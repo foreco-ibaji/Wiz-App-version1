@@ -66,4 +66,9 @@ class SearchViewController extends GetxController {
     super.onInit();
     latestSearches.value = await GetStorageUtil.getLatestSearches();
   }
+
+  @override
+  void onClose() {
+    searchTextController.value.dispose();
+  }
 }

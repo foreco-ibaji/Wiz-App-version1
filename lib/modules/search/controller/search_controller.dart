@@ -39,7 +39,7 @@ class SearchViewController extends GetxController {
   }
 
   List<SearchDetail> _changeLatestSearch(String text) {
-    List<SearchDetail> current = latestSearches;
+    List<SearchDetail> current = List.from(latestSearches);
     bool isSearchedBefore = current.any((element) => element.text == text);
 
     if (isSearchedBefore) {

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:ibaji/model/search_detail/search_detail.dart';
+import 'package:ibaji/modules/search/widget/search_bar.dart';
+import 'package:ibaji/modules/search/widget/search_group_widget.dart';
 import 'package:ibaji/modules/search/widget/search_widget.dart';
 
 import '../../../util/app_colors.dart';
@@ -24,7 +24,7 @@ class SearchScreen extends GetView<SearchViewController> {
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Get.back();
           },
@@ -37,49 +37,55 @@ class SearchScreen extends GetView<SearchViewController> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Obx(
-          () => ListView(
-            children: [
-              // SizedBox(
-              //   height: 30.h,
-              // ),
-              CupertinoTextField(
-                padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 16.w),
+        child: Column(
+          children: [
+            Obx(
+              () => CustomSearchBar(
+                options: controller.searchHints,
+                focus: controller.focus.value,
                 controller: controller.searchTextController.value,
-                decoration: BoxDecoration(
-                  color: AppColors.grey1,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                style:
-                    AppTextStyles.title3Medium.copyWith(color: AppColors.grey7),
-                placeholder: "찾으시는 쓰레기가 있으신가요?",
-                placeholderStyle:
-                    AppTextStyles.title3Medium.copyWith(color: AppColors.grey7),
-                suffix: Padding(
-                    padding: EdgeInsets.only(right: 16.w),
-                    child:
-                        SvgPicture.asset("asset/image/icon/ic_search_24.svg")),
-                onSubmitted: ((value) async {
-                  await controller.getSearchResult(value);
-                  controller.isSearch.value = true;
+                onChanged: controller.onAutoCompleteChanged,
+                onSubmitted: (str) {
+                  controller.onSearch();
+                },
+                onSelected: controller.onAutoCompleteSelected,
+              ),
+            ),
+            SizedBox(
+              height: 40.h,
+            ),
+            Obx(() => SearchGroup(
+                type: SearchType.LATEST,
+                lists: controller.latestSearches.toList(),
+                onSubTitleClick: controller.onLatestClear,
+                onItemClick: controller.onRemoveLatestItem)),
+            SizedBox(
+              height: 40.h,
+            ),
+            //TODO API 적용 전 하드 코딩. 이후 수정 필요!
+            SearchGroup(
+                type: SearchType.RECOMMEND,
+                lists: [
+                  SearchDetail(text: "계란", dateTime: DateTime.now()),
+                  SearchDetail(text: "비닐", dateTime: DateTime.now()),
+                  SearchDetail(text: "자전거", dateTime: DateTime.now()),
+                  SearchDetail(text: "밀대걸레", dateTime: DateTime.now()),
+                  SearchDetail(text: "폐건전지", dateTime: DateTime.now()),
+                ],
+                onSubTitleClick: controller.onLatestClear,
+                onItemClick: controller.onRemoveLatestItem),
+            ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: ((context, index) {
+                  return SearchResult(trash: controller.searchResults[index]);
                 }),
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: ((context, index) {
-                    return SearchResult(trash: controller.searchResults[index]);
-                  }),
-                  separatorBuilder: ((context, index) {
-                    return SizedBox(
-                      height: 15.h,
-                    );
-                  }),
-                  itemCount: controller.searchResults.length)
-            ],
-          ),
+                separatorBuilder: ((context, index) {
+                  return SizedBox(
+                    height: 15.h,
+                  );
+                }),
+                itemCount: controller.searchResults.length)
+          ],
         ),
       ),
     );

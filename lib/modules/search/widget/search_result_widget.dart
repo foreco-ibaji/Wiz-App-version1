@@ -10,6 +10,7 @@ import 'package:ibaji/util/app_text_styles.dart';
 import '../../../model/trash/trash.dart';
 import '../../../util/app_colors.dart';
 
+/// 검색 결과를 나타내는 위젯
 class SearchResult extends StatelessWidget {
   final Trash trash;
   const SearchResult({super.key, required this.trash});

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:ibaji/model/search_detail/search_detail.dart';
 import 'package:ibaji/modules/search/widget/search_bar.dart';
 import 'package:ibaji/modules/search/widget/search_group_widget.dart';
-import 'package:ibaji/modules/search/widget/search_widget.dart';
+import 'package:ibaji/modules/search/widget/search_result_widget.dart';
 
 import '../../../util/app_colors.dart';
 import '../../../util/app_text_styles.dart';
@@ -16,18 +16,16 @@ class SearchScreen extends GetView<SearchViewController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SearchViewController());
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: 80.h,
         backgroundColor: AppColors.white,
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Get.back();
-          },
+          onPressed: Get.back,
           color: AppColors.grey9,
         ),
         title: Text(
@@ -80,8 +78,12 @@ class SearchScreen extends GetView<SearchViewController> {
                   return SearchResult(trash: controller.searchResults[index]);
                 }),
                 separatorBuilder: ((context, index) {
-                  return SizedBox(
-                    height: 15.h,
+                  return Padding(
+                    padding: EdgeInsets.only(top: 12.h),
+                    child: Divider(
+                      thickness: 1.h,
+                      color: AppColors.grey1,
+                    ),
                   );
                 }),
                 itemCount: controller.searchResults.length)

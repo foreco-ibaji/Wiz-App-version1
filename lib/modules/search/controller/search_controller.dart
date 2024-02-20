@@ -11,7 +11,18 @@ class SearchViewController extends GetxController {
   Rx<TextEditingController> searchTextController = TextEditingController().obs;
   RxBool isSearch = false.obs;
   List<String> itemList = ['음식물이 묻은 쓰레기'];
-  RxList<Trash> searchResults = <Trash>[].obs;
+  RxList<Trash> searchResults = <Trash>[
+    Trash(
+        id: 10,
+        name: "TV",
+        iconUrl:
+            "https://postfiles.pstatic.net/MjAyMzAzMDlfMTU1/MDAxNjc4MzQ0OTk4MTMx.bsYYQx3KsbEmFEKxhmXXvH1Vk-dyLjn2-ECxIaKyJdMg.j_V4Zxtoi8ZDVfmORtO7pzshskoycWx3TFwf9zCeeAkg.JPEG.mha0715/IMG%EF%BC%BF20230309%EF%BC%BF122138%EF%BC%BF513.jpg?type=w966"),
+    Trash(
+        id: 10,
+        name: "TV",
+        iconUrl:
+            "https://postfiles.pstatic.net/MjAyMzAzMDlfMTU1/MDAxNjc4MzQ0OTk4MTMx.bsYYQx3KsbEmFEKxhmXXvH1Vk-dyLjn2-ECxIaKyJdMg.j_V4Zxtoi8ZDVfmORtO7pzshskoycWx3TFwf9zCeeAkg.JPEG.mha0715/IMG%EF%BC%BF20230309%EF%BC%BF122138%EF%BC%BF513.jpg?type=w966")
+  ].obs;
   RxList<SearchDetail> latestSearches = <SearchDetail>[].obs;
   RxList<SearchDetail> searchHints = <SearchDetail>[].obs;
   Rx<FocusNode> focus = FocusNode().obs;

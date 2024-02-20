@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ibaji/modules/detail_method/binding/detail_method_binding.dart';
 import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
 import 'package:ibaji/provider/service/map_service.dart';
 import 'package:ibaji/util/app_text_styles.dart';
@@ -19,12 +20,8 @@ class SearchResult extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: () async {
-            // Get.put(DetailMethodController(id: trash.id));
-            await Future.delayed(const Duration(seconds: 2));
-            await Get.to(const DetailMethodScreen(),
-                arguments: {'id': trash.id});
-          },
+          onTap: () => Get.to(const DetailMethodScreen(),
+              binding: DetailMethodBinding(), arguments: {'id': trash.id}),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.r),

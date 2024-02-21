@@ -55,6 +55,9 @@ class CustomSearchBar extends StatelessWidget {
   // 자동완성 UI
   Widget _optionsViewBuilder(BuildContext context,
       void Function(SearchDetail) onSelected, Iterable<SearchDetail> options) {
+    TextStyle highlightStyle =
+        AppTextStyles.title3SemiBold.copyWith(color: AppColors.primary6);
+
     return Material(
       child: MediaQuery.removePadding(
         context: context,
@@ -70,7 +73,7 @@ class CustomSearchBar extends StatelessWidget {
               ),
               title: Text(
                 options.elementAt(idx).text,
-                style: AppTextStyles.title3Medium,
+                style: (idx == 0) ? highlightStyle : AppTextStyles.title3Medium,
               ),
               onTap: () => onSelected(options.elementAt(idx)),
             ),

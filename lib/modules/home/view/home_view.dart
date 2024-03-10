@@ -1,28 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:ibaji/modules/camera/view/camera_view.dart';
-import 'package:ibaji/modules/detail_method/view/detail_method_view.dart';
 import 'package:ibaji/modules/map/view/map_view.dart';
-import 'package:ibaji/modules/mission/view/mission_view.dart';
+import 'package:ibaji/modules/search/binding/search_binding.dart';
 import 'package:ibaji/modules/search/view/search_view.dart';
 import 'package:ibaji/util/app_colors.dart';
 import 'package:ibaji/util/app_text_styles.dart';
-import 'package:ibaji/util/global_button_widget.dart';
-import 'package:logger/logger.dart';
-
-import '../../../provider/api/trash_api.dart';
-import '../../../util/routes/pages.dart';
-import '../../../util/routes/routes.dart';
 import '../../../provider/service/map_service.dart';
-import '../../camera/view/camera_result_view.dart';
 import '../controller/home_controller.dart';
-import '../widget/home_widget.dart';
 
 class HomeScreen extends GetView<HomeController> {
   const HomeScreen({super.key});
@@ -52,7 +38,7 @@ class HomeScreen extends GetView<HomeController> {
                       ),
                       GestureDetector(
                         onTap: (() {
-                          Get.to(() => MapScreen());
+                          Get.to(() => const MapScreen());
                         }),
                         child: SvgPicture.asset(
                           "asset/image/icon/ic_map_26.svg",
@@ -93,13 +79,13 @@ class HomeScreen extends GetView<HomeController> {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          !controller.trashDay.isEmpty
+                          controller.trashDay.isNotEmpty
                               ? Text(
                                   '버리는 날',
                                   style: AppTextStyles.body1SemiBold,
                                   overflow: TextOverflow.ellipsis,
                                 )
-                              : SizedBox.shrink()
+                              : const SizedBox.shrink()
                         ],
                       ),
                     ),
@@ -144,7 +130,8 @@ class HomeScreen extends GetView<HomeController> {
                   //*3. 검색 section
                   GestureDetector(
                     onTap: () {
-                      Get.to(() => SearchScreen());
+                      Get.to(const SearchScreen(),
+                          binding: SearchPageBinding());
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
@@ -175,6 +162,6 @@ class HomeScreen extends GetView<HomeController> {
           )
         ],
       ),
-      );
+    );
   }
 }

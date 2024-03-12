@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ibaji/model/member/member.dart';
 import 'package:ibaji/provider/api/login_api.dart';
+import 'package:ibaji/provider/api/util/dio_services.dart';
 import 'package:ibaji/provider/api/util/global_mock_data.dart';
 import 'package:ibaji/provider/storage/get_storage_util.dart';
 import 'package:ibaji/util/permission_handler.dart';
@@ -25,8 +26,10 @@ class LoginController extends GetxController {
           : await UserApi.instance.loginWithKakaoAccount();
       Member tmpResult =
           await LoginApi.getMemberSignIn(token: token.accessToken) ?? tmpMember;
-      logger.d(tmpResult);
+
       GetStorageUtil.setToken(StorageKey.JWT_TOKEN, tmpResult.accessToken);
+      GetStorageUtil.setToken(StorageKey.REFRESH_TOKEN, tmpResult.refreshToken);
+      DioServices().setToken(tmpResult.accessToken);
 
       ///* 임시 라우팅
       await Get.toNamed(Routes.main);
@@ -50,8 +53,11 @@ class LoginController extends GetxController {
         await MapRepository.getAddressFromLatLng(
             MapService.currentLatLng.value));
 
-    if (await GetStorageUtil.getToken(StorageKey.JWT_TOKEN) != null) {
-      Get.offAllNamed(Routes.main);
-    }
+    // //자동 로그인
+    // var token = await GetStorageUtil.getToken(StorageKey.JWT_TOKEN);
+    // if (token != null) {
+    //   // LoginApi.getTokenValidity(token);<-response model 알고나서 작업..
+    //   Get.offAllNamed(Routes.main);
+    // }
   }
 }
